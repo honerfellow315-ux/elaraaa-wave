@@ -30,21 +30,29 @@ export function Hero() {
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden shine">
       {/* Premium SVG + mesh gradient hero background — brand palette only */}
-      <div className="absolute inset-0 -z-20 bg-[linear-gradient(135deg,#0C2C48_0%,#123A5E_45%,#1B5A8A_100%)]">
+      <div
+       className="absolute inset-0 -z-20"
+      style={{
+      background:
+      "linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 20%,var(--blue) 45%,var(--teal) 72%,var(--green) 90%,var(--green-light) 100%)",
+  }}
+>
         {/* Mesh gradient blobs */}
-        <div className="absolute -top-32 -left-24 h-[42rem] w-[42rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(111,195,232,0.55),transparent_60%)] blur-3xl" />
-        <div className="absolute top-1/3 -right-32 h-[38rem] w-[38rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(62,154,214,0.5),transparent_60%)] blur-3xl" />
-        <div className="absolute -bottom-40 left-1/3 h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(111,185,44,0.28),transparent_65%)] blur-3xl" />
+        <div className="absolute -top-32 -left-24 h-[42rem] w-[42rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(34,178,203,0.55),rgba(37,159,159,0.28)_45%,transparent_72%)] blur-3xl" />
+        <div className="absolute top-1/3 -right-32 h-[38rem] w-[38rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(37,159,159,0.48),rgba(34,178,203,0.22)_45%,transparent_72%)] blur-3xl" />
+        <div className="absolute -bottom-40 left-1/3 h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(105,182,74,0.38),rgba(185,210,42,0.18)_45%,transparent_72%)] blur-3xl" />
         {/* Abstract water waves SVG */}
         <svg className="absolute inset-x-0 bottom-0 w-full h-[55%] opacity-70" viewBox="0 0 1440 600" preserveAspectRatio="none" aria-hidden>
           <defs>
             <linearGradient id="hw1" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="#6FC3E8" stopOpacity="0.35" />
-              <stop offset="100%" stopColor="#123A5E" stopOpacity="0" />
+              <stop offset="0%" stopColor="#22B2CB" stopOpacity="0.40" />
+              <stop offset="45%" stopColor="#259F9F" stopOpacity="0.28" />
+              <stop offset="100%" stopColor="#06415E" stopOpacity="0" />
             </linearGradient>
             <linearGradient id="hw2" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="#3E9AD6" stopOpacity="0.45" />
-              <stop offset="100%" stopColor="#0C2C48" stopOpacity="0" />
+              <stop offset="0%" stopColor="#69B64A" stopOpacity="0.36" />
+              <stop offset="45%" stopColor="#259F9F" stopOpacity="0.28" />
+              <stop offset="100%" stopColor="#0E74A7" stopOpacity="0" />
             </linearGradient>
           </defs>
           <path d="M0,300 C240,220 480,380 720,320 C960,260 1200,380 1440,300 L1440,600 L0,600 Z" fill="url(#hw1)" />
@@ -52,7 +60,7 @@ export function Hero() {
         </svg>
         {/* Fine grid overlay for premium feel */}
         <div className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(rgba(255,255,255,0.6)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:56px_56px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_20%_30%,rgba(111,195,232,0.25),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_20%_30%,rgba(34,178,203,0.22),rgba(37,159,159,0.14)_45%,rgba(105,182,74,0.10)_70%,transparent_85%)]" />
       </div>
 
 
@@ -74,7 +82,7 @@ export function Hero() {
         ))}
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 grid lg:grid-cols-2 gap-12 items-center">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-36 pb-24 grid lg:grid-cols-2 gap-12 items-center">
         <div className="text-white">
           <Reveal>
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-dark text-xs font-semibold tracking-widest uppercase">
@@ -134,9 +142,9 @@ export function Hero() {
             <motion.div
               animate={{ y: [0, -12, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="glass rounded-[36px] p-6 shine"
+              className="glass rounded-[36px] p-6 shine shadow-[0_35px_90px_-25px_rgba(6,65,94,0.45)] border border-white/20"
             >
-              <div className="rounded-3xl bg-gradient-to-br from-white/70 to-white/30 backdrop-blur-2xl p-6 border border-white/70">
+              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-white/75 via-white/45 to-white/20 backdrop-blur-2xl p-6 border border-white/70">
                 <div className="flex items-center justify-between mb-6">
                   <span className="text-xs font-bold tracking-widest text-navy">CRYSTAL PURE</span>
                   <span className="inline-flex items-center gap-1 text-xs text-navy/70">
@@ -170,7 +178,7 @@ export function Hero() {
                 </div>
               </div>
             </motion.div>
-            <div className="absolute -inset-6 -z-10 bg-sky/30 blur-3xl rounded-full" />
+            <div className="absolute -inset-6 -z-10 rounded-full blur-3xl bg-[radial-gradient(circle_at_center,rgba(34,178,203,0.35),rgba(37,159,159,0.28)_35%,rgba(105,182,74,0.22)_65%,transparent_85%)]" />
           </div>
         </Reveal>
       </div>

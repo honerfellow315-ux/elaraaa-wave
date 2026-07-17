@@ -45,40 +45,42 @@
 }
 
 :root {
-  --navy: #123A5E;
-  --navy-dark: #0C2C48;
-  --blue: #3E9AD6;
-  --sky: #6FC3E8;
-  --green: #6FB92C;
-  --green-light: #8FD14F;
-  --bg-light: #EAF6FC;
-  --bg-tint: #F3FAFD;
-  --text-dark: #16324A;
-  --text-muted: #5B7186;
+  --navy: #06415E;
+  --navy-dark: #03283A;
+  --blue: #0E74A7;
+  --sky: #22B2CB;
+  --teal: #259F9F;
+  --green: #69B64A;
+  --green-light: #B9D22A;
+  --bg-light: #E7F6F8;
+  --bg-tint: #F4FAFB;
+  --text-dark: #062230;
+  --text-muted: #506D7C;
 
   --background: #FFFFFF;
-  --foreground: #16324A;
+  --foreground: #062230;
   --card: #FFFFFF;
-  --card-foreground: #16324A;
-  --primary: #123A5E;
+  --card-foreground: #062230;
+  --primary: #06415E;
   --primary-foreground: #FFFFFF;
-  --secondary: #EAF6FC;
-  --secondary-foreground: #123A5E;
-  --muted: #F3FAFD;
-  --muted-foreground: #5B7186;
-  --accent: #6FB92C;
+  --secondary: #E7F6F8;
+  --secondary-foreground: #06415E;
+  --muted: #F4FAFB;
+  --muted-foreground: #506D7C;
+  --accent: #69B64A;
   --accent-foreground: #FFFFFF;
-  --border: #DCE9F2;
-  --input: #DCE9F2;
-  --ring: #3E9AD6;
+  --border: #DDECEE;
+  --input: #DDECEE;
+  --ring: #22B2CB;
 
-  --gradient-brand: linear-gradient(90deg, #123A5E 0%, #3E9AD6 100%);
-  --gradient-fresh: linear-gradient(90deg, #6FB92C 0%, #3E9AD6 100%);
+  --gradient-brand: linear-gradient(90deg, #69B64A 0%, #259F9F 55%, #0E74A7 100%);
+  --gradient-fresh: linear-gradient(90deg, #69B64A 0%, #22B2CB 100%);
+  --gradient-logo: linear-gradient(90deg, #B9D22A 0%, #69B64A 35%, #259F9F 65%, #0E74A7 100%);
   --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.25));
-  --shadow-soft: 0 20px 45px rgba(18,58,94,0.10);
-  --shadow-card: 0 10px 30px rgba(18,58,94,0.08);
-  --shadow-glass: 0 8px 32px rgba(18,58,94,0.12), inset 0 1px 0 rgba(255,255,255,0.6);
-  --shadow-glow: 0 0 40px rgba(62,154,214,0.35);
+  --shadow-soft: 0 20px 45px rgba(6,65,94,0.10);
+  --shadow-card: 0 10px 30px rgba(6,65,94,0.08);
+  --shadow-glass: 0 8px 32px rgba(6,65,94,0.12), inset 0 1px 0 rgba(255,255,255,0.6);
+  --shadow-glow: 0 0 40px rgba(14,116,167,0.35);
 }
 
 @layer base {
@@ -119,7 +121,7 @@
   }
 }
 @utility shine-text {
-  background: linear-gradient(90deg, #123A5E 0%, #3E9AD6 40%, #ffffff 50%, #3E9AD6 60%, #123A5E 100%);
+  background: linear-gradient(90deg, #06415E 0%, #0E74A7 40%, #ffffff 50%, #0E74A7 60%, #06415E 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -131,7 +133,7 @@
   100% { background-position: -200% center; }
 }
 
-/* Glassmorphism */
+/* Glassmorphism (mirror/crystal effect) */
 @utility glass {
   background: linear-gradient(135deg, rgba(255,255,255,0.75), rgba(255,255,255,0.4));
   backdrop-filter: blur(20px) saturate(160%);
@@ -139,7 +141,7 @@
   box-shadow: var(--shadow-glass);
 }
 @utility glass-dark {
-  background: linear-gradient(135deg, rgba(18,58,94,0.55), rgba(18,58,94,0.25));
+  background: linear-gradient(135deg, rgba(6,65,94,0.55), rgba(6,65,94,0.25));
   backdrop-filter: blur(20px) saturate(160%);
   border: 1px solid rgba(255,255,255,0.15);
 }
@@ -147,7 +149,7 @@
   background: rgba(255,255,255,0.65);
   backdrop-filter: blur(18px);
   border: 1px solid rgba(255,255,255,0.7);
-  box-shadow: 0 10px 30px rgba(18,58,94,0.08), inset 0 1px 0 rgba(255,255,255,0.7);
+  box-shadow: 0 10px 30px rgba(6,65,94,0.08), inset 0 1px 0 rgba(255,255,255,0.7);
   border-radius: 20px;
   transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s;
 }
@@ -158,7 +160,7 @@
   &::before {
     content: "";
     position: absolute; inset: 0; padding: 1.5px; border-radius: inherit;
-    background: linear-gradient(135deg,#6FB92C,#3E9AD6,#123A5E);
+    background: linear-gradient(135deg,#69B64A,#22B2CB,#06415E);
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor; mask-composite: exclude;
     pointer-events: none;
@@ -172,7 +174,6 @@
 }
 @utility particle { animation: float-slow 8s ease-in-out infinite; }
 
-/* Ripple / soft glow hover already handled per-component */
 @keyframes pulse-ring {
   0% { box-shadow: 0 0 0 0 rgba(37,211,102,.6); }
   70% { box-shadow: 0 0 0 18px rgba(37,211,102,0); }
@@ -183,3 +184,4 @@
 /* Utility for background gradients */
 @utility bg-brand { background: var(--gradient-brand); }
 @utility bg-fresh { background: var(--gradient-fresh); }
+@utility bg-logo { background: var(--gradient-logo); }

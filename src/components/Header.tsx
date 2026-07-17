@@ -39,13 +39,19 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        className={`fixed inset-x-0 top-4 z-50 px-3 sm:px-5 transition-all duration-500 ${
           scrolled
             ? "bg-white/70 backdrop-blur-xl shadow-[0_8px_32px_rgba(18,58,94,0.08)] border-b border-white/60"
             : "bg-white/40 backdrop-blur-md border-b border-white/30"
         }`}
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div
+  className={`mx-auto max-w-7xl rounded-[28px] border transition-all duration-500 ${
+    scrolled
+      ? "border-white/20 bg-white/[0.18] backdrop-blur-[24px] shadow-[0_25px_70px_-18px_rgba(6,65,94,0.35)]"
+      : "border-white/30 bg-white/25 backdrop-blur-xl shadow-[0_12px_40px_-20px_rgba(6,65,94,0.18)]"
+  } px-4 sm:px-6 lg:px-8`}
+>
           <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 py-3">
             <Link to="/" className="flex items-center gap-3 min-w-0">
               <Logo className="h-11 w-auto shrink-0" />

@@ -35,7 +35,7 @@ export function PageHero({
         className="absolute inset-0 -z-30"
         style={{
           background:
-            "linear-gradient(135deg,#0C2C48 0%,#123A5E 45%,#1B4E7A 75%,#3E9AD6 100%)",
+         "linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 22%,var(--blue) 48%,var(--teal) 72%,var(--green) 88%,var(--green-light) 100%)",
         }}
       />
 
@@ -43,19 +43,21 @@ export function PageHero({
       <div aria-hidden className="absolute inset-0 -z-20 overflow-hidden">
         <motion.div
           className="absolute -top-32 -left-24 h-[26rem] w-[26rem] rounded-full blur-3xl"
-          style={{ background: "radial-gradient(circle at 30% 30%, rgba(111,195,232,0.55), transparent 60%)" }}
+          style={{
+          background: "radial-gradient(circle at 30% 30%, rgba(34,178,203,0.55), rgba(37,159,159,0.25) 45%, transparent 70%)"
+        }}
           animate={reduce ? undefined : { x: [0, 30, 0], y: [0, 20, 0] }}
           transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute -top-20 right-[-6rem] h-[22rem] w-[22rem] rounded-full blur-3xl"
-          style={{ background: "radial-gradient(circle at 60% 40%, rgba(111,185,44,0.35), transparent 65%)" }}
+          style={{ background: "radial-gradient(circle at 60% 40%, rgba(105,182,74,0.42), rgba(185,210,42,0.18) 45%, transparent 70%)" }}
           animate={reduce ? undefined : { x: [0, -25, 0], y: [0, 15, 0] }}
           transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute bottom-[-8rem] left-1/3 h-[24rem] w-[24rem] rounded-full blur-3xl"
-          style={{ background: "radial-gradient(circle at 50% 50%, rgba(62,154,214,0.45), transparent 65%)" }}
+          style={{ background: "radial-gradient(circle at 50% 50%, rgba(37,159,159,0.42), rgba(34,178,203,0.20) 45%, transparent 70%)" }}
           animate={reduce ? undefined : { x: [0, 20, 0], y: [0, -15, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -84,8 +86,8 @@ export function PageHero({
       >
         <defs>
           <linearGradient id="ew-hero-wave1" x1="0" x2="1" y1="0" y2="1">
-            <stop offset="0%" stopColor="#6FC3E8" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#3E9AD6" stopOpacity="0" />
+            <stop offset="0%" stopColor="#22B2CB" stopOpacity="0.38" />
+            <stop offset="100%" stopColor="#0E74A7" stopOpacity="0" />
           </linearGradient>
           <linearGradient id="ew-hero-wave2" x1="0" x2="1" y1="0" y2="0">
             <stop offset="0%" stopColor="#8FD14F" stopOpacity="0.25" />
