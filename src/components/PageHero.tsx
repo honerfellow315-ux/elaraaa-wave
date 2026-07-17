@@ -28,7 +28,7 @@ export function PageHero({
         };
 
   return (
-    <section className="relative isolate overflow-hidden pt-10 pb-12 sm:pt-12 sm:pb-14 md:pt-16 md:pb-20">
+    <section className="relative isolate overflow-hidden pt-36 pb-12 sm:pt-40 sm:pb-14 md:pt-44 md:pb-20">
       {/* Base brand gradient */}
       <div
         aria-hidden

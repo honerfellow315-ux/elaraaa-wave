@@ -39,12 +39,8 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-4 z-50 px-3 sm:px-5 transition-all duration-500 ${
-          scrolled
-            ? "bg-white/70 backdrop-blur-xl shadow-[0_8px_32px_rgba(18,58,94,0.08)] border-b border-white/60"
-            : "bg-white/40 backdrop-blur-md border-b border-white/30"
-        }`}
-      >
+  className="fixed inset-x-0 top-4 z-50 px-3 sm:px-5 transition-all duration-500"
+>
         <div
   className={`mx-auto max-w-7xl rounded-[28px] border transition-all duration-500 ${
     scrolled

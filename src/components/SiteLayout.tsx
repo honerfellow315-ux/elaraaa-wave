@@ -8,7 +8,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-white text-text-dark">
       <Header />
-      <main className="pt-20">{children}</main>
+      <main >{children}</main>
       <Footer />
       <WhatsappFloat />
       <VisitorPopup />
