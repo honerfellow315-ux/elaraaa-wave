@@ -38,26 +38,26 @@ export function Header() {
 
   return (
     <>
-      <header
-  className="fixed inset-x-0 top-4 z-50 px-3 sm:px-5 transition-all duration-500"
->
+      <header className="fixed inset-x-0 top-0 z-50 px-3 sm:px-5 transition-all duration-500">
         <div
-  className={`mx-auto max-w-7xl rounded-[28px] border transition-all duration-500 ${
-    scrolled
-      ? "border-white/20 bg-white/[0.18] backdrop-blur-[24px] shadow-[0_25px_70px_-18px_rgba(6,65,94,0.35)]"
-      : "border-white/30 bg-white/25 backdrop-blur-xl shadow-[0_12px_40px_-20px_rgba(6,65,94,0.18)]"
-  } px-4 sm:px-6 lg:px-8`}
->
+          className={`relative mx-auto max-w-7xl rounded-[28px] border transition-all duration-500 ${
+            scrolled
+              ? "border-white/20 bg-white/[0.18] backdrop-blur-[24px] shadow-[0_25px_70px_-18px_rgba(6,65,94,0.35)]"
+              : "border-white/30 bg-white/25 backdrop-blur-xl shadow-[0_12px_40px_-20px_rgba(6,65,94,0.18)]"
+          } px-4 sm:px-6 lg:px-8`}
+        >
+          <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent" />
+
           <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 py-3">
             <Link to="/" className="flex items-center gap-3 min-w-0">
               <Logo className="h-11 w-auto shrink-0" />
               <span className="hidden sm:flex flex-col leading-tight">
-                <span className="text-[15px] font-extrabold tracking-widest text-navy">
+                <span className="text-[16px] font-black tracking-[0.18em] bg-gradient-to-r from-navy via-blue to-teal bg-clip-text text-transparent">
                   ELARA WAVE
                 </span>
-                <span className="text-[10px] font-medium tracking-[0.25em] text-text-muted">
-                  FLOW WITH FRESHNESS
-                </span>
+                <span className="mt-1 text-[9px] font-bold tracking-[0.4em] text-green">
+               FLOW WITH FRESHNESS
+              </span>
               </span>
             </Link>
 
@@ -98,14 +98,14 @@ export function Header() {
             <div className="flex items-center gap-2 justify-end">
               <a
                 href="tel:03096419731"
-                className="hidden md:inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/70 border border-white/70 text-navy text-sm font-semibold hover:bg-white transition"
+                className="hidden md:inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/70 border border-white/70 text-navy text-sm font-semibold tracking-wide hover:bg-white hover:shadow-[0_8px_20px_-6px_rgba(6,65,94,0.35)] transition"
               >
                 <Phone className="h-4 w-4 text-blue" />
                 <span>0309 6419731</span>
               </a>
               <Link
                 to="/contact"
-                className="shine relative inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand text-white text-sm font-semibold shadow-[0_10px_25px_-8px_rgba(18,58,94,0.6)] hover:shadow-[0_15px_35px_-10px_rgba(62,154,214,0.7)] hover:-translate-y-0.5 transition"
+                className="shine relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand text-white text-sm font-bold tracking-wide shadow-[0_10px_25px_-8px_rgba(18,58,94,0.6)] hover:shadow-[0_18px_40px_-10px_rgba(62,154,214,0.8)] hover:-translate-y-0.5 transition"
               >
                 Order Now
               </Link>
