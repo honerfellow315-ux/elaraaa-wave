@@ -28,19 +28,34 @@ import {
 
 export function Hero() {
   return (
-    <section className="relative min-h-[92vh] flex items-center overflow-hidden shine">
-      {/* Premium SVG + mesh gradient hero background — brand palette only */}
+    <section className="relative min-h-[86vh] flex items-center overflow-hidden shine [perspective:1400px]">
+      {/* Deep layered gradient base — brand palette only, no image */}
       <div
-       className="absolute inset-0 -z-20"
-      style={{
-      background:
-      "linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 20%,var(--blue) 45%,var(--teal) 72%,var(--green) 90%,var(--green-light) 100%)",
-  }}
->
-        {/* Mesh gradient blobs */}
-        <div className="absolute -top-32 -left-24 h-[42rem] w-[42rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(34,178,203,0.55),rgba(37,159,159,0.28)_45%,transparent_72%)] blur-3xl" />
-        <div className="absolute top-1/3 -right-32 h-[38rem] w-[38rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(37,159,159,0.48),rgba(34,178,203,0.22)_45%,transparent_72%)] blur-3xl" />
-        <div className="absolute -bottom-40 left-1/3 h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(105,182,74,0.38),rgba(185,210,42,0.18)_45%,transparent_72%)] blur-3xl" />
+        className="absolute inset-0 -z-30"
+        style={{
+          background:
+            "linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 22%,var(--blue) 48%,var(--teal) 74%,var(--green) 92%,var(--green-light) 100%)",
+        }}
+      />
+
+      {/* Aurora glow layers — cyan / lime / blue ambient light, slow drift */}
+      <div className="absolute inset-0 -z-20 overflow-hidden">
+        <motion.div
+          animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-32 -left-24 h-[42rem] w-[42rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(34,178,203,0.55),rgba(37,159,159,0.28)_45%,transparent_72%)] blur-3xl"
+        />
+        <motion.div
+          animate={{ x: [0, -30, 0], y: [0, 25, 0] }}
+          transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/3 -right-32 h-[38rem] w-[38rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(37,159,159,0.48),rgba(34,178,203,0.22)_45%,transparent_72%)] blur-3xl"
+        />
+        <motion.div
+          animate={{ x: [0, 25, 0], y: [0, -20, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-40 left-1/3 h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(105,182,74,0.38),rgba(185,210,42,0.18)_45%,transparent_72%)] blur-3xl"
+        />
+
         {/* Abstract water waves SVG */}
         <svg className="absolute inset-x-0 bottom-0 w-full h-[55%] opacity-70" viewBox="0 0 1440 600" preserveAspectRatio="none" aria-hidden>
           <defs>
@@ -58,11 +73,23 @@ export function Hero() {
           <path d="M0,300 C240,220 480,380 720,320 C960,260 1200,380 1440,300 L1440,600 L0,600 Z" fill="url(#hw1)" />
           <path d="M0,420 C240,360 480,500 720,440 C960,380 1200,500 1440,420 L1440,600 L0,600 Z" fill="url(#hw2)" />
         </svg>
+
         {/* Fine grid overlay for premium feel */}
         <div className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(rgba(255,255,255,0.6)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:56px_56px]" />
         <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_20%_30%,rgba(34,178,203,0.22),rgba(37,159,159,0.14)_45%,rgba(105,182,74,0.10)_70%,transparent_85%)]" />
-      </div>
 
+        {/* Extremely subtle noise texture for depth */}
+        <div
+          className="absolute inset-0 opacity-[0.04] mix-blend-overlay pointer-events-none"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+          }}
+        />
+
+        {/* Soft vignette for a deep, expensive feel */}
+        <div className="absolute inset-0 bg-[radial-gradient(120%_100%_at_50%_10%,transparent_45%,rgba(3,40,58,0.35)_100%)]" />
+      </div>
 
       {/* Floating particles */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
@@ -80,26 +107,63 @@ export function Hero() {
             }}
           />
         ))}
+        {/* Tiny bubble accents, very low opacity, very slow drift */}
+        {Array.from({ length: 6 }).map((_, i) => (
+          <motion.span
+            key={`bubble-${i}`}
+            animate={{ y: [0, -18, 0], opacity: [0.15, 0.35, 0.15] }}
+            transition={{
+              duration: 10 + i * 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.8,
+            }}
+            className="absolute rounded-full border border-white/30"
+            style={{
+              width: `${10 + (i % 3) * 8}px`,
+              height: `${10 + (i % 3) * 8}px`,
+              top: `${15 + (i * 13) % 70}%`,
+              left: `${8 + (i * 17) % 85}%`,
+            }}
+          />
+        ))}
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-36 pb-24 grid lg:grid-cols-2 gap-12 items-center">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-16 grid lg:grid-cols-2 gap-12 items-center">
         <div className="text-white">
           <Reveal>
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-dark text-xs font-semibold tracking-widest uppercase">
-              <Sparkles className="h-3.5 w-3.5" /> Drink Pure &amp; Live Better.
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-dark text-xs font-semibold tracking-widest uppercase shadow-[0_8px_24px_-12px_rgba(0,0,0,0.5)] border border-white/15">
+              <Sparkles className="h-3.5 w-3.5 text-sky drop-shadow-[0_0_6px_rgba(34,178,203,0.8)]" /> Drink Pure &amp; Live Better.
             </span>
           </Reveal>
+
           <Reveal delay={0.1}>
-            <h1 className="mt-6 text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.02] tracking-tight">
-              Lahore Purest <span className="shine-text">Mineral Water</span>
-            </h1>
+            <motion.h1
+              animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+              transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+              style={{
+                backgroundImage:
+                  "linear-gradient(100deg, #ffffff 0%, #cdeefc 18%, #ffffff 36%, #d7f7cf 54%, #ffffff 72%, #cdeefc 88%, #ffffff 100%)",
+                backgroundSize: "220% 100%",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+              }}
+              className="mt-6 text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.02] tracking-tight text-transparent drop-shadow-[0_4px_18px_rgba(3,40,58,0.45)]"
+            >
+              Lahore Purest{" "}
+              <span className="shine-text drop-shadow-[0_4px_14px_rgba(3,40,58,0.55)] [-webkit-text-stroke:0.5px_rgba(3,40,58,0.25)]">
+                Mineral Water
+              </span>
+            </motion.h1>
           </Reveal>
+
           <Reveal delay={0.2}>
-            <p className="mt-6 text-lg text-white/85 max-w-xl">
+            <p className="mt-6 text-lg leading-relaxed text-white/80 max-w-xl">
               Elara Wave delivers 100% natural mineral water — enriched with essential
               free from impurities, and fresh to your doorstep in Lahore.
             </p>
           </Reveal>
+
           <Reveal delay={0.3}>
             <div className="mt-8 flex flex-wrap gap-3">
               {[
@@ -109,13 +173,14 @@ export function Hero() {
               ].map(({ i: I, t }) => (
                 <span
                   key={t}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-dark text-xs font-medium"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-dark text-xs font-medium border border-white/15 shadow-[0_8px_20px_-12px_rgba(0,0,0,0.5)]"
                 >
-                  <I className="h-3.5 w-3.5 text-sky" /> {t}
+                  <I className="h-3.5 w-3.5 text-sky drop-shadow-[0_0_5px_rgba(34,178,203,0.9)]" /> {t}
                 </span>
               ))}
             </div>
           </Reveal>
+
           <Reveal delay={0.4}>
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
@@ -127,7 +192,7 @@ export function Hero() {
               </Link>
               <Link
                 to="/products"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full glass-dark text-white font-semibold hover:bg-white/20 hover:-translate-y-0.5 transition"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full glass-dark text-white font-semibold border border-white/15 hover:bg-white/20 hover:-translate-y-0.5 transition"
               >
                 Our Products
                 <ArrowRight className="h-4 w-4" />
@@ -136,14 +201,25 @@ export function Hero() {
           </Reveal>
         </div>
 
-        {/* Right visual — glass crystal card */}
+        {/* Right visual — luxury glass dashboard card */}
         <Reveal as="scale" delay={0.2}>
-          <div className="relative mx-auto max-w-md">
+          <div className="relative mx-auto max-w-md [transform-style:preserve-3d]">
+            {/* Glow pulse behind card */}
+            <motion.div
+              animate={{ opacity: [0.55, 0.85, 0.55], scale: [1, 1.05, 1] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -inset-8 -z-10 rounded-full blur-3xl bg-[radial-gradient(circle_at_center,rgba(34,178,203,0.35),rgba(37,159,159,0.28)_35%,rgba(105,182,74,0.22)_65%,transparent_85%)]"
+            />
+
             <motion.div
               animate={{ y: [0, -12, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="glass rounded-[36px] p-6 shine shadow-[0_35px_90px_-25px_rgba(6,65,94,0.45)] border border-white/20"
+              whileHover={{ rotateX: 3, rotateY: -4, scale: 1.015 }}
+              className="relative glass rounded-[36px] p-6 shine shadow-[0_35px_90px_-25px_rgba(6,65,94,0.45)] border border-white/20 will-change-transform"
             >
+              {/* Inner highlight */}
+              <div className="pointer-events-none absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent" />
+
               <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-white/75 via-white/45 to-white/20 backdrop-blur-2xl p-6 border border-white/70">
                 <div className="flex items-center justify-between mb-6">
                   <span className="text-xs font-bold tracking-widest text-navy">CRYSTAL PURE</span>
@@ -157,7 +233,10 @@ export function Hero() {
                     { i: Award, l: "Halal", v: "Certified" },
                     { i: Truck, l: "Delivery", v: "Same-day" },
                   ].map(({ i: I, l, v }) => (
-                    <div key={l} className="rounded-2xl bg-white/60 border border-white/70 p-3">
+                    <div
+                      key={l}
+                      className="rounded-2xl bg-white/60 border border-white/70 p-3 shadow-[0_10px_24px_-16px_rgba(6,65,94,0.5)] hover:-translate-y-0.5 transition"
+                    >
                       <I className="mx-auto h-5 w-5 text-blue" />
                       <div className="text-[11px] text-text-muted mt-2">{l}</div>
                       <div className="text-sm font-bold text-navy">{v}</div>
@@ -165,12 +244,12 @@ export function Hero() {
                   ))}
                 </div>
                 <div className="mt-6 grid grid-cols-2 gap-3">
-                  <div className="rounded-2xl bg-brand text-white p-4 shine">
+                  <div className="rounded-2xl bg-brand text-white p-4 shine shadow-[0_18px_40px_-18px_rgba(18,58,94,0.55)]">
                     <div className="text-[10px] uppercase tracking-widest opacity-80">From</div>
                     <div className="text-2xl font-extrabold">Rs 250</div>
                     <div className="text-[11px] opacity-80">per 19L bottle</div>
                   </div>
-                  <div className="rounded-2xl bg-white/70 border border-white/80 p-4">
+                  <div className="rounded-2xl bg-white/70 border border-white/80 p-4 shadow-[0_10px_24px_-16px_rgba(6,65,94,0.35)]">
                     <div className="text-[10px] uppercase tracking-widest text-text-muted">Members</div>
                     <div className="text-2xl font-extrabold text-navy">-15%</div>
                     <div className="text-[11px] text-text-muted">on monthly plans</div>
@@ -178,7 +257,6 @@ export function Hero() {
                 </div>
               </div>
             </motion.div>
-            <div className="absolute -inset-6 -z-10 rounded-full blur-3xl bg-[radial-gradient(circle_at_center,rgba(34,178,203,0.35),rgba(37,159,159,0.28)_35%,rgba(105,182,74,0.22)_65%,transparent_85%)]" />
           </div>
         </Reveal>
       </div>
