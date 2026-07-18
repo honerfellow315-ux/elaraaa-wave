@@ -1,6 +1,6 @@
 import { Reveal, Stagger, StaggerItem } from "@/components/Reveal";
 import { Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   Droplets,
   Sparkles,
@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 
 export function Hero() {
+  const prefersReducedMotion = useReducedMotion();
   return (
     <section className="relative min-h-[86vh] flex items-center overflow-hidden shine [perspective:1400px]">
       {/* Deep layered gradient base — brand palette only, no image */}
@@ -41,19 +42,19 @@ export function Hero() {
       {/* Aurora glow layers — cyan / lime / blue ambient light, slow drift */}
       <div className="absolute inset-0 -z-20 overflow-hidden">
         <motion.div
-          animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
+          animate={prefersReducedMotion ? undefined : { x: [0, 40, 0], y: [0, -30, 0] }}
           transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-32 -left-24 h-[42rem] w-[42rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(34,178,203,0.55),rgba(37,159,159,0.28)_45%,transparent_72%)] blur-3xl"
+          className="absolute -top-32 -left-24 h-[42rem] w-[42rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(34,178,203,0.55),rgba(37,159,159,0.28)_45%,transparent_72%)] blur-3xl [will-change:transform] [transform:translateZ(0)]"
         />
         <motion.div
-          animate={{ x: [0, -30, 0], y: [0, 25, 0] }}
+          animate={prefersReducedMotion ? undefined : { x: [0, -30, 0], y: [0, 25, 0] }}
           transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/3 -right-32 h-[38rem] w-[38rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(37,159,159,0.48),rgba(34,178,203,0.22)_45%,transparent_72%)] blur-3xl"
+          className="absolute top-1/3 -right-32 h-[38rem] w-[38rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(37,159,159,0.48),rgba(34,178,203,0.22)_45%,transparent_72%)] blur-3xl [will-change:transform] [transform:translateZ(0)]"
         />
         <motion.div
-          animate={{ x: [0, 25, 0], y: [0, -20, 0] }}
+          animate={prefersReducedMotion ? undefined : { x: [0, 25, 0], y: [0, -20, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-40 left-1/3 h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(105,182,74,0.38),rgba(185,210,42,0.18)_45%,transparent_72%)] blur-3xl"
+          className="absolute -bottom-40 left-1/3 h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(105,182,74,0.38),rgba(185,210,42,0.18)_45%,transparent_72%)] blur-3xl [will-change:transform] [transform:translateZ(0)]"
         />
 
         {/* Abstract water waves SVG */}
@@ -96,7 +97,7 @@ export function Hero() {
         {Array.from({ length: 14 }).map((_, i) => (
           <span
             key={i}
-            className="absolute rounded-full bg-white/40 blur-sm particle"
+            className={`absolute rounded-full bg-white/40 blur-sm particle ${i >= 8 ? "hidden sm:block" : ""}`}
             style={{
               width: `${6 + (i % 5) * 4}px`,
               height: `${6 + (i % 5) * 4}px`,
@@ -108,25 +109,26 @@ export function Hero() {
           />
         ))}
         {/* Tiny bubble accents, very low opacity, very slow drift */}
-        {Array.from({ length: 6 }).map((_, i) => (
-          <motion.span
-            key={`bubble-${i}`}
-            animate={{ y: [0, -18, 0], opacity: [0.15, 0.35, 0.15] }}
-            transition={{
-              duration: 10 + i * 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: i * 0.8,
-            }}
-            className="absolute rounded-full border border-white/30"
-            style={{
-              width: `${10 + (i % 3) * 8}px`,
-              height: `${10 + (i % 3) * 8}px`,
-              top: `${15 + (i * 13) % 70}%`,
-              left: `${8 + (i * 17) % 85}%`,
-            }}
-          />
-        ))}
+        {!prefersReducedMotion &&
+          Array.from({ length: 6 }).map((_, i) => (
+            <motion.span
+              key={`bubble-${i}`}
+              animate={{ y: [0, -18, 0], opacity: [0.15, 0.35, 0.15] }}
+              transition={{
+                duration: 10 + i * 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: i * 0.8,
+              }}
+              className={`absolute rounded-full border border-white/30 [will-change:transform] ${i >= 3 ? "hidden sm:block" : ""}`}
+              style={{
+                width: `${10 + (i % 3) * 8}px`,
+                height: `${10 + (i % 3) * 8}px`,
+                top: `${15 + (i * 13) % 70}%`,
+                left: `${8 + (i * 17) % 85}%`,
+              }}
+            />
+          ))}
       </div>
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-16 grid lg:grid-cols-2 gap-12 items-center">
@@ -139,7 +141,7 @@ export function Hero() {
 
           <Reveal delay={0.1}>
             <motion.h1
-              animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+              animate={prefersReducedMotion ? undefined : { backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
               transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
               style={{
                 backgroundImage:
@@ -206,13 +208,13 @@ export function Hero() {
           <div className="relative mx-auto max-w-md [transform-style:preserve-3d]">
             {/* Glow pulse behind card */}
             <motion.div
-              animate={{ opacity: [0.55, 0.85, 0.55], scale: [1, 1.05, 1] }}
+              animate={prefersReducedMotion ? undefined : { opacity: [0.55, 0.85, 0.55], scale: [1, 1.05, 1] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -inset-8 -z-10 rounded-full blur-3xl bg-[radial-gradient(circle_at_center,rgba(34,178,203,0.35),rgba(37,159,159,0.28)_35%,rgba(105,182,74,0.22)_65%,transparent_85%)]"
+              className="absolute -inset-8 -z-10 rounded-full blur-3xl bg-[radial-gradient(circle_at_center,rgba(34,178,203,0.35),rgba(37,159,159,0.28)_35%,rgba(105,182,74,0.22)_65%,transparent_85%)] [will-change:transform,opacity]"
             />
 
             <motion.div
-              animate={{ y: [0, -12, 0] }}
+              animate={prefersReducedMotion ? undefined : { y: [0, -12, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               whileHover={{ rotateX: 3, rotateY: -4, scale: 1.015 }}
               className="relative glass rounded-[36px] p-6 shine shadow-[0_35px_90px_-25px_rgba(6,65,94,0.45)] border border-white/20 will-change-transform"
