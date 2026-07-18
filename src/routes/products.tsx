@@ -37,8 +37,8 @@ const categories: Category[] = [
     text: "Sourced and multi-stage filtered to preserve calcium, magnesium and potassium — the essentials your body craves.",
     sizes: [
       { label: "250 ML" },
+      { label: "330 ML" },
       { label: "500 ML" },
-      { label: "1 L" },
       { label: "1.5 L" },
       { label: "5 L" },
       { label: "19 L" },
@@ -52,8 +52,8 @@ const categories: Category[] = [
     text: "Balanced alkaline profile designed to complement an active, wellness-forward lifestyle.",
     sizes: [
       { label: "250 ML" },
+      { label: "330 ML" },
       { label: "500 ML" },
-      { label: "1 L" },
       { label: "1.5 L" },
       { label: "5 L" },
       { label: "19 L" },
