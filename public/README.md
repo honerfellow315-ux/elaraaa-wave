@@ -7,7 +7,7 @@ Place all site images here in `/public/images/`. Do NOT rename them.
 | Filename | Where it is used | Recommended size | Aspect ratio |
 |---|---|---|---|
 | `hero-bg-image.webp` | The single hero background | 1920×1080 | 16:9 landscape |
-| `all-products.png` | Home card — Mineral Water | 800×600 | 4:3 landscape |
+| `home-mineral-water.webp` | Home card — Mineral Water | 800×600 | 4:3 landscape |
 | `alkaline-water.png` | Home card — Alkaline Water | 800×600 | 4:3 landscape |
 | `primium-water.png` | Home card — Premium Water | 800×600 | 4:3 landscape |
 | `bottle-real-1.jpeg` | Home card — 19L + 5L Bottles | 800×600 | 4:3 landscape |

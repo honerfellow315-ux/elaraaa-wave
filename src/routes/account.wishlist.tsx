@@ -7,7 +7,7 @@ export const Route = createFileRoute("/account/wishlist")({ component: Wishlist 
 const items = [
   { n: "Alkaline 1.5L", price: "Rs 180", img: "/images/alkaline-water.png" },
   { n: "Premium Glass 750ml", price: "Rs 320", img: "/images/primium-water.png" },
-  { n: "19L Alkaline Bulk", price: "Rs 300", img: "/images/bottle-real-1.jpeg" },
+  { n: "19L Alkaline Bulk", price: "Rs 300", img: "/images/bottle-real-1.png" },
 ];
 
 function Wishlist() {
