@@ -36,12 +36,12 @@ const categories: Category[] = [
     title: "Naturally Balanced Mineral Water",
     text: "Sourced and multi-stage filtered to preserve calcium, magnesium and potassium — the essentials your body craves.",
     sizes: [
-      { label: "250 ML" },
-      { label: "330 ML" },
-      { label: "500 ML" },
-      { label: "1.5 L" },
-      { label: "5 L" },
-      { label: "19 L" },
+      { label: "250 ML", img: "/images/mineral-250ml.webp" },
+      { label: "330 ML", img: "/images/mineral-330ml.webp" },
+      { label: "500 ML", img: "/images/mineral-500ml.webp" },
+      { label: "1.5 L", img: "/images/mineral-1.5l.webp" },
+      { label: "5 L", img: "/images/mineral-5l.webp" },
+      { label: "19 L", img: "/images/mineral-19l.webp" },
     ],
   },
   {
@@ -51,12 +51,11 @@ const categories: Category[] = [
     title: "pH 8.5+ Alkaline Wellness",
     text: "Balanced alkaline profile designed to complement an active, wellness-forward lifestyle.",
     sizes: [
-      { label: "250 ML" },
-      { label: "330 ML" },
-      { label: "500 ML" },
-      { label: "1.5 L" },
-      { label: "5 L" },
-      { label: "19 L" },
+      { label: "250 ML", img: "/images/alkaline-250ml.webp" },
+      { label: "330 ML", img: "/images/alkaline-330ml.webp" },
+      { label: "500 ML", img: "/images/alkaline-500ml.webp" },
+      { label: "1.5 L", img: "/images/alkaline-1.5l.webp" },
+      { label: "19 L", img: "/images/alkaline-19l.webp" },
     ],
   },
   {
@@ -66,8 +65,8 @@ const categories: Category[] = [
     title: "Signature Premium Pour",
     text: "Ultra-refined, crisp and smooth — our flagship pour for restaurants, hotels and connoisseurs.",
     sizes: [
-      { label: "500 ML" },
-      { label: "1 L" },
+      { label: "500 ML", img: "/images/premium-500ml.webp" },
+      { label: "1 L", img: "/images/premium-1l.webp" },
     ],
   },
 ];
@@ -75,9 +74,9 @@ const categories: Category[] = [
 function SizeCard({ category, size }: { category: Category; size: Size }) {
   return (
     <article className="group glass-card overflow-hidden hover:-translate-y-2 transition duration-500 h-full">
-      <div className="relative aspect-[4/5] bg-gradient-to-b from-bg-tint to-white flex items-center justify-center overflow-hidden">
+      <div className="relative aspect-[3/2] bg-gradient-to-b from-bg-tint to-white flex items-center justify-center overflow-hidden">
         {size.img ? (
-          <img src={size.img} alt={`${category.title} ${size.label}`} loading="lazy" className="h-full w-full object-contain p-6 group-hover:scale-105 transition duration-700" />
+          <img src={size.img} alt={`${category.title} ${size.label}`} loading="lazy" className="h-full w-full object-cover group-hover:scale-105 transition duration-700" />
         ) : (
           <div className="flex flex-col items-center gap-3 text-text-muted">
             <div className="grid place-items-center h-16 w-16 rounded-2xl bg-white/70 border border-white shadow-sm">
@@ -127,7 +126,7 @@ function ProductsPage() {
                 </div>
               </div>
             </Reveal>
-            <Stagger className="grid gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
+            <Stagger className="grid gap-6 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
               {cat.sizes.map((s) => (
                 <StaggerItem key={s.label}>
                   <SizeCard category={cat} size={s} />

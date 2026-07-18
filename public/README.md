@@ -10,7 +10,7 @@ Place all site images here in `/public/images/`. Do NOT rename them.
 | `home-mineral-water.webp` | Home card — Mineral Water | 800×600 | 4:3 landscape |
 | `alkaline-water.png` | Home card — Alkaline Water | 800×600 | 4:3 landscape |
 | `primium-water.png` | Home card — Premium Water | 800×600 | 4:3 landscape |
-| `bottle-real-1.jpeg` | Home card — 19L + 5L Bottles | 800×600 | 4:3 landscape |
+| `bottle-real-1.png` | Home card — 19L + 5L Bottles | 800×600 | 4:3 landscape |
 | `about-plant.webp` | About section image | 1200×800 | 3:2 landscape |
 | `app-showcase.webp` | App section mockup | 1200×1400 | mobile portrait mockup |
 | `project-timmy-tiles.webp` | Custom Branding portfolio | 1200×800 | 3:2 landscape |
@@ -24,3 +24,17 @@ Place all site images here in `/public/images/`. Do NOT rename them.
 | `bottle-blank.webp` | Bottle preview (transparent PNG best) | 800×1200 | 2:3 portrait |
 
 All images should be optimized for web (WebP preferred, <300KB each).
+product images 
+mineral-250ml.webp, 
+mineral-330ml.webp, 
+mineral-500ml.webp, 
+mineral-1.5l.webp, 
+mineral-5l.webp, 
+mineral-19l.webp
+alkaline-250ml.webp, 
+alkaline-330ml.webp, 
+alkaline-500ml.webp, 
+alkaline-1.5l.webp, 
+alkaline-19l.webp
+premium-500ml.webp, 
+premium-1l.webp
