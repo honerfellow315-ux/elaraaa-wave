@@ -36,5 +36,6 @@ alkaline-330ml.webp,
 alkaline-500ml.webp, 
 alkaline-1.5l.webp, 
 alkaline-19l.webp
+premium-330ml.webp
 premium-500ml.webp, 
 premium-1l.webp

@@ -65,6 +65,7 @@ const categories: Category[] = [
     title: "Signature Premium Pour",
     text: "Ultra-refined, crisp and smooth — our flagship pour for restaurants, hotels and connoisseurs.",
     sizes: [
+      { label: "330 ML", img: "/images/premium-330ml.webp" },
       { label: "500 ML", img: "/images/premium-500ml.webp" },
       { label: "1 L", img: "/images/premium-1l.webp" },
     ],
