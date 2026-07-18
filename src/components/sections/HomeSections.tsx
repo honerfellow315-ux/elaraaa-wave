@@ -296,14 +296,14 @@ export function ProductCards() {
           </div>
         </Reveal>
 
-        <Stagger className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <Stagger className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
           {products.map((p) => (
             <StaggerItem key={p.title}>
               <Link
                 to={p.to}
-                className="group relative block glass-card overflow-hidden hover:-translate-y-2 hover:shadow-[0_30px_60px_-20px_rgba(18,58,94,0.25)] transition-all duration-500"
+                className="group relative flex flex-col h-full glass-card overflow-hidden hover:-translate-y-2 hover:shadow-[0_30px_60px_-20px_rgba(18,58,94,0.25)] transition-all duration-500"
               >
-                <div className="relative aspect-[4/3] overflow-hidden">
+                <div className="relative aspect-[4/3] overflow-hidden shrink-0">
                   <img
                     src={p.img}
                     alt={p.title}
@@ -312,7 +312,7 @@ export function ProductCards() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition" />
                 </div>
-                <div className="p-5">
+                <div className="p-5 flex flex-col flex-1">
                   <h3 className="text-lg font-bold text-navy">{p.title}</h3>
                   <p className="mt-1.5 text-sm text-text-muted line-clamp-2">{p.desc}</p>
                   {p.badges && (
