@@ -14,6 +14,9 @@ import {
   FlaskConical,
   BadgeCheck,
 } from "lucide-react";
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import elaraLogo from "@/assets/elara-logo.webp";
 
 export function Footer() {
   const socialLinks = [
@@ -86,8 +89,67 @@ export function Footer() {
     },
   ];
 
+  const reduce = useReducedMotion();
+  const anim = !reduce;
+
+  // Subtle mouse-reactive radial glow on the glass card — same spring
+  // parallax technique used on the homepage hero, scoped to the footer only.
+  const containerRef = useRef<HTMLDivElement>(null);
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 50, damping: 18 });
+  const sy = useSpring(my, { stiffness: 50, damping: 18 });
+  const glowX = useTransform(sx, (v) => `${50 + v * 22}%`);
+  const glowY = useTransform(sy, (v) => `${50 + v * 22}%`);
+
+  useEffect(() => {
+    if (reduce) return;
+    const el = containerRef.current;
+    if (!el) return;
+    const onMove = (e: MouseEvent) => {
+      const r = el.getBoundingClientRect();
+      mx.set(((e.clientX - r.left) / r.width - 0.5) * 2);
+      my.set(((e.clientY - r.top) / r.height - 0.5) * 2);
+    };
+    const onLeave = () => {
+      mx.set(0);
+      my.set(0);
+    };
+    el.addEventListener("mousemove", onMove, { passive: true });
+    el.addEventListener("mouseleave", onLeave, { passive: true });
+    return () => {
+      el.removeEventListener("mousemove", onMove);
+      el.removeEventListener("mouseleave", onLeave);
+    };
+  }, [mx, my, reduce]);
+
   return (
-    <footer className="relative isolate mt-32 overflow-hidden">
+    <footer ref={containerRef} className="relative isolate mt-32 overflow-hidden">
+      {/* Local premium keyframes — continuous motion stays on the compositor
+          thread (CSS), Framer Motion is reserved for the mouse-parallax glow
+          and entrance reveals which genuinely need JS. */}
+      <style>{`
+        @keyframes ftLogoDrift {
+          0%,100%{ transform:scale(1) translate3d(0,0,0) rotate(-0.6deg); opacity:0.05 }
+          50%{ transform:scale(1.03) translate3d(14px,-16px,0) rotate(0.6deg); opacity:0.09 }
+        }
+        @keyframes ftWaveDrift { 0%,100%{transform:translateX(0)} 50%{transform:translateX(-2.5%)} }
+        @keyframes ftBubbleRise {
+          0%{ transform:translateY(0) translateX(0) scale(0.9); opacity:0 }
+          10%{ opacity:0.85 }
+          85%{ opacity:0.5 }
+          100%{ transform:translateY(-160px) translateX(var(--drift,10px)) scale(1.05); opacity:0 }
+        }
+        @keyframes ftCardBorderGlow {
+          0%,100%{ box-shadow:0 35px 90px -25px rgba(3,40,58,0.65), 0 0 0 1px rgba(34,178,203,0.12), 0 0 40px -10px rgba(34,178,203,0.22) }
+          50%{ box-shadow:0 35px 90px -25px rgba(3,40,58,0.65), 0 0 0 1px rgba(105,182,74,0.16), 0 0 55px -8px rgba(105,182,74,0.28) }
+        }
+        @keyframes ftSocialRing {
+          0%,100%{ box-shadow:0 8px 20px -8px rgba(6,65,94,0.4) }
+          50%{ box-shadow:0 8px 26px -6px rgba(34,178,203,0.5) }
+        }
+      `}</style>
+
       {/* Animated premium gradient top border */}
       <div className="absolute left-0 right-0 top-0 z-10 pointer-events-none">
         <div
@@ -109,15 +171,71 @@ export function Footer() {
       </div>
 
       {/* Elegant animated dark background — pure CSS, no images */}
-      <div aria-hidden className="absolute inset-0 -z-30 bg-[#03283A]" />
+      <div aria-hidden className="absolute inset-0 -z-40 bg-[#03283A]" />
       <div
         aria-hidden
-        className="absolute inset-0 -z-30 opacity-90"
+        className="absolute inset-0 -z-40 opacity-90"
         style={{
           background:
             "radial-gradient(80% 60% at 15% 10%, rgba(14,116,167,0.35), transparent 60%), radial-gradient(70% 55% at 85% 20%, rgba(37,159,159,0.32), transparent 65%), radial-gradient(60% 50% at 50% 90%, rgba(105,182,74,0.25), transparent 70%), linear-gradient(180deg, #03283A 0%, #05334A 55%, #03283A 100%)",
         }}
       />
+
+      {/* Aurora mesh — extra brand-colour layers for cinematic depth */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-38 opacity-80"
+        style={{
+          background:
+            "radial-gradient(45% 40% at 30% 60%, rgba(185,210,42,0.14), transparent 70%), radial-gradient(40% 35% at 70% 35%, rgba(34,178,203,0.18), transparent 70%)",
+        }}
+      />
+
+      {/* Giant low-opacity ELARA WAVE watermark */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-35 pointer-events-none overflow-hidden grid place-items-center"
+      >
+        <div
+          className="relative w-[130vmin] max-w-none aspect-square"
+          style={{
+            filter: "blur(3px) drop-shadow(0 0 60px rgba(34,178,203,0.15))",
+            animation: anim ? "ftLogoDrift 32s ease-in-out infinite" : "none",
+            willChange: "transform, opacity",
+          }}
+        >
+          <img
+            src={elaraLogo}
+            alt=""
+            aria-hidden
+            className="absolute inset-0 h-full w-full object-contain select-none"
+            draggable={false}
+          />
+        </div>
+      </div>
+
+      {/* Animated SVG water waves */}
+      <div aria-hidden className="absolute inset-x-0 top-0 -z-34 h-40 overflow-hidden pointer-events-none opacity-70">
+        <svg
+          className="absolute inset-x-0 top-0 w-[130%] -left-[15%] h-full"
+          viewBox="0 0 1200 200"
+          preserveAspectRatio="none"
+          style={{ animation: anim ? "ftWaveDrift 16s ease-in-out infinite" : "none" }}
+        >
+          <defs>
+            <linearGradient id="ft-wave-a" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0%" stopColor="#B9D22A" stopOpacity="0.10" />
+              <stop offset="50%" stopColor="#259F9F" stopOpacity="0.14" />
+              <stop offset="100%" stopColor="#0E74A7" stopOpacity="0.10" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M0,60 C200,120 400,20 600,70 C800,120 1000,30 1200,80 L1200,0 L0,0 Z"
+            fill="url(#ft-wave-a)"
+          />
+        </svg>
+      </div>
+
       {/* Soft noise texture for depth */}
       <div
         aria-hidden
@@ -138,22 +256,73 @@ export function Footer() {
         {/* Moving light sweep */}
         <div className="footer-sweep absolute -inset-x-40 top-1/3 h-40 rotate-[-8deg] bg-gradient-to-r from-transparent via-white/[0.06] to-transparent blur-2xl" />
 
-        {/* Floating particles */}
-        {Array.from({ length: 14 }).map((_, i) => (
-          <span
-            key={i}
-            className="footer-particle absolute rounded-full bg-white/50"
+        {/* Premium floating particles — brand-tinted instead of flat white */}
+        {Array.from({ length: 14 }).map((_, i) => {
+          const palette = ["#B9D22A", "#69B64A", "#259F9F", "#22B2CB", "#0E74A7"];
+          const c = palette[i % palette.length];
+          return (
+            <span
+              key={i}
+              className="footer-particle absolute rounded-full"
+              style={{
+                width: `${3 + (i % 4)}px`,
+                height: `${3 + (i % 4)}px`,
+                top: `${(i * 41) % 92}%`,
+                left: `${(i * 53) % 96}%`,
+                background: `radial-gradient(circle at 35% 30%, #fff 0%, rgba(255,255,255,0.7) 15%, ${c}99 45%, transparent 75%)`,
+                boxShadow: `0 0 8px ${c}55`,
+                animationDelay: `${i * 0.6}s`,
+                animationDuration: `${8 + (i % 5) * 2}s`,
+                filter: "blur(0.4px)",
+              }}
+            />
+          );
+        })}
+
+        {/* Animated glass bubbles — rising liquid-glass spheres */}
+        {anim &&
+          Array.from({ length: 9 }).map((_, i) => {
+            const size = 10 + (i % 4) * 8;
+            const left = 8 + ((i * 11) % 88);
+            const duration = 10 + (i % 5) * 3;
+            const drift = i % 2 === 0 ? "18px" : "-14px";
+            return (
+              <span
+                key={`bubble-${i}`}
+                className="absolute bottom-0 rounded-full border border-white/25"
+                style={
+                  {
+                    left: `${left}%`,
+                    width: size,
+                    height: size,
+                    background:
+                      "radial-gradient(circle at 32% 28%, rgba(255,255,255,0.55), rgba(255,255,255,0.06) 40%, rgba(255,255,255,0.02) 70%)",
+                    boxShadow: "inset 0 0 8px rgba(255,255,255,0.15), 0 0 12px rgba(94,211,255,0.10)",
+                    backdropFilter: "blur(1px)",
+                    animation: `ftBubbleRise ${duration}s ease-in infinite`,
+                    animationDelay: `${i * 1.3}s`,
+                    ["--drift" as string]: drift,
+                    willChange: "transform, opacity",
+                  } as React.CSSProperties
+                }
+              />
+            );
+          })}
+
+        {/* Mouse-reactive radial glow */}
+        {anim && (
+          <motion.div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none"
             style={{
-              width: `${3 + (i % 4)}px`,
-              height: `${3 + (i % 4)}px`,
-              top: `${(i * 41) % 92}%`,
-              left: `${(i * 53) % 96}%`,
-              animationDelay: `${i * 0.6}s`,
-              animationDuration: `${8 + (i % 5) * 2}s`,
-              filter: "blur(0.5px)",
+              background: useTransform(
+                [glowX, glowY],
+                ([gx, gy]: number[] | string[]) =>
+                  `radial-gradient(420px circle at ${gx} ${gy}, rgba(94,211,255,0.10), transparent 65%)`
+              ),
             }}
           />
-        ))}
+        )}
       </div>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-10">
@@ -168,11 +337,23 @@ export function Footer() {
               }}
             />
 
-            <div className="relative rounded-[40px] border border-white/10 bg-white/[0.07] backdrop-blur-3xl shadow-[0_35px_90px_-25px_rgba(3,40,58,0.65)] p-8 sm:p-12 lg:p-14 shine overflow-hidden">
+            <div
+              className="relative rounded-[40px] border border-white/10 bg-white/[0.07] backdrop-blur-3xl p-8 sm:p-12 lg:p-14 shine overflow-hidden"
+              style={{ animation: anim ? "ftCardBorderGlow 8s ease-in-out infinite" : "none" }}
+            >
               {/* Inner top highlight */}
               <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
               {/* Inner soft reflection */}
               <div className="pointer-events-none absolute inset-0 rounded-[40px] bg-gradient-to-b from-white/[0.06] via-transparent to-transparent" />
+              {/* Diagonal liquid-glass reflection streak */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -top-1/3 -left-1/4 h-[80%] w-1/3 rotate-[20deg]"
+                style={{
+                  background:
+                    "linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.06) 45%, rgba(255,255,255,0) 80%)",
+                }}
+              />
               {/* Inner scrim for text legibility against the photo */}
               <div className="pointer-events-none absolute inset-0 rounded-[40px] bg-[#03283A]/25" />
 
@@ -210,7 +391,8 @@ export function Footer() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={item.label}
-                          className="grid place-items-center h-10 w-10 rounded-full bg-white/25 backdrop-blur-md border border-white/50 text-navy shadow-[0_8px_20px_-8px_rgba(6,65,94,0.4)] hover:text-white hover:bg-brand hover:-translate-y-1 transition-all duration-300 shine"
+                          className="grid place-items-center h-10 w-10 rounded-full bg-white/25 backdrop-blur-md border border-white/50 text-navy hover:text-white hover:bg-brand hover:-translate-y-1 hover:scale-105 transition-all duration-300 shine"
+                          style={{ animation: anim ? "ftSocialRing 6s ease-in-out infinite" : "none" }}
                         >
                           <Icon className="h-4 w-4" />
                         </a>
@@ -295,7 +477,7 @@ export function Footer() {
                     {contactRows.map((row) => {
                       const Icon = row.icon;
                       const content = (
-                        <div className="flex items-start gap-3 rounded-2xl bg-white/90 backdrop-blur-md border border-white/60 px-4 py-3 shadow-[0_10px_24px_-12px_rgba(3,40,58,0.5)] transition-all duration-300 hover:bg-white hover:-translate-y-0.5">
+                        <div className="flex items-start gap-3 rounded-2xl bg-white/90 backdrop-blur-md border border-white/60 px-4 py-3 shadow-[0_10px_24px_-12px_rgba(3,40,58,0.5)] transition-all duration-300 hover:bg-white hover:-translate-y-0.5 hover:shadow-[0_14px_32px_-12px_rgba(34,178,203,0.45)]">
                           <span className="grid place-items-center h-9 w-9 shrink-0 rounded-full bg-white/70 backdrop-blur-md border border-white/60 shadow-[0_6px_16px_-8px_rgba(6,65,94,0.35)]">
                             <Icon className="h-4 w-4 text-blue" />
                           </span>

@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportRuntimeError } from "../lib/error-reporting";
+import { initPerfMode } from "../lib/perf-mode";
 import { Toaster } from "sonner";
 import { AuthProvider } from "@/lib/auth";
 
@@ -130,6 +131,10 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  useEffect(() => {
+    initPerfMode();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

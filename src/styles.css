@@ -222,6 +222,47 @@
 .footer-sweep      { animation: footer-sweep 12s ease-in-out infinite; }
 .footer-particle   { animation: footer-particle-float 10s ease-in-out infinite; will-change: transform, opacity; }
 
+/* ============================================================
+   Low-end device optimizations (see src/lib/perf-mode.ts)
+   Applies ONLY when <html> has class "perf-low". Every animation
+   above stays exactly as-is for normal/capable devices.
+   ============================================================ */
+
+/* 1. Backdrop blur is one of the heaviest GPU operations — drop it
+      for low-end devices, everything else (color/opacity) stays. */
+.perf-low [class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 2. Infinite decorative loops (particles / orbs / rings) are the
+      biggest ongoing CPU/battery cost since they never stop —
+      slow them down and simplify rather than removing them. */
+.perf-low .particle,
+.perf-low .footer-particle {
+  animation-duration: 16s !important;
+}
+
+.perf-low .footer-orb,
+.perf-low .footer-orb--slow,
+.perf-low .footer-orb--x,
+.perf-low .footer-sweep {
+  animation-duration: 30s !important;
+  filter: none !important;
+}
+
+.perf-low .pulse-ring {
+  animation-duration: 4s !important;
+}
+
+/* 3. Reduce how many floating particles even render — the 9th+
+      particle already hides on small screens (see HomeSections.tsx),
+      this extends the same idea to any low-end device regardless
+      of screen size. */
+.perf-low .particle:nth-child(n + 6) {
+  display: none;
+}
+
 /* ============ Hero animated background ============ */
 @keyframes hero-blob-1 {
   0%,100% { transform: translate3d(-20px,-10px,0) scale(1); }
