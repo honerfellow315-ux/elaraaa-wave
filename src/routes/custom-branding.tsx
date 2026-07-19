@@ -37,19 +37,35 @@ export const Route = createFileRoute("/custom-branding")({
 });
 
 const projects = [
-  { name: "Timmy Tiles", desc: "Corporate hydration line for a leading ceramics brand — cohesive with their showroom identity.", img: "/images/project-timmy-tiles.webp" },
-  { name: "Timmy Sanitary", desc: "Elevated 500ml glass bottles for premium sanitaryware showrooms and client lounges.", img: "/images/project-timmy-sanitary.webp" },
-  { name: "Sapphire Sports", desc: "Sport-fresh alkaline packs tailored for training sessions, tournaments and gym floors.", img: "/images/project-sapphire-sports.webp" },
-  { name: "Project Four", desc: "Signature hotel welcome water — foil-embossed label with a soft mineral pour.", img: "/images/project-four.webp" },
-  { name: "Project Five", desc: "Wedding-season private label — bespoke event branding with elegant typography.", img: "/images/project-five.webp" },
+  { name: "Timmy's", desc: "Corporate hydration line for a leading ceramics brand — cohesive with their showroom identity.", img: "/images/project-timmy-tiles.webp" },
+  { name: "Al Ghani", desc: "Elevated 500ml glass bottles for premium dev showrooms and client lounges.", img: "/images/project-timmy-sanitary.webp" },
+  { name: "Tiles and Sanitary", desc: "Sport-fresh alkaline packs tailored for training sessions, tournaments and gym floors.", img: "/images/project-sapphire-sports.webp" },
+  { name: "Reportage", desc: "Signature hotel welcome water — foil-embossed label with a soft mineral pour.", img: "/images/project-four.webp" },
+  { name: "Sapphire", desc: "Wedding-season private label — bespoke event branding with elegant typography.", img: "/images/project-five.webp" },
 ];
 
 // Real bottle showcase — admin-uploadable placeholders
 const realBottles = [
-  { label: "500 ML Signature", desc: "Slim-line PET with premium wrap label." },
-  { label: "1 L Premium", desc: "Table-ready bottle for restaurants and hotels." },
-  { label: "1.5 L Family", desc: "Everyday format with strong brand real-estate." },
-  { label: "5 L Home", desc: "Refill-ready with foil-embossed label options." },
+  {
+    image: "/images/250ml.png",
+    label: "250 ML",
+    desc: "Compact premium bottle for events, meetings and giveaways.",
+  },
+  {
+    image: "/images/330ml.png",
+    label: "330 ML",
+    desc: "Premium everyday bottle with elegant label presentation.",
+  },
+  {
+    image: "/images/500ml.png",
+    label: "500 ML",
+    desc: "Most popular format for retail, offices and hospitality.",
+  },
+  {
+    image: "/images/1-5l.png",
+    label: "1.5 L",
+    desc: "Family-size bottle perfect for homes and restaurants.",
+  },
 ];
 
 const whyBrand = [
@@ -153,13 +169,15 @@ function CustomBranding() {
         <Stagger className="mt-12 grid gap-6 grid-cols-2 lg:grid-cols-4">
           {realBottles.map((b) => (
             <StaggerItem key={b.label}>
-              <div className="glass-card overflow-hidden hover:-translate-y-2 transition duration-500 h-full">
-                <div className="relative aspect-[4/5] bg-gradient-to-b from-bg-tint to-white flex flex-col items-center justify-center gap-3 text-text-muted">
-                  <div className="grid place-items-center h-16 w-16 rounded-2xl bg-white/70 border border-white shadow-sm">
-                    <ImageIcon className="h-6 w-6 text-blue" />
-                  </div>
-                  <span className="text-[11px] font-semibold tracking-widest uppercase">Image coming soon</span>
-                </div>
+              <div className="group glass-card overflow-hidden hover:-translate-y-2 transition duration-500 h-full">
+                <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-b from-bg-tint to-white flex items-center justify-center">
+  <img
+    src={b.image}
+    alt={b.label}
+    loading="lazy"
+    className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-105"
+  />
+</div>
                 <div className="p-4">
                   <h3 className="text-base font-bold text-navy">{b.label}</h3>
                   <p className="mt-1 text-xs text-text-muted">{b.desc}</p>
