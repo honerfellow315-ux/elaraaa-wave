@@ -1,6 +1,7 @@
 import { Reveal, Stagger, StaggerItem } from "@/components/Reveal";
 import { Link } from "@tanstack/react-router";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
+import { useEffect, useRef } from "react";
 import {
   Droplets,
   Sparkles,
@@ -25,144 +26,292 @@ import {
   Sun,
   PackageCheck,
 } from "lucide-react";
+import elaraLogo from "@/assets/elara-logo.webp";
+
+// Served directly from /public/images — not bundled/hashed by Vite
+const heroBottlesUrl = "/images/hero-bottles.webp";
 
 export function Hero() {
   const prefersReducedMotion = useReducedMotion();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Mouse parallax — kept in framer-motion because it depends on live mouse position
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 60, damping: 15 });
+  const sy = useSpring(my, { stiffness: 60, damping: 15 });
+  const bottleX = useTransform(sx, (v) => v * -18);
+  const bottleY = useTransform(sy, (v) => v * -18);
+  const glowX = useTransform(sx, (v) => v * -30);
+  const glowY = useTransform(sy, (v) => v * -30);
+  const rotX = useTransform(sy, (v) => v * 4);
+  const rotY = useTransform(sx, (v) => v * -4);
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    const el = containerRef.current;
+    if (!el) return;
+    const onMove = (e: MouseEvent) => {
+      const r = el.getBoundingClientRect();
+      mx.set(((e.clientX - r.left) / r.width - 0.5) * 2);
+      my.set(((e.clientY - r.top) / r.height - 0.5) * 2);
+    };
+    const onLeave = () => {
+      mx.set(0);
+      my.set(0);
+    };
+    el.addEventListener("mousemove", onMove, { passive: true });
+    el.addEventListener("mouseleave", onLeave, { passive: true });
+    return () => {
+      el.removeEventListener("mousemove", onMove);
+      el.removeEventListener("mouseleave", onLeave);
+    };
+  }, [mx, my, prefersReducedMotion]);
+
+  const anim = !prefersReducedMotion; // toggles CSS-driven animations
+
   return (
-    <section className="relative min-h-[86vh] flex items-center overflow-hidden shine [perspective:1400px]">
-      {/* Deep layered gradient base — brand palette only, no image */}
+    <section
+      ref={containerRef}
+      className="relative min-h-[92vh] flex items-center overflow-hidden [perspective:1600px]"
+    >
+      {/* Local keyframes — all time-based (non-mouse) animation still runs on the
+          compositor thread via CSS instead of framer-motion's JS/rAF loop.
+          Same set as before, plus a few purely-decorative additions for the
+          premium water-ad composition (mist drift, light-ray pulse, caustics). */}
+      <style>{`
+        @keyframes heroBlob1 { 0%,100%{transform:translate3d(0,0,0) scale(1)} 33%{transform:translate3d(60px,-30px,0) scale(1.08)} 66%{transform:translate3d(-20px,20px,0) scale(0.98)} }
+        @keyframes heroBlob2 { 0%,100%{transform:translate3d(0,0,0) scale(1)} 33%{transform:translate3d(-50px,40px,0) scale(1.05)} 66%{transform:translate3d(30px,-20px,0) scale(0.95)} }
+        @keyframes heroBlob3 { 0%,100%{transform:translate3d(0,0,0)} 33%{transform:translate3d(30px,-20px,0)} 66%{transform:translate3d(-30px,10px,0)} }
+        @keyframes heroHalo { 0%,100%{opacity:0.55; transform:scale(1)} 50%{opacity:0.9; transform:scale(1.06)} }
+        @keyframes heroGlow7 { 0%,100%{opacity:0.55; transform:scale(1)} 50%{opacity:0.85; transform:scale(1.06)} }
+        @keyframes heroLogo {
+          0%,100%{ transform:scale(1) translate3d(0,0,0) rotate(-0.8deg); opacity:0.10 }
+          50%{ transform:scale(1.04) translate3d(10px,-18px,0) rotate(0.8deg); opacity:0.16 }
+        }
+        @keyframes heroFloatSlow { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+        @keyframes heroFloatSlowRev { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+        @keyframes heroBottleFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+        @keyframes heroSweep { 0%{transform:translateX(-20%) rotate(12deg)} 60%,100%{transform:translateX(260%) rotate(12deg)} }
+        @keyframes heroTextShift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+        @keyframes heroRayPulse { 0%,100%{opacity:0.35; transform:rotate(18deg) translateY(0)} 50%{opacity:0.6; transform:rotate(18deg) translateY(-14px)} }
+        @keyframes heroMistDrift { 0%,100%{transform:translateX(0) scaleX(1); opacity:0.5} 50%{transform:translateX(3%) scaleX(1.04); opacity:0.75} }
+        @keyframes heroCaustics { 0%,100%{background-position:0% 0%} 50%{background-position:100% 40%} }
+        @keyframes heroSplashPulse { 0%,100%{opacity:0.6; transform:scale(1)} 50%{opacity:0.9; transform:scale(1.05)} }
+        @keyframes heroDropletFall { 0%{transform:translateY(-6px); opacity:0} 15%{opacity:1} 100%{transform:translateY(10px); opacity:0} }
+      `}</style>
+
+      {/* Deep cinematic base — premium HDR blue-white water gradient */}
       <div
-        className="absolute inset-0 -z-30"
+        aria-hidden
+        className="absolute inset-0 -z-40"
         style={{
           background:
-            "linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 22%,var(--blue) 48%,var(--teal) 74%,var(--green) 92%,var(--green-light) 100%)",
+            "radial-gradient(130% 95% at 22% 8%, #F3FCFF 0%, #DCF3FA 24%, #BEE7F2 42%, #E9F8FB 62%, #FFFFFF 100%)",
         }}
       />
 
-      {/* Aurora glow layers — cyan / lime / blue ambient light, slow drift */}
-      <div className="absolute inset-0 -z-20 overflow-hidden">
-        <motion.div
-          animate={prefersReducedMotion ? undefined : { x: [0, 40, 0], y: [0, -30, 0] }}
-          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-32 -left-24 h-[42rem] w-[42rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(34,178,203,0.55),rgba(37,159,159,0.28)_45%,transparent_72%)] blur-3xl [will-change:transform] [transform:translateZ(0)]"
-        />
-        <motion.div
-          animate={prefersReducedMotion ? undefined : { x: [0, -30, 0], y: [0, 25, 0] }}
-          transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/3 -right-32 h-[38rem] w-[38rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(37,159,159,0.48),rgba(34,178,203,0.22)_45%,transparent_72%)] blur-3xl [will-change:transform] [transform:translateZ(0)]"
-        />
-        <motion.div
-          animate={prefersReducedMotion ? undefined : { x: [0, 25, 0], y: [0, -20, 0] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-40 left-1/3 h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(105,182,74,0.38),rgba(185,210,42,0.18)_45%,transparent_72%)] blur-3xl [will-change:transform] [transform:translateZ(0)]"
-        />
-
-        {/* Abstract water waves SVG */}
-        <svg className="absolute inset-x-0 bottom-0 w-full h-[55%] opacity-70" viewBox="0 0 1440 600" preserveAspectRatio="none" aria-hidden>
-          <defs>
-            <linearGradient id="hw1" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="#22B2CB" stopOpacity="0.40" />
-              <stop offset="45%" stopColor="#259F9F" stopOpacity="0.28" />
-              <stop offset="100%" stopColor="#06415E" stopOpacity="0" />
-            </linearGradient>
-            <linearGradient id="hw2" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="#69B64A" stopOpacity="0.36" />
-              <stop offset="45%" stopColor="#259F9F" stopOpacity="0.28" />
-              <stop offset="100%" stopColor="#0E74A7" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          <path d="M0,300 C240,220 480,380 720,320 C960,260 1200,380 1440,300 L1440,600 L0,600 Z" fill="url(#hw1)" />
-          <path d="M0,420 C240,360 480,500 720,440 C960,380 1200,500 1440,420 L1440,600 L0,600 Z" fill="url(#hw2)" />
-        </svg>
-
-        {/* Fine grid overlay for premium feel */}
-        <div className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(rgba(255,255,255,0.6)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:56px_56px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_20%_30%,rgba(34,178,203,0.22),rgba(37,159,159,0.14)_45%,rgba(105,182,74,0.10)_70%,transparent_85%)]" />
-
-        {/* Extremely subtle noise texture for depth */}
+      {/* Light rays from top-right — HDR key light */}
+      <div aria-hidden className="absolute inset-0 -z-35 overflow-hidden pointer-events-none">
         <div
-          className="absolute inset-0 opacity-[0.04] mix-blend-overlay pointer-events-none"
+          className="absolute -top-1/3 right-[-10%] h-[140%] w-[60%]"
           style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+            background:
+              "linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.55) 38%, rgba(214,244,255,0.35) 52%, rgba(255,255,255,0) 70%)",
+            filter: "blur(6px)",
+            animation: anim ? "heroRayPulse 10s ease-in-out infinite" : "none",
+            transformOrigin: "top right",
+            willChange: "opacity, transform",
           }}
         />
-
-        {/* Soft vignette for a deep, expensive feel */}
-        <div className="absolute inset-0 bg-[radial-gradient(120%_100%_at_50%_10%,transparent_45%,rgba(3,40,58,0.35)_100%)]" />
+        <div
+          className="absolute -top-1/4 right-[6%] h-[120%] w-[26%]"
+          style={{
+            background:
+              "linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 45%, rgba(255,255,255,0) 75%)",
+            filter: "blur(3px)",
+            animation: anim ? "heroRayPulse 8s ease-in-out infinite 1.2s" : "none",
+            transformOrigin: "top right",
+            willChange: "opacity, transform",
+          }}
+        />
       </div>
 
-      {/* Floating particles */}
-      <div className="absolute inset-0 -z-10 pointer-events-none">
+      {/* Ambient moving lights — recoloured to a premium blue/cyan/white palette */}
+      <div aria-hidden className="absolute inset-0 -z-30 overflow-hidden">
+        <div
+          className="absolute -top-40 -left-32 h-[34rem] w-[34rem] sm:h-[50rem] sm:w-[50rem] rounded-full blur-[80px] sm:blur-[130px] opacity-90"
+          style={{
+            background:
+              "radial-gradient(circle at 35% 35%, rgba(94,211,255,0.55), rgba(105,182,74,0.16) 45%, transparent 72%)",
+            animation: anim ? "heroBlob1 22s ease-in-out infinite" : "none",
+            willChange: "transform, opacity",
+            transform: "translateZ(0)",
+          }}
+        />
+        <div
+          className="absolute top-1/4 -right-40 h-[30rem] w-[30rem] sm:h-[46rem] sm:w-[46rem] rounded-full blur-[80px] sm:blur-[140px] opacity-90"
+          style={{
+            background:
+              "radial-gradient(circle at 60% 40%, rgba(34,178,203,0.65), rgba(14,116,167,0.35) 45%, transparent 72%)",
+            animation: anim ? "heroBlob2 26s ease-in-out infinite" : "none",
+            willChange: "transform, opacity",
+            transform: "translateZ(0)",
+          }}
+        />
+        <div
+          className="absolute -bottom-52 left-1/4 h-[28rem] w-[28rem] sm:h-[44rem] sm:w-[44rem] rounded-full blur-[75px] sm:blur-[130px] opacity-80"
+          style={{
+            background:
+              "radial-gradient(circle at 50% 50%, rgba(180,240,255,0.6), rgba(37,159,159,0.25) 45%, transparent 72%)",
+            animation: anim ? "heroBlob3 30s ease-in-out infinite" : "none",
+            willChange: "transform, opacity",
+            transform: "translateZ(0)",
+          }}
+        />
+        <div className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(rgba(6,65,94,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(6,65,94,0.5)_1px,transparent_1px)] [background-size:64px_64px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_10%,rgba(255,255,255,0.7),transparent_70%)]" />
+      </div>
+
+      {/* Water caustics — subtle rippled light pattern, premium acrylic feel */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-25 pointer-events-none opacity-[0.16] mix-blend-overlay"
+        style={{
+          backgroundImage:
+            "repeating-radial-gradient(circle at 20% 30%, rgba(255,255,255,0.9) 0px, transparent 3px, transparent 26px), repeating-radial-gradient(circle at 70% 65%, rgba(255,255,255,0.7) 0px, transparent 2px, transparent 34px)",
+          backgroundSize: "220px 220px, 260px 260px",
+          animation: anim ? "heroCaustics 16s ease-in-out infinite" : "none",
+        }}
+      />
+
+      {/* Mist band — soft horizontal haze near the base */}
+      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-20 h-[45%] pointer-events-none overflow-hidden">
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.35) 55%, rgba(255,255,255,0.65) 100%)",
+            filter: "blur(18px)",
+            animation: anim ? "heroMistDrift 12s ease-in-out infinite" : "none",
+            willChange: "transform, opacity",
+          }}
+        />
+      </div>
+
+      {/* Cinematic ELARA logo watermark — single drop-shadow, dialed back so it reads as a subtle HDR backdrop element */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-20 pointer-events-none overflow-hidden grid place-items-center"
+      >
+        {/* Radial glow halo behind the mark */}
+        <div
+          className="absolute h-[95vmin] w-[95vmin] sm:h-[130vmin] sm:w-[130vmin] rounded-full"
+          style={{
+            background:
+              "radial-gradient(closest-side, rgba(94,211,255,0.20), rgba(105,182,74,0.10) 40%, transparent 72%)",
+            filter: "blur(30px) sm:blur(40px)",
+            animation: anim ? "heroHalo 14s ease-in-out infinite" : "none",
+            willChange: "transform, opacity",
+            transform: "translateZ(0)",
+          }}
+        />
+        {/* The oversized logo itself */}
+        <div
+          className="relative w-[100vmin] sm:w-[135vmin] max-w-none aspect-square"
+          style={{
+            filter: "blur(2px) drop-shadow(0 0 60px rgba(34,178,203,0.3))",
+            animation: anim ? "heroLogo 28s ease-in-out infinite" : "none",
+            willChange: "transform, opacity",
+            transform: "translateZ(0)",
+          }}
+        >
+          <img
+            src={elaraLogo}
+            alt=""
+            aria-hidden
+            className="absolute inset-0 h-full w-full object-contain opacity-[0.14] mix-blend-multiply select-none"
+            draggable={false}
+          />
+        </div>
+        {/* Soft center light so headline text stays readable */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(60% 45% at 50% 50%, rgba(255,255,255,0.6), rgba(255,255,255,0) 70%)",
+          }}
+        />
+      </div>
+
+      {/* Floating particles — restyled as fine water droplets with a bright highlight */}
+      <div className="absolute inset-0 -z-20 pointer-events-none">
         {Array.from({ length: 14 }).map((_, i) => (
           <span
             key={i}
-            className={`absolute rounded-full bg-white/40 blur-sm particle ${i >= 8 ? "hidden sm:block" : ""}`}
+            className={`absolute rounded-full particle ${i >= 8 ? "hidden sm:block" : ""}`}
             style={{
-              width: `${6 + (i % 5) * 4}px`,
-              height: `${6 + (i % 5) * 4}px`,
+              width: `${4 + (i % 5) * 3}px`,
+              height: `${4 + (i % 5) * 3}px`,
               top: `${(i * 37) % 90}%`,
               left: `${(i * 53) % 95}%`,
               animationDelay: `${i * 0.4}s`,
               animationDuration: `${6 + (i % 4) * 2}s`,
+              background:
+                i % 3 === 0
+                  ? "radial-gradient(circle at 35% 30%, #fff 0%, rgba(255,255,255,0.9) 12%, rgba(94,211,255,0.55) 40%, transparent 72%)"
+                  : i % 3 === 1
+                  ? "radial-gradient(circle at 35% 30%, #fff 0%, rgba(255,255,255,0.85) 10%, rgba(34,178,203,0.55) 42%, transparent 72%)"
+                  : "radial-gradient(circle at 35% 30%, #fff 0%, rgba(255,255,255,0.8) 10%, rgba(105,182,74,0.45) 42%, transparent 72%)",
+              boxShadow: "0 0 6px rgba(255,255,255,0.5)",
+              filter: "blur(0.4px)",
             }}
           />
         ))}
-        {/* Tiny bubble accents, very low opacity, very slow drift */}
-        {!prefersReducedMotion &&
-          Array.from({ length: 6 }).map((_, i) => (
-            <motion.span
-              key={`bubble-${i}`}
-              animate={{ y: [0, -18, 0], opacity: [0.15, 0.35, 0.15] }}
-              transition={{
-                duration: 10 + i * 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: i * 0.8,
-              }}
-              className={`absolute rounded-full border border-white/30 [will-change:transform] ${i >= 3 ? "hidden sm:block" : ""}`}
-              style={{
-                width: `${10 + (i % 3) * 8}px`,
-                height: `${10 + (i % 3) * 8}px`,
-                top: `${15 + (i * 13) % 70}%`,
-                left: `${8 + (i * 17) % 85}%`,
-              }}
-            />
-          ))}
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-16 grid lg:grid-cols-2 gap-12 items-center">
-        <div className="text-white">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-16 grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-14 items-center">
+        {/* Copy column */}
+        <div>
           <Reveal>
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-dark text-xs font-semibold tracking-widest uppercase shadow-[0_8px_24px_-12px_rgba(0,0,0,0.5)] border border-white/15">
-              <Sparkles className="h-3.5 w-3.5 text-sky drop-shadow-[0_0_6px_rgba(34,178,203,0.8)]" /> Drink Pure &amp; Live Better.
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-xl border border-white/80 text-[11px] font-bold tracking-[0.3em] uppercase text-navy shadow-[0_10px_30px_-12px_rgba(6,65,94,0.35)]">
+              <Sparkles className="h-3.5 w-3.5 text-blue" />
+              Premium mineral water · Lahore
             </span>
           </Reveal>
 
           <Reveal delay={0.1}>
-            <motion.h1
-              animate={prefersReducedMotion ? undefined : { backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-              transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+            <h1
+              className="mt-7 text-5xl sm:text-6xl lg:text-[5.5rem] font-extrabold leading-[1.03] tracking-tight text-transparent"
               style={{
                 backgroundImage:
-                  "linear-gradient(100deg, #ffffff 0%, #cdeefc 18%, #ffffff 36%, #d7f7cf 54%, #ffffff 72%, #cdeefc 88%, #ffffff 100%)",
+                  "linear-gradient(100deg, #06415E 0%, #0E74A7 22%, #22B2CB 42%, #5ED3FF 58%, #259F9F 75%, #06415E 100%)",
                 backgroundSize: "220% 100%",
                 WebkitBackgroundClip: "text",
                 backgroundClip: "text",
+                animation: anim ? "heroTextShift 14s ease-in-out infinite" : "none",
               }}
-              className="mt-6 text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.02] tracking-tight text-transparent drop-shadow-[0_4px_18px_rgba(3,40,58,0.45)]"
             >
-              Lahore Purest{" "}
-              <span className="shine-text drop-shadow-[0_4px_14px_rgba(3,40,58,0.55)] [-webkit-text-stroke:0.5px_rgba(3,40,58,0.25)]">
-                Mineral Water
+              Flow with
+              <br />
+              <span className="relative">
+                pure freshness
+                <span
+                  className="absolute -bottom-2 left-0 right-0 h-[10px] rounded-full opacity-70 blur-md"
+                  style={{
+                    background:
+                      "linear-gradient(90deg,#B9D22A,#69B64A,#259F9F,#5ED3FF,#0E74A7)",
+                  }}
+                />
               </span>
-            </motion.h1>
+            </h1>
           </Reveal>
 
           <Reveal delay={0.2}>
-            <p className="mt-6 text-lg leading-relaxed text-white/80 max-w-xl">
-              Elara Wave delivers 100% natural mineral water — enriched with essential
-              free from impurities, and fresh to your doorstep in Lahore.
+            <p className="mt-7 text-base sm:text-lg leading-relaxed text-text-muted max-w-xl">
+              ELARA WAVE delivers 100% natural, mineral-rich water — enriched
+              with essential minerals, free from impurities, and fresh to
+              your doorstep across Lahore.
             </p>
           </Reveal>
 
@@ -175,9 +324,12 @@ export function Hero() {
               ].map(({ i: I, t }) => (
                 <span
                   key={t}
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-dark text-xs font-medium border border-white/15 shadow-[0_8px_20px_-12px_rgba(0,0,0,0.5)]"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/55 backdrop-blur-xl border border-white/80 text-xs font-semibold text-navy shadow-[0_8px_24px_-10px_rgba(14,116,167,0.4)]"
                 >
-                  <I className="h-3.5 w-3.5 text-sky drop-shadow-[0_0_5px_rgba(34,178,203,0.9)]" /> {t}
+                  <span className="grid place-items-center h-4 w-4 rounded-full bg-gradient-to-br from-blue to-green text-white">
+                    <I className="h-2.5 w-2.5" />
+                  </span>
+                  {t}
                 </span>
               ))}
             </div>
@@ -187,14 +339,14 @@ export function Hero() {
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
                 to="/contact"
-                className="shine group inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white text-navy font-semibold shadow-[0_20px_60px_-20px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 transition"
+                className="shine group inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#0E74A7] to-[#259F9F] text-white font-semibold shadow-[0_20px_50px_-14px_rgba(14,116,167,0.65)] hover:-translate-y-0.5 hover:shadow-[0_25px_60px_-14px_rgba(37,159,159,0.75)] transition"
               >
                 Order Now
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition" />
               </Link>
               <Link
                 to="/products"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full glass-dark text-white font-semibold border border-white/15 hover:bg-white/20 hover:-translate-y-0.5 transition"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/55 backdrop-blur-xl text-navy font-semibold border border-white/80 hover:bg-white/90 hover:-translate-y-0.5 transition"
               >
                 Our Products
                 <ArrowRight className="h-4 w-4" />
@@ -203,63 +355,214 @@ export function Hero() {
           </Reveal>
         </div>
 
-        {/* Right visual — luxury glass dashboard card */}
+        {/* Visual column — the two-bottle hero, now staged like a premium advertising shot */}
         <Reveal as="scale" delay={0.2}>
-          <div className="relative mx-auto max-w-md [transform-style:preserve-3d]">
-            {/* Glow pulse behind card */}
-            <motion.div
-              animate={prefersReducedMotion ? undefined : { opacity: [0.55, 0.85, 0.55], scale: [1, 1.05, 1] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -inset-8 -z-10 rounded-full blur-3xl bg-[radial-gradient(circle_at_center,rgba(34,178,203,0.35),rgba(37,159,159,0.28)_35%,rgba(105,182,74,0.22)_65%,transparent_85%)] [will-change:transform,opacity]"
-            />
+          <motion.div
+            style={{ x: bottleX, y: bottleY, rotateX: rotX, rotateY: rotY }}
+            className="relative mx-auto w-full max-w-[560px] aspect-[4/5] [transform-style:preserve-3d] will-change-transform"
+          >
+            {/* Big soft splash silhouette behind the bottle frame — pure CSS, no new image assets */}
+            <div aria-hidden className="absolute inset-[-12%] -z-20 pointer-events-none">
+              <div
+                className="absolute inset-0 rounded-[50%]"
+                style={{
+                  background:
+                    "radial-gradient(55% 50% at 50% 42%, rgba(255,255,255,0.9), rgba(214,244,255,0.55) 40%, transparent 74%)",
+                  filter: "blur(30px)",
+                  animation: anim ? "heroSplashPulse 8s ease-in-out infinite" : "none",
+                  willChange: "transform, opacity",
+                }}
+              />
+              <div
+                className="absolute inset-0 rounded-[50%]"
+                style={{
+                  background:
+                    "conic-gradient(from 200deg at 55% 45%, rgba(94,211,255,0.35), rgba(255,255,255,0) 30%, rgba(105,182,74,0.18) 55%, rgba(255,255,255,0) 80%)",
+                  filter: "blur(24px)",
+                  animation: anim ? "heroSplashPulse 10s ease-in-out infinite 1s" : "none",
+                  willChange: "transform, opacity",
+                }}
+              />
+            </div>
 
+            {/* Ambient glow that follows mouse — position stays framer-motion, pulse is CSS */}
             <motion.div
-              animate={prefersReducedMotion ? undefined : { y: [0, -12, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              whileHover={{ rotateX: 3, rotateY: -4, scale: 1.015 }}
-              className="relative glass rounded-[36px] p-6 shine shadow-[0_35px_90px_-25px_rgba(6,65,94,0.45)] border border-white/20 will-change-transform"
+              style={{ x: glowX, y: glowY }}
+              aria-hidden
+              className="absolute inset-0 -z-10 rounded-[42px] blur-2xl opacity-90"
             >
-              {/* Inner highlight */}
-              <div className="pointer-events-none absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent" />
+              <div
+                className="absolute inset-0 rounded-[42px]"
+                style={{
+                  background:
+                    "radial-gradient(60% 55% at 55% 45%, rgba(94,211,255,0.6), rgba(105,182,74,0.3) 45%, transparent 75%)",
+                  animation: anim ? "heroGlow7 7s ease-in-out infinite" : "none",
+                  willChange: "transform, opacity",
+                }}
+              />
+            </motion.div>
 
-              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-white/75 via-white/45 to-white/20 backdrop-blur-2xl p-6 border border-white/70">
-                <div className="flex items-center justify-between mb-6">
-                  <span className="text-xs font-bold tracking-widest text-navy">CRYSTAL PURE</span>
-                  <span className="inline-flex items-center gap-1 text-xs text-navy/70">
-                    <Star className="h-3 w-3 fill-green text-green" /> 4.9
-                  </span>
+            {/* Glass frame — crystal-clear acrylic look */}
+            <div
+              className="absolute inset-0 rounded-[42px] border border-white/80 shine overflow-hidden shadow-[0_50px_130px_-28px_rgba(6,65,94,0.45)]"
+              style={{
+                background:
+                  "linear-gradient(160deg,rgba(255,255,255,0.65),rgba(255,255,255,0.08))",
+                backdropFilter: "blur(14px) saturate(150%)",
+              }}
+            >
+              {/* Top highlight line — glass reflection edge */}
+              <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent" />
+              {/* Diagonal glass reflection streak */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -top-1/4 -left-1/4 h-[70%] w-1/3 rotate-[18deg]"
+                style={{
+                  background:
+                    "linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 45%, rgba(255,255,255,0) 80%)",
+                }}
+              />
+
+              {/* Bottle photograph — untouched, label/logo/colors/proportions identical */}
+              <img
+                src={heroBottlesUrl}
+                alt="Two ELARA WAVE mineral water bottles"
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+                className="absolute inset-0 h-full w-full object-cover"
+                style={{
+                  filter:
+                    "saturate(1.1) contrast(1.06) drop-shadow(0 24px 32px rgba(6,65,94,0.32))",
+                  animation: anim ? "heroBottleFloat 7s ease-in-out infinite" : "none",
+                  willChange: "transform",
+                }}
+              />
+
+              {/* Cinematic gradient wash over the photo — HDR key light from top-right */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(180deg, rgba(255,255,255,0.14) 0%, transparent 30%, transparent 65%, rgba(6,65,94,0.22) 100%), radial-gradient(55% 40% at 78% 8%, rgba(255,255,255,0.55), transparent 70%), radial-gradient(60% 45% at 50% 10%, rgba(255,255,255,0.3), transparent 70%)",
+                }}
+              />
+
+              {/* Soft light sweep */}
+              {anim && (
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -inset-y-10 -left-1/2 w-1/2 rotate-12"
+                  style={{
+                    background:
+                      "linear-gradient(90deg,transparent,rgba(255,255,255,0.35),transparent)",
+                    animation: "heroSweep 9s ease-in-out infinite",
+                    willChange: "transform",
+                  }}
+                />
+              )}
+
+              {/* Floating glass chips — glassmorphism, matches reference */}
+              <div
+                className="absolute top-5 left-5 px-3.5 py-1.5 rounded-full text-[10px] font-bold tracking-[0.25em] text-navy border border-white/80"
+                style={{
+                  background: "rgba(255,255,255,0.6)",
+                  backdropFilter: "blur(14px) saturate(160%)",
+                  boxShadow: "0 8px 24px -12px rgba(6,65,94,0.35)",
+                  animation: anim ? "heroFloatSlow 5s ease-in-out infinite" : "none",
+                }}
+              >
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-green shadow-[0_0_8px_rgba(105,182,74,0.9)]" />
+                  100% NATURAL
+                </span>
+              </div>
+              <div
+                className="absolute top-5 right-5 px-3.5 py-1.5 rounded-full text-[10px] font-bold tracking-[0.25em] text-navy border border-white/80"
+                style={{
+                  background: "rgba(255,255,255,0.6)",
+                  backdropFilter: "blur(14px) saturate(160%)",
+                  boxShadow: "0 8px 24px -12px rgba(6,65,94,0.35)",
+                  animation: anim ? "heroFloatSlowRev 6s ease-in-out infinite 0.6s" : "none",
+                }}
+              >
+                pH&nbsp;8.5+
+              </div>
+
+              {/* Bottom info bar */}
+              <div
+                className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/80 px-4 py-3 flex items-center justify-between"
+                style={{
+                  background: "rgba(255,255,255,0.68)",
+                  backdropFilter: "blur(16px) saturate(160%)",
+                  boxShadow: "0 12px 30px -14px rgba(6,65,94,0.4)",
+                  animation: anim ? "heroFloatSlow 6s ease-in-out infinite 0.3s" : "none",
+                }}
+              >
+                <div className="min-w-0">
+                  <div className="text-[10px] font-bold tracking-[0.28em] text-blue">FLOW WITH FRESHNESS</div>
+                  <div className="text-sm font-extrabold text-navy truncate">500ml · 1.5L Premium</div>
                 </div>
-                <div className="grid grid-cols-3 gap-3 text-center">
-                  {[
-                    { i: Leaf, l: "Alkaline", v: "pH 8.5+" },
-                    { i: Award, l: "Halal", v: "Certified" },
-                    { i: Truck, l: "Delivery", v: "Same-day" },
-                  ].map(({ i: I, l, v }) => (
-                    <div
-                      key={l}
-                      className="rounded-2xl bg-white/60 border border-white/70 p-3 shadow-[0_10px_24px_-16px_rgba(6,65,94,0.5)] hover:-translate-y-0.5 transition"
-                    >
-                      <I className="mx-auto h-5 w-5 text-blue" />
-                      <div className="text-[11px] text-text-muted mt-2">{l}</div>
-                      <div className="text-sm font-bold text-navy">{v}</div>
-                    </div>
+                <div className="flex items-center gap-1 shrink-0">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="h-3.5 w-3.5 fill-green text-green" />
                   ))}
                 </div>
-                <div className="mt-6 grid grid-cols-2 gap-3">
-                  <div className="rounded-2xl bg-brand text-white p-4 shine shadow-[0_18px_40px_-18px_rgba(18,58,94,0.55)]">
-                    <div className="text-[10px] uppercase tracking-widest opacity-80">From</div>
-                    <div className="text-2xl font-extrabold">Rs 250</div>
-                    <div className="text-[11px] opacity-80">per 19L bottle</div>
-                  </div>
-                  <div className="rounded-2xl bg-white/70 border border-white/80 p-4 shadow-[0_10px_24px_-16px_rgba(6,65,94,0.35)]">
-                    <div className="text-[10px] uppercase tracking-widest text-text-muted">Members</div>
-                    <div className="text-2xl font-extrabold text-navy">-15%</div>
-                    <div className="text-[11px] text-text-muted">on monthly plans</div>
-                  </div>
-                </div>
               </div>
-            </motion.div>
-          </div>
+            </div>
+
+            {/* Acrylic platform reflection — mirrors the bottle photo beneath the frame */}
+            <div
+              aria-hidden
+              className="absolute left-[8%] right-[8%] top-full mt-2 h-[18%] -z-10 overflow-hidden rounded-b-[42px] pointer-events-none"
+              style={{
+                maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.35), transparent)",
+                WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0.35), transparent)",
+              }}
+            >
+              <img
+                src={heroBottlesUrl}
+                alt=""
+                aria-hidden
+                className="absolute inset-x-0 -top-full h-[120%] w-full object-cover opacity-40"
+                style={{ transform: "scaleY(-1)", filter: "blur(1px) saturate(1.1)" }}
+                draggable={false}
+              />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0.75) 70%)",
+                }}
+              />
+            </div>
+
+            {/* Floating side chip — quick facts */}
+            <div
+              className="hidden sm:flex absolute -left-6 top-1/2 -translate-y-1/2 flex-col gap-1 rounded-2xl border border-white/80 px-3 py-3 shadow-[0_20px_45px_-18px_rgba(6,65,94,0.45)]"
+              style={{
+                background: "rgba(255,255,255,0.7)",
+                backdropFilter: "blur(16px) saturate(160%)",
+                animation: anim ? "heroFloatSlowRev 7s ease-in-out infinite" : "none",
+              }}
+            >
+              <span className="text-[9px] font-bold tracking-[0.3em] text-blue">MINERALS</span>
+              <span className="text-lg font-extrabold text-navy">Ca · Mg · K</span>
+            </div>
+
+            <div
+              className="hidden sm:flex absolute -right-6 bottom-16 flex-col gap-1 rounded-2xl border border-white/80 px-3 py-3 shadow-[0_20px_45px_-18px_rgba(6,65,94,0.45)]"
+              style={{
+                background: "rgba(255,255,255,0.7)",
+                backdropFilter: "blur(16px) saturate(160%)",
+                animation: anim ? "heroFloatSlow 7s ease-in-out infinite 0.5s" : "none",
+              }}
+            >
+              <span className="text-[9px] font-bold tracking-[0.3em] text-green">DELIVERY</span>
+              <span className="text-lg font-extrabold text-navy">Same-day</span>
+            </div>
+          </motion.div>
         </Reveal>
       </div>
     </section>

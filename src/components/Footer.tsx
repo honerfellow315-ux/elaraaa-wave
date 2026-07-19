@@ -48,6 +48,7 @@ export function Footer() {
     ["Home", "/"],
     ["Products", "/products"],
     ["Custom Branding", "/custom-branding"],
+    ["Gallery", "/gallery"],
     ["About", "/about"],
     ["Services", "/services"],
   ];
@@ -107,28 +108,52 @@ export function Footer() {
         />
       </div>
 
-      {/* Background Image */}
-      <div className="absolute inset-0 -z-30">
-        <img
-          src="/images/footer-bg.webp"
-          alt=""
-          className="absolute bottom-0 left-0 h-[85.5%] w-full object-cover object-bottom pointer-events-none select-none blur-[3px] scale-105"
-        />
-      </div>
+      {/* Elegant animated dark background — pure CSS, no images */}
+      <div aria-hidden className="absolute inset-0 -z-30 bg-[#03283A]" />
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-30 opacity-90"
+        style={{
+          background:
+            "radial-gradient(80% 60% at 15% 10%, rgba(14,116,167,0.35), transparent 60%), radial-gradient(70% 55% at 85% 20%, rgba(37,159,159,0.32), transparent 65%), radial-gradient(60% 50% at 50% 90%, rgba(105,182,74,0.25), transparent 70%), linear-gradient(180deg, #03283A 0%, #05334A 55%, #03283A 100%)",
+        }}
+      />
+      {/* Soft noise texture for depth */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-30 opacity-[0.06] mix-blend-overlay"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+        }}
+      />
 
-      {/* Deep, even navy scrim so text stays legible no matter what's behind it */}
-      <div className="absolute inset-0 -z-20 bg-[#03283A]/80" />
-      <div className="absolute inset-0 -z-20 bg-gradient-to-b from-[#03283A]/60 via-[#03283A]/75 to-[#03283A]/92" />
+      {/* Animated ambient glow layers */}
+      <div className="absolute inset-0 -z-20 pointer-events-none overflow-hidden">
+        <div className="footer-orb absolute -top-32 left-[6%] h-[460px] w-[460px] rounded-full bg-[radial-gradient(circle_at_center,rgba(34,178,203,0.55),rgba(34,178,203,0)_70%)] blur-[110px]" />
+        <div className="footer-orb footer-orb--slow absolute top-[8%] right-[4%] h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle_at_center,rgba(105,182,74,0.45),rgba(105,182,74,0)_70%)] blur-[120px]" />
+        <div className="footer-orb footer-orb--x absolute bottom-[-6rem] left-1/3 h-[380px] w-[380px] rounded-full bg-[radial-gradient(circle_at_center,rgba(14,116,167,0.5),rgba(14,116,167,0)_70%)] blur-[110px]" />
+        <div className="footer-orb footer-orb--slow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle_at_center,rgba(37,159,159,0.28),rgba(37,159,159,0)_70%)] blur-[140px]" />
 
-      {/* Ambient glow layers */}
-      <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
-        <div className="absolute -top-24 left-[8%] h-[420px] w-[420px] rounded-full bg-teal/25 blur-[120px]" />
-        <div className="absolute top-[10%] right-[6%] h-[380px] w-[380px] rounded-full bg-green/20 blur-[130px]" />
-        <div className="absolute bottom-0 left-1/3 h-[300px] w-[300px] rounded-full bg-blue/20 blur-[110px]" />
-        {/* Floating decorative orbs */}
-        <div className="absolute top-[18%] left-[22%] h-2.5 w-2.5 rounded-full bg-white/40 blur-[1px] animate-pulse" />
-        <div className="absolute top-[35%] right-[18%] h-1.5 w-1.5 rounded-full bg-teal/70 blur-[1px] animate-pulse [animation-delay:1s]" />
-        <div className="absolute bottom-[25%] left-[45%] h-2 w-2 rounded-full bg-green/60 blur-[1px] animate-pulse [animation-delay:2s]" />
+        {/* Moving light sweep */}
+        <div className="footer-sweep absolute -inset-x-40 top-1/3 h-40 rotate-[-8deg] bg-gradient-to-r from-transparent via-white/[0.06] to-transparent blur-2xl" />
+
+        {/* Floating particles */}
+        {Array.from({ length: 14 }).map((_, i) => (
+          <span
+            key={i}
+            className="footer-particle absolute rounded-full bg-white/50"
+            style={{
+              width: `${3 + (i % 4)}px`,
+              height: `${3 + (i % 4)}px`,
+              top: `${(i * 41) % 92}%`,
+              left: `${(i * 53) % 96}%`,
+              animationDelay: `${i * 0.6}s`,
+              animationDuration: `${8 + (i % 5) * 2}s`,
+              filter: "blur(0.5px)",
+            }}
+          />
+        ))}
       </div>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-10">

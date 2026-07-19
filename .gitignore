@@ -30,3 +30,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# TypeScript
+tsconfig.tsbuildinfo
+
+# Lovable (editor artifacts)
+.lovable/

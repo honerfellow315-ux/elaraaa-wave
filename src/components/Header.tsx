@@ -3,15 +3,16 @@ import { useEffect, useState } from "react";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Logo } from "./Logo";
 
-const nav = [
+const nav: { label: string; to: string }[] = [
   { label: "Home", to: "/" },
   { label: "Products", to: "/products" },
   { label: "Custom Branding", to: "/custom-branding" },
+  { label: "Gallery", to: "/gallery" },
   { label: "About Us", to: "/about" },
-  { label: "Services", to: "/services" },
 ];
 
-const more = [
+const more: { label: string; to: string }[] = [
+  { label: "Services", to: "/services" },
   { label: "Offers", to: "/offers" },
   { label: "Coverage Areas", to: "/coverage-areas" },
   { label: "Blog", to: "/blog" },

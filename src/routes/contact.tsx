@@ -4,6 +4,8 @@ import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
 import { useState } from "react";
 import { Send, Phone, Mail, MapPin, Check } from "lucide-react";
+import { endpoints, ApiError } from "@/lib/api";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -19,6 +21,37 @@ export const Route = createFileRoute("/contact")({
 
 function Contact() {
   const [sent, setSent] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [form, setForm] = useState({ name: "", phone: "", email: "", subject: "", message: "" });
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (busy) return;
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+      return toast.error("Please fill in name, email and message");
+    }
+    setBusy(true);
+    try {
+      await endpoints.contact({
+        name: form.name,
+        email: form.email,
+        phone: form.phone || undefined,
+        message: form.subject ? `[${form.subject}] ${form.message}` : form.message,
+      });
+      setSent(true);
+      toast.success("Message sent — we'll be in touch soon.");
+      setForm({ name: "", phone: "", email: "", subject: "", message: "" });
+    } catch (err) {
+      toast.error(err instanceof ApiError ? err.message : "Failed to send message");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function set<K extends keyof typeof form>(k: K, v: string) {
+    setForm((f) => ({ ...f, [k]: v }));
+  }
+
   return (
     <SiteLayout>
       <PageHero eyebrow="CONTACT" title={<>Let's <span className="shine-text">talk water</span></>} subtitle="Orders, corporate plans, custom labels — we'd love to help." />
@@ -42,26 +75,25 @@ function Contact() {
           </div>
         </Reveal>
         <Reveal as="right" className="lg:col-span-3">
-          <form
-            onSubmit={(e) => { e.preventDefault(); setSent(true); }}
-            className="glass-card p-8 space-y-4"
-          >
+          <form onSubmit={onSubmit} className="glass-card p-8 space-y-4">
             <div className="grid sm:grid-cols-2 gap-4">
-              <Field label="Full name" placeholder="Your name" />
-              <Field label="Phone" placeholder="03__ _______" />
+              <Field label="Full name" placeholder="Your name" value={form.name} onChange={(e) => set("name", e.target.value)} required />
+              <Field label="Phone" placeholder="03__ _______" value={form.phone} onChange={(e) => set("phone", e.target.value)} />
             </div>
-            <Field label="Email" type="email" placeholder="you@example.com" />
-            <Field label="Subject" placeholder="How can we help?" />
+            <Field label="Email" type="email" placeholder="you@example.com" value={form.email} onChange={(e) => set("email", e.target.value)} required />
+            <Field label="Subject" placeholder="How can we help?" value={form.subject} onChange={(e) => set("subject", e.target.value)} />
             <div>
               <label className="text-xs font-bold text-navy tracking-widest">MESSAGE</label>
               <textarea
                 required rows={5}
+                value={form.message}
+                onChange={(e) => set("message", e.target.value)}
                 placeholder="Tell us a little more…"
                 className="mt-2 w-full p-4 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy"
               />
             </div>
-            <button className="shine inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand text-white font-semibold">
-              {sent ? (<><Check className="h-4 w-4" /> Message sent</>) : (<><Send className="h-4 w-4" /> Send message</>)}
+            <button disabled={busy} className="shine inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand text-white font-semibold disabled:opacity-60">
+              {sent ? (<><Check className="h-4 w-4" /> Message sent</>) : busy ? "Sending…" : (<><Send className="h-4 w-4" /> Send message</>)}
             </button>
           </form>
         </Reveal>
@@ -75,7 +107,6 @@ function Field({ label, ...props }: { label: string } & React.InputHTMLAttribute
     <div>
       <label className="text-xs font-bold text-navy tracking-widest">{label.toUpperCase()}</label>
       <input
-        required
         {...props}
         className="mt-2 w-full h-12 px-4 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy"
       />

@@ -1,48 +1,58 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Panel, TableCard, Btn } from "@/components/PanelUI";
-import { Reply, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { endpoints, type ContactMessage } from "@/lib/api";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/admin/messages")({ component: Messages });
 
-const rows = [
-  { from: "Zara Aslam", email: "zara@example.com", subject: "Weekly plan pricing", when: "2h ago", unread: true },
-  { from: "Bilal Khan", email: "bilal@brand.co", subject: "Custom wedding labels", when: "5h ago", unread: true },
-  { from: "Sana Riaz", email: "sana@example.com", subject: "Missed delivery slot", when: "Yesterday", unread: false },
-  { from: "Ahsan Malik", email: "ahsan@example.com", subject: "Change subscription", when: "2d ago", unread: false },
-];
-
 function Messages() {
+  const qc = useQueryClient();
+  const q = useQuery({ queryKey: ["admin", "messages"], queryFn: () => endpoints.admin.messages() });
+  const del = useMutation({
+    mutationFn: (id: string | number) => endpoints.admin.deleteMessage(id),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ["admin", "messages"] }); toast.success("Deleted"); },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
   return (
     <Panel title="Contact messages">
-      <TableCard
-        rows={rows}
-        columns={[
-          {
-            key: "from", label: "From",
-            render: (r) => (
-              <div className="flex items-center gap-2">
-                {r.unread && <span className="h-2 w-2 rounded-full bg-blue" />}
-                <div>
-                  <div className="font-semibold text-navy">{r.from}</div>
-                  <div className="text-xs text-text-muted">{r.email}</div>
+      {q.isPending ? (
+        <div className="h-40 grid place-items-center text-text-muted">Loading…</div>
+      ) : q.isError ? (
+        <div className="text-center py-10"><p className="text-navy">Couldn't load.</p><Btn onClick={() => q.refetch()} className="mt-3">Retry</Btn></div>
+      ) : (
+        <TableCard<ContactMessage>
+          rows={q.data ?? []}
+          empty="No messages yet"
+          columns={[
+            {
+              key: "name", label: "From",
+              render: (r) => (
+                <div className="flex items-center gap-2">
+                  {!r.read && <span className="h-2 w-2 rounded-full bg-blue" />}
+                  <div>
+                    <div className="font-semibold text-navy">{r.name}</div>
+                    <div className="text-xs text-text-muted">{r.email}</div>
+                  </div>
                 </div>
-              </div>
-            ),
-          },
-          { key: "subject", label: "Subject" },
-          { key: "when", label: "Received" },
-          {
-            key: "from" as const, label: "",
-            render: () => (
-              <div className="flex justify-end gap-2">
-                <Btn variant="ghost"><Reply className="h-3.5 w-3.5" /> Reply</Btn>
-                <Btn variant="danger"><Trash2 className="h-3.5 w-3.5" /></Btn>
-              </div>
-            ),
-            className: "text-right",
-          },
-        ]}
-      />
+              ),
+            },
+            { key: "subject", label: "Subject", render: (r) => r.subject || "—" },
+            { key: "message", label: "Message", render: (r) => <span className="line-clamp-2 max-w-md block">{r.message}</span> },
+            { key: "createdAt", label: "Received" },
+            {
+              key: "id", label: "", className: "text-right",
+              render: (r) => (
+                <div className="flex justify-end">
+                  <Btn variant="danger" disabled={del.isPending} onClick={() => del.mutate(r.id)}><Trash2 className="h-3.5 w-3.5" /></Btn>
+                </div>
+              ),
+            },
+          ]}
+        />
+      )}
     </Panel>
   );
 }

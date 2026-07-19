@@ -3,8 +3,10 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { PageHero } from "@/components/PageHero";
 import { Reveal, Stagger, StaggerItem } from "@/components/Reveal";
 import { Newsletter } from "@/components/sections/Newsletter";
-import { Droplets, Sparkles, Award, ImageIcon } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { Droplets, Sparkles, Award, ImageIcon, Heart } from "lucide-react";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useWishlist } from "@/hooks/use-wishlist";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/products")({
   head: () => ({
@@ -73,6 +75,23 @@ const categories: Category[] = [
 ];
 
 function SizeCard({ category, size }: { category: Category; size: Size }) {
+  const wishlistId = `${category.id}-${size.label}`;
+  const { isAuthenticated, isSaved, toggle } = useWishlist();
+  const navigate = useNavigate();
+  const saved = isAuthenticated && isSaved(wishlistId);
+
+  function onWishlistClick(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!isAuthenticated) {
+      toast.info("Sign in to save items to your wishlist");
+      void navigate({ to: "/login", search: { redirect: "/products" } as never });
+      return;
+    }
+    toggle(wishlistId);
+    toast.success(saved ? "Removed from wishlist" : "Added to wishlist");
+  }
+
   return (
     <article className="group glass-card overflow-hidden hover:-translate-y-2 transition duration-500 h-full">
       <div className="relative aspect-[3/2] bg-gradient-to-b from-bg-tint to-white flex items-center justify-center overflow-hidden">
@@ -89,6 +108,15 @@ function SizeCard({ category, size }: { category: Category; size: Size }) {
         <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full glass text-[10px] font-bold tracking-widest text-navy">
           {category.tag}
         </span>
+        <button
+          type="button"
+          onClick={onWishlistClick}
+          aria-label={saved ? "Remove from wishlist" : "Add to wishlist"}
+          aria-pressed={saved}
+          className="absolute top-3 right-3 h-9 w-9 grid place-items-center rounded-full glass border border-white/70 shadow-sm hover:scale-110 transition"
+        >
+          <Heart className={`h-4 w-4 ${saved ? "text-red-500 fill-red-500" : "text-navy"}`} />
+        </button>
       </div>
       <div className="p-5">
         <div className="flex items-center justify-between">

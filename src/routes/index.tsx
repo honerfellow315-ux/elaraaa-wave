@@ -12,6 +12,7 @@ import {
 } from "@/components/sections/HomeSections";
 import { AppSection } from "@/components/sections/AppSection";
 import { Newsletter } from "@/components/sections/Newsletter";
+import { GoogleReviews } from "@/components/sections/GoogleReviews";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -42,6 +43,7 @@ function Home() {
       <QualityProcess />
       <DeliveringLahore />
       <WhoWeServe />
+      <GoogleReviews />
       <HomeCTA />
       <AppSection />
       <Newsletter />

@@ -1,25 +1,19 @@
 import { createFileRoute, Outlet, useRouterState } from "@tanstack/react-router";
 import { PanelShell, type NavItem } from "@/components/PanelShell";
-import { LayoutDashboard, ShoppingBag, MapPin, Bell, Heart, Settings, User } from "lucide-react";
+import { User, Heart, KeyRound } from "lucide-react";
+import { RequireAuth } from "@/components/RequireAuth";
 
 const items: NavItem[] = [
-  { to: "/account", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/account/orders", label: "Order History", icon: ShoppingBag },
   { to: "/account/profile", label: "Profile", icon: User },
-  { to: "/account/addresses", label: "Addresses", icon: MapPin },
-  { to: "/account/notifications", label: "Notifications", icon: Bell },
   { to: "/account/wishlist", label: "Wishlist", icon: Heart },
-  { to: "/account/settings", label: "Settings", icon: Settings },
+  { to: "/account/settings", label: "Change Password", icon: KeyRound },
 ];
 
 const titles: Record<string, string> = {
-  "/account": "My Dashboard",
-  "/account/orders": "Order History",
+  "/account": "My Account",
   "/account/profile": "My Profile",
-  "/account/addresses": "Addresses",
-  "/account/notifications": "Notifications",
   "/account/wishlist": "Wishlist",
-  "/account/settings": "Settings",
+  "/account/settings": "Change Password",
 };
 
 export const Route = createFileRoute("/account")({
@@ -30,8 +24,10 @@ export const Route = createFileRoute("/account")({
 function AccountLayout() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   return (
-    <PanelShell brand="ACCOUNT" items={items} title={titles[pathname] || "Account"}>
-      <Outlet />
-    </PanelShell>
+    <RequireAuth>
+      <PanelShell brand="ACCOUNT" items={items} title={titles[pathname] || "Account"}>
+        <Outlet />
+      </PanelShell>
+    </RequireAuth>
   );
 }

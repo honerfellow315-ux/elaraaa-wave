@@ -1,38 +1,26 @@
 import { createFileRoute, Outlet, useRouterState } from "@tanstack/react-router";
 import { PanelShell, type NavItem } from "@/components/PanelShell";
+import { AdminAuthGate } from "@/components/AdminAuthGate";
 import {
-  LayoutDashboard, Package, Palette, Home, Users, UserCog,
-  MessageSquare, Search, Settings, Image, Mail, BarChart3,
+  LayoutDashboard, Users, Mail, Search, MessageSquare, Settings,
 } from "lucide-react";
 
 const items: NavItem[] = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/admin/products", label: "Products", icon: Package },
-  { to: "/admin/custom-branding", label: "Custom Branding", icon: Palette },
-  { to: "/admin/homepage", label: "Homepage", icon: Home },
-  { to: "/admin/customers", label: "Customers", icon: Users },
-  { to: "/admin/users", label: "Users", icon: UserCog },
+  { to: "/admin/users", label: "View Users", icon: Users },
+  { to: "/admin/newsletter", label: "Newsletter Subscribers", icon: Mail },
+  { to: "/admin/seo", label: "SEO Settings", icon: Search },
   { to: "/admin/messages", label: "Contact Messages", icon: MessageSquare },
-  { to: "/admin/seo", label: "SEO", icon: Search },
-  { to: "/admin/settings", label: "Settings", icon: Settings },
-  { to: "/admin/media", label: "Media", icon: Image },
-  { to: "/admin/newsletter", label: "Newsletter", icon: Mail },
-  { to: "/admin/analytics", label: "Analytics", icon: BarChart3 },
+  { to: "/admin/settings", label: "Website Settings", icon: Settings },
 ];
 
 const titles: Record<string, string> = {
   "/admin": "Dashboard",
-  "/admin/products": "Products",
-  "/admin/custom-branding": "Custom Branding",
-  "/admin/homepage": "Homepage",
-  "/admin/customers": "Customers",
   "/admin/users": "Users",
+  "/admin/newsletter": "Newsletter Subscribers",
+  "/admin/seo": "SEO Settings",
   "/admin/messages": "Contact Messages",
-  "/admin/seo": "SEO",
-  "/admin/settings": "Settings",
-  "/admin/media": "Media Library",
-  "/admin/newsletter": "Newsletter",
-  "/admin/analytics": "Analytics",
+  "/admin/settings": "Website Settings",
 };
 
 export const Route = createFileRoute("/admin")({
@@ -44,8 +32,10 @@ function AdminLayout() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const title = titles[pathname] || "Admin";
   return (
-    <PanelShell brand="ADMIN" items={items} title={title}>
-      <Outlet />
-    </PanelShell>
+    <AdminAuthGate>
+      <PanelShell brand="ADMIN" items={items} title={title}>
+        <Outlet />
+      </PanelShell>
+    </AdminAuthGate>
   );
 }

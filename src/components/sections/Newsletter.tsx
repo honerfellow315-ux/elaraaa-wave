@@ -1,9 +1,30 @@
 import { useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { Mail, Check } from "lucide-react";
+import { endpoints, ApiError } from "@/lib/api";
+import { toast } from "sonner";
 
 export function Newsletter() {
+  const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
+  const [busy, setBusy] = useState(false);
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (busy || !email) return;
+    setBusy(true);
+    try {
+      await endpoints.subscribe({ email });
+      setSent(true);
+      toast.success("You're on the wave!");
+      setEmail("");
+    } catch (err) {
+      toast.error(err instanceof ApiError ? err.message : "Subscription failed");
+    } finally {
+      setBusy(false);
+    }
+  }
+
   return (
     <section id="newsletter" className="py-24">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -21,18 +42,17 @@ export function Newsletter() {
               <p className="mt-3 text-text-muted">
                 Fresh offers, hydration tips, and early access to new drops — straight to your inbox.
               </p>
-              <form
-                onSubmit={(e) => { e.preventDefault(); setSent(true); }}
-                className="mt-8 flex flex-col sm:flex-row gap-3 max-w-lg mx-auto"
-              >
+              <form onSubmit={onSubmit} className="mt-8 flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
                 <input
                   required
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@elarawave.com"
                   className="flex-1 h-14 px-5 rounded-full bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy"
                 />
-                <button className="shine inline-flex items-center justify-center gap-2 px-6 h-14 rounded-full bg-brand text-white font-semibold hover:-translate-y-0.5 transition">
-                  {sent ? (<><Check className="h-4 w-4" /> Subscribed</>) : "Subscribe"}
+                <button disabled={busy} className="shine inline-flex items-center justify-center gap-2 px-6 h-14 rounded-full bg-brand text-white font-semibold hover:-translate-y-0.5 transition disabled:opacity-60">
+                  {sent ? (<><Check className="h-4 w-4" /> Subscribed</>) : busy ? "Subscribing…" : "Subscribe"}
                 </button>
               </form>
             </div>

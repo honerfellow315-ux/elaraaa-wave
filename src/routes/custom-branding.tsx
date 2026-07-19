@@ -42,6 +42,7 @@ const projects = [
   { name: "Tiles and Sanitary", desc: "Sport-fresh alkaline packs tailored for training sessions, tournaments and gym floors.", img: "/images/project-sapphire-sports.webp" },
   { name: "Reportage", desc: "Signature hotel welcome water — foil-embossed label with a soft mineral pour.", img: "/images/project-four.webp" },
   { name: "Sapphire", desc: "Wedding-season private label — bespoke event branding with elegant typography.", img: "/images/project-five.webp" },
+  { name: "Quetta Pharaata", desc: "Signature hotel water for guest rooms and dining — a clean label that mirrors the hotel's understated, traditional hospitality.", img: "/images/project-six.webp" },
 ];
 
 // Real bottle showcase — admin-uploadable placeholders
@@ -113,8 +114,8 @@ function CustomBranding() {
         subtitle="From weddings to hotel chains — we craft premium private-label water that carries your identity into every hand."
       >
         <div className="flex flex-wrap items-center justify-center gap-3">
-          <a href="#branding-request" className="shine inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-brand text-white font-semibold hover:-translate-y-0.5 transition">
-            Start your project <ArrowUpRight className="h-4 w-4" />
+          <a href="#customizer" className="shine inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-brand text-white font-semibold hover:-translate-y-0.5 transition">
+            Design your bottle <ArrowUpRight className="h-4 w-4" />
           </a>
           <a href="#portfolio" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white border border-navy/15 text-navy font-semibold hover:bg-bg-light transition">
             See portfolio
@@ -122,8 +123,13 @@ function CustomBranding() {
         </div>
       </PageHero>
 
-      {/* Portfolio (existing) */}
-      <section id="portfolio" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 scroll-mt-24">
+      {/* Bottle customizer — moved to the TOP for premium first impression */}
+      <section id="customizer" className="scroll-mt-24 pt-4">
+        <BottleConfigurator />
+      </section>
+
+      {/* Portfolio */}
+      <section id="portfolio" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-24 scroll-mt-24">
         <Reveal>
           <div className="flex items-end justify-between gap-4 mb-8">
             <div>
@@ -258,8 +264,6 @@ function CustomBranding() {
         </Stagger>
       </section>
 
-      {/* Bottle configurator (existing) */}
-      <BottleConfigurator />
 
       {/* Branding request form */}
       <section id="branding-request" className="py-24 relative overflow-hidden scroll-mt-24">

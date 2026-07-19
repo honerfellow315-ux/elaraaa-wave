@@ -1,52 +1,51 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Panel, TableCard, Btn, StatCard } from "@/components/PanelUI";
-import { Mail, Users, TrendingUp } from "lucide-react";
+import { Users, Trash2 } from "lucide-react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { endpoints, type NewsletterSubscriber } from "@/lib/api";
+import { toast } from "sonner";
 
-export const Route = createFileRoute("/admin/newsletter")({ component: Newsletter });
+export const Route = createFileRoute("/admin/newsletter")({ component: NewsletterAdmin });
 
-const rows = [
-  { email: "ahsan@example.com", joined: "Jul 10, 2026", source: "Popup" },
-  { email: "sana@example.com", joined: "Jul 08, 2026", source: "Footer" },
-  { email: "bilal@brand.co", joined: "Jul 04, 2026", source: "Homepage" },
-];
-
-function Newsletter() {
+function NewsletterAdmin() {
+  const qc = useQueryClient();
+  const q = useQuery({ queryKey: ["admin", "subscribers"], queryFn: () => endpoints.admin.subscribers() });
+  const del = useMutation({
+    mutationFn: (id: string | number) => endpoints.admin.deleteSubscriber(id),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ["admin", "subscribers"] }); toast.success("Removed"); },
+    onError: (e: Error) => toast.error(e.message),
+  });
+  const rows = q.data ?? [];
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 sm:grid-cols-3">
-        <StatCard label="Subscribers" value="1,284" delta="+42" icon={Users} />
-        <StatCard label="Open rate" value="38.4%" delta="+2.1%" icon={TrendingUp} />
-        <StatCard label="Campaigns" value="14" icon={Mail} />
+      <div className="grid gap-4 sm:grid-cols-1">
+        <StatCard label="Subscribers" value={rows.length.toLocaleString()} icon={Users} />
       </div>
-      <Panel title="Compose campaign">
-        <div className="space-y-3">
-          <F l="Subject" v="Fresh drops from ELARAWAVE" />
-          <div>
-            <label className="text-xs font-bold tracking-widest text-text-muted uppercase">Body</label>
-            <textarea rows={6} defaultValue={"Hi {{name}},\n\nHere's what's new this week..."} className="mt-2 w-full p-4 rounded-xl bg-white/80 border border-white/80 text-navy" />
-          </div>
-        </div>
-        <div className="mt-6 flex gap-2"><Btn>Send</Btn><Btn variant="outline">Save draft</Btn><Btn variant="ghost">Preview</Btn></div>
-      </Panel>
       <Panel title="Subscribers">
-        <TableCard
-          rows={rows}
-          columns={[
-            { key: "email", label: "Email" },
-            { key: "joined", label: "Joined" },
-            { key: "source", label: "Source" },
-          ]}
-        />
+        {q.isPending ? (
+          <div className="h-32 grid place-items-center text-text-muted">Loading…</div>
+        ) : q.isError ? (
+          <div className="text-center py-10"><p className="text-navy">Couldn't load.</p><Btn onClick={() => q.refetch()} className="mt-3">Retry</Btn></div>
+        ) : (
+          <TableCard<NewsletterSubscriber>
+            rows={rows}
+            empty="No subscribers yet"
+            columns={[
+              { key: "email", label: "Email" },
+              { key: "createdAt", label: "Joined" },
+              { key: "source", label: "Source" },
+              {
+                key: "id", label: "", className: "text-right",
+                render: (r) => (
+                  <div className="flex justify-end">
+                    <Btn variant="danger" disabled={del.isPending} onClick={() => del.mutate(r.id)}><Trash2 className="h-3.5 w-3.5" /></Btn>
+                  </div>
+                ),
+              },
+            ]}
+          />
+        )}
       </Panel>
-    </div>
-  );
-}
-
-function F({ l, v }: { l: string; v: string }) {
-  return (
-    <div>
-      <label className="text-xs font-bold tracking-widest text-text-muted uppercase">{l}</label>
-      <input defaultValue={v} className="mt-2 w-full h-11 px-4 rounded-xl bg-white/80 border border-white/80 text-navy focus:outline-none focus:border-blue" />
     </div>
   );
 }

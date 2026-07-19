@@ -193,17 +193,58 @@
     background-position: 200% 50%;
   }
 }
-/* Add this near the top of your global stylesheet (e.g. index.css / globals.css),
-   after your Tailwind @import/@tailwind directives. */
- 
+
+/* ============ Footer animated background ============ */
+@keyframes footer-orb-drift {
+  0%, 100% { transform: translate3d(0,0,0) scale(1); opacity: 0.9; }
+  50%      { transform: translate3d(40px,-30px,0) scale(1.08); opacity: 1; }
+}
+@keyframes footer-orb-drift-slow {
+  0%, 100% { transform: translate3d(0,0,0) scale(1); opacity: 0.8; }
+  50%      { transform: translate3d(-35px,25px,0) scale(1.1); opacity: 1; }
+}
+@keyframes footer-orb-drift-x {
+  0%, 100% { transform: translate3d(0,0,0); }
+  50%      { transform: translate3d(60px,-20px,0); }
+}
+@keyframes footer-sweep {
+  0%   { transform: translateX(-30%) rotate(-8deg); opacity: 0; }
+  40%  { opacity: 1; }
+  100% { transform: translateX(30%) rotate(-8deg); opacity: 0; }
+}
+@keyframes footer-particle-float {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.35; }
+  50%      { transform: translateY(-22px) translateX(10px); opacity: 0.9; }
+}
+.footer-orb        { animation: footer-orb-drift 14s ease-in-out infinite; will-change: transform, opacity; }
+.footer-orb--slow  { animation: footer-orb-drift-slow 22s ease-in-out infinite; }
+.footer-orb--x     { animation: footer-orb-drift-x 18s ease-in-out infinite; }
+.footer-sweep      { animation: footer-sweep 12s ease-in-out infinite; }
+.footer-particle   { animation: footer-particle-float 10s ease-in-out infinite; will-change: transform, opacity; }
+
+/* ============ Hero animated background ============ */
+@keyframes hero-blob-1 {
+  0%,100% { transform: translate3d(-20px,-10px,0) scale(1); }
+  50%     { transform: translate3d(40px,30px,0) scale(1.1); }
+}
+@keyframes hero-blob-2 {
+  0%,100% { transform: translate3d(20px,20px,0) scale(1.05); }
+  50%     { transform: translate3d(-30px,-30px,0) scale(0.95); }
+}
+@keyframes hero-blob-3 {
+  0%,100% { transform: translate3d(0,0,0) scale(1); }
+  50%     { transform: translate3d(25px,-35px,0) scale(1.12); }
+}
+.hero-blob-1 { animation: hero-blob-1 18s ease-in-out infinite; will-change: transform; }
+.hero-blob-2 { animation: hero-blob-2 22s ease-in-out infinite; will-change: transform; }
+.hero-blob-3 { animation: hero-blob-3 20s ease-in-out infinite; will-change: transform; }
+
 html,
 body {
   max-width: 100%;
   overflow-x: hidden;
 }
- 
-/* Belt-and-suspenders: if you have a top-level app wrapper (e.g. #root, #app),
-   keep it from ever exceeding the viewport width too. */
+
 #root,
 #app {
   max-width: 100vw;
