@@ -10,6 +10,9 @@ import {
   Mail,
   MapPin,
   Phone,
+  ShieldCheck,
+  FlaskConical,
+  BadgeCheck,
 } from "lucide-react";
 
 export function Footer() {
@@ -192,15 +195,18 @@ export function Footer() {
 
                   {/* Certification capsule */}
                   <div className="inline-flex flex-wrap items-center gap-2 rounded-full bg-white/90 backdrop-blur-md border border-white/60 px-4 py-2 mt-2 shadow-[0_8px_20px_-8px_rgba(6,65,94,0.35)]">
-                    <span className="text-[10px] font-bold tracking-[0.12em] text-navy">
+                    <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.12em] text-navy">
+                      <ShieldCheck className="h-3.5 w-3.5 text-blue" />
                       PFA REGISTERED
                     </span>
                     <span className="text-navy/40">•</span>
-                    <span className="text-[10px] font-bold tracking-[0.12em] text-navy">
+                    <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.12em] text-navy">
+                      <FlaskConical className="h-3.5 w-3.5 text-blue" />
                       LAB TESTED
                     </span>
                     <span className="text-navy/40">•</span>
-                    <span className="text-[10px] font-bold tracking-[0.12em] text-navy">
+                    <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.12em] text-navy">
+                      <BadgeCheck className="h-3.5 w-3.5 text-blue" />
                       HALAL CERTIFIED
                     </span>
                   </div>
