@@ -105,9 +105,6 @@ function SizeCard({ category, size }: { category: Category; size: Size }) {
             <span className="text-[11px] font-semibold tracking-widest uppercase">Image coming soon</span>
           </div>
         )}
-        <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full glass text-[10px] font-bold tracking-widest text-navy">
-          {category.tag}
-        </span>
         <button
           type="button"
           onClick={onWishlistClick}
@@ -123,7 +120,6 @@ function SizeCard({ category, size }: { category: Category; size: Size }) {
           <h3 className="text-lg font-bold text-navy">{size.label}</h3>
           <category.icon className="h-4 w-4 text-blue" />
         </div>
-        <p className="mt-1.5 text-xs text-text-muted line-clamp-2">{category.title}</p>
         <Link to="/contact" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-blue hover:gap-3 transition-all">
           Order
         </Link>
