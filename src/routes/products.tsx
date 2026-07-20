@@ -20,13 +20,15 @@ export const Route = createFileRoute("/products")({
   component: ProductsPage,
 });
 
-type Size = { label: string; img?: string };
+type Size = { label: string; img?: string; price?: number };
 type Category = {
   id: string;
   icon: typeof Droplets;
   tag: string;
   title: string;
   text: string;
+  /** Used to build each card's product name, e.g. "250 ML Mineral Water Bottle" */
+  productLabel: string;
   sizes: Size[];
 };
 
@@ -37,6 +39,7 @@ const categories: Category[] = [
     tag: "MINERAL WATER",
     title: "Naturally Balanced Mineral Water",
     text: "Sourced and multi-stage filtered to preserve calcium, magnesium and potassium — the essentials your body craves.",
+    productLabel: "Mineral Water Bottle",
     sizes: [
       { label: "250 ML", img: "/images/mineral-250ml.webp" },
       { label: "330 ML", img: "/images/mineral-330ml.webp" },
@@ -52,6 +55,7 @@ const categories: Category[] = [
     tag: "ALKALINE WATER",
     title: "pH 8.5+ Alkaline Wellness",
     text: "Balanced alkaline profile designed to complement an active, wellness-forward lifestyle.",
+    productLabel: "Alkaline Water Bottle",
     sizes: [
       { label: "250 ML", img: "/images/alkaline-250ml.webp" },
       { label: "330 ML", img: "/images/alkaline-330ml.webp" },
@@ -66,6 +70,7 @@ const categories: Category[] = [
     tag: "PREMIUM WATER",
     title: "Signature Premium Pour",
     text: "Ultra-refined, crisp and smooth — our flagship pour for restaurants, hotels and connoisseurs.",
+    productLabel: "Premium Water Bottle",
     sizes: [
       { label: "330 ML", img: "/images/premium-330ml.webp" },
       { label: "500 ML", img: "/images/premium-500ml.webp" },
@@ -80,6 +85,9 @@ function SizeCard({ category, size }: { category: Category; size: Size }) {
   const navigate = useNavigate();
   const saved = isAuthenticated && isSaved(wishlistId);
 
+  const productName = `${size.label} ${category.productLabel}`;
+  const priceLabel = size.price != null ? `Rs. ${size.price}` : "Rs. ____";
+
   function onWishlistClick(e: React.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();
@@ -93,16 +101,21 @@ function SizeCard({ category, size }: { category: Category; size: Size }) {
   }
 
   return (
-    <article className="group glass-card overflow-hidden hover:-translate-y-2 transition duration-500 h-full">
-      <div className="relative aspect-[3/2] bg-gradient-to-b from-bg-tint to-white flex items-center justify-center overflow-hidden">
+    <article className="group overflow-hidden rounded-2xl bg-white shadow-[0_10px_30px_-12px_rgba(6,65,94,0.18)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_45px_-15px_rgba(6,65,94,0.28)] h-full flex flex-col">
+      <div className="relative aspect-[4/3] overflow-hidden">
         {size.img ? (
-          <img src={size.img} alt={`${category.title} ${size.label}`} loading="lazy" className="h-full w-full object-cover group-hover:scale-105 transition duration-700" />
+          <img
+            src={size.img}
+            alt={productName}
+            loading="lazy"
+            className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+          />
         ) : (
-          <div className="flex flex-col items-center gap-3 text-text-muted">
-            <div className="grid place-items-center h-16 w-16 rounded-2xl bg-white/70 border border-white shadow-sm">
+          <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-gradient-to-b from-bg-tint to-white text-text-muted">
+            <div className="grid h-16 w-16 place-items-center rounded-2xl border border-white bg-white/80 shadow-sm">
               <ImageIcon className="h-6 w-6 text-blue" />
             </div>
-            <span className="text-[11px] font-semibold tracking-widest uppercase">Image coming soon</span>
+            <span className="text-[11px] font-semibold uppercase tracking-widest">Image coming soon</span>
           </div>
         )}
         <button
@@ -115,13 +128,20 @@ function SizeCard({ category, size }: { category: Category; size: Size }) {
           <Heart className={`h-4 w-4 ${saved ? "text-red-500 fill-red-500" : "text-navy"}`} />
         </button>
       </div>
-      <div className="p-5">
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-bold text-navy">{size.label}</h3>
-          <category.icon className="h-4 w-4 text-blue" />
+
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
+        <h3 className="text-[15px] sm:text-base font-bold text-navy leading-snug">{productName}</h3>
+
+        <div className="mt-4">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-text-muted">Price</p>
+          <p className="mt-1 text-xl font-extrabold text-navy">{priceLabel}</p>
         </div>
-        <Link to="/contact" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-blue hover:gap-3 transition-all">
-          Order
+
+        <Link
+          to="/contact"
+          className="shine mt-5 inline-flex w-full items-center justify-center rounded-full bg-brand px-5 py-2.5 text-sm font-bold tracking-wide text-white shadow-[0_10px_25px_-8px_rgba(18,58,94,0.55)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_35px_-10px_rgba(62,154,214,0.75)] sm:w-auto sm:self-start"
+        >
+          Order Now
         </Link>
       </div>
     </article>
