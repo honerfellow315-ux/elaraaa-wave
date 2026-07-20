@@ -171,7 +171,7 @@ function ProductsPage() {
                 </div>
               </div>
             </Reveal>
-            <Stagger className="grid gap-6 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
+            <Stagger className="grid gap-6 sm:gap-7 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {cat.sizes.map((s) => (
                 <StaggerItem key={s.label}>
                   <SizeCard category={cat} size={s} />
