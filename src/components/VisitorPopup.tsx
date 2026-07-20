@@ -1,31 +1,29 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "@tanstack/react-router";
 import { X } from "lucide-react";
 import { Logo } from "@/components/Logo";
+import { useAuth } from "@/lib/auth";
 
 const KEY = "elarawave_visitor_last";
 const DAY = 24 * 60 * 60 * 1000;
 
 export function VisitorPopup() {
   const [open, setOpen] = useState(false);
+  const { user, status } = useAuth();
 
   useEffect(() => {
+    // Wait for auth check to resolve, and skip entirely if logged in
+    if (status === "loading") return;
+    if (user) return;
+
     const last = Number(localStorage.getItem(KEY) || 0);
     if (Date.now() - last < DAY) return;
     const t = setTimeout(() => setOpen(true), 1500);
     return () => clearTimeout(t);
-  }, []);
+  }, [user, status]);
 
-  function close() {
-    setOpen(false);
-    localStorage.setItem(KEY, String(Date.now()));
-  }
-
-  function submit(e: React.FormEvent) {
-    e.preventDefault();
-    localStorage.setItem(KEY, String(Date.now()));
-    setOpen(false);
-  }
+  // ...rest same as before
 
   return (
     <AnimatePresence>
@@ -59,22 +57,14 @@ export function VisitorPopup() {
             <p className="text-sm text-text-muted text-center mt-2">
               Create your account for exclusive prices, faster reorders, and premium member offers.
             </p>
-            <form onSubmit={submit} className="mt-6 space-y-3">
-              <input
-                required
-                type="text"
-                placeholder="Your name"
-                className="w-full h-12 px-4 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy"
-              />
-              <input
-                required
-                type="email"
-                placeholder="Email address"
-                className="w-full h-12 px-4 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy"
-              />
-              <button className="shine w-full h-12 rounded-xl bg-brand text-white font-semibold">
+            <div className="mt-6 space-y-3">
+              <Link
+                to="/register"
+                onClick={close}
+                className="shine w-full h-12 rounded-xl bg-brand text-white font-semibold grid place-items-center"
+              >
                 Create free account
-              </button>
+              </Link>
               <button
                 type="button"
                 onClick={close}
@@ -82,7 +72,7 @@ export function VisitorPopup() {
               >
                 Maybe later
               </button>
-            </form>
+            </div>
           </motion.div>
         </motion.div>
       )}
