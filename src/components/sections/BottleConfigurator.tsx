@@ -299,7 +299,7 @@ function BottlePreview({
                       className="mt-1 text-[8px] tracking-[0.25em] opacity-80 sm:text-[9px]"
                       style={{ color: textColor }}
                     >
-                      {asset.label} • ALKALINE
+                      {asset.label}
                     </div>
                   </div>
                 </div>
