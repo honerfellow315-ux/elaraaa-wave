@@ -26,7 +26,7 @@ const AnchorTag = "a";
 const offers = [
   {
     i: Droplets,
-    img: "/images/offers/offer-1.jpg",
+    img: "/images/offer-1.png",
     label: "Offer 1",
     t: (
       <>
@@ -41,7 +41,7 @@ const offers = [
   },
   {
     i: Building2,
-    img: "/images/offers/offer-2.jpg",
+    img: "/images/offer-2.png",
     label: "Offer 2",
     t: (
       <>
@@ -57,7 +57,7 @@ const offers = [
   },
   {
     i: PackageCheck,
-    img: "/images/offers/offer-3.jpg",
+    img: "/images/offer-3.png",
     label: "Offer 3",
     t: (
       <>
