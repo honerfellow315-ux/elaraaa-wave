@@ -17,19 +17,19 @@ import {
 /* ------------------------------------------------------------------ */
 
 /**
- * 7 real bottle photo assets (transparent PNG, background removed).
+ * 6 real bottle photo assets (transparent PNG, background removed).
  * Update `image` paths to match where you place the real files, e.g.
- * public/images/bottles/bottle-1.png ... bottle-7.png
+ * public/images/bottles/bottle-1.png ... bottle-6.png
  *
  * `labelArea` positions the color/logo/brand overlay ON TOP of the real
  * photo so it looks printed onto the bottle. These percentages are
  * measured relative to the bottle's own bounding box (the <img>), so
  * tweak them per-asset until the overlay hugs the real label region in
- * your photo.
+ * your photo. (Left as-is for now — per-bottle placement tuning comes
+ * in a follow-up pass.)
  *
- * Bottle #7 is the "signature" bottle: isNoLabel = true — it gets no
- * color/gradient wrap at all, only a centered logo, matching a premium
- * engraved-glass style bottle.
+ * Bottles #5 and #6 are the "Premium" bottles: isNoLabel = true — they
+ * get no color/gradient wrap or banner at all, only a centered logo.
  */
 interface BottleAsset {
   id: string;
@@ -45,56 +45,49 @@ const bottleAssets: BottleAsset[] = [
   {
     id: "bottle-1",
     image: "/images/bottles/bottle-1.png",
-    label: "250 ML",
-    shortLabel: "250ML",
-    labelArea: { top: "52%", left: "29%", width: "36%", height: "26%" },
-    logoArea: { top: "30%", left: "36%", width: "28%", height: "13%" },
+    label: "500 ML",
+    shortLabel: "500ML",
+    labelArea: { top: "53%", left: "26.5%", width: "46%", height: "30%" },
+    logoArea: { top: "31%", left: "36%", width: "28%", height: "13%" },
   },
   {
     id: "bottle-2",
     image: "/images/bottles/bottle-2.png",
-    label: "500 ML",
-    shortLabel: "500ML",
-    labelArea: { top: "42%", left: "29%", width: "39%", height: "26%" },
-    logoArea: { top: "31%", left: "36%", width: "28%", height: "13%" },
+    label: "1.5 Liter",
+    shortLabel: "1.5L",
+    labelArea: { top: "56%", left: "28.5%", width: "45%", height: "28%" },
+    logoArea: { top: "28%", left: "36%", width: "28%", height: "12%" },
   },
   {
     id: "bottle-3",
     image: "/images/bottles/bottle-3.png",
-    label: "1 Liter",
-    shortLabel: "1L",
-    labelArea: { top: "48%", left: "35%", width: "37.5%", height: "30%" },
-    logoArea: { top: "32%", left: "40%", width: "26%", height: "12%" },
+    label: "500 ML",
+    shortLabel: "500ML",
+    labelArea: { top: "31%", left: "26%", width: "47%", height: "20%" },
+    logoArea: { top: "31%", left: "36%", width: "28%", height: "13%" },
   },
   {
     id: "bottle-4",
     image: "/images/bottles/bottle-4.png",
     label: "1.5 Liter",
     shortLabel: "1.5L",
-    labelArea: { top: "40%", left: "28%", width: "42%", height: "38%" },
+    labelArea: { top: "25%", left: "25%", width: "47%", height: "22%" },
     logoArea: { top: "28%", left: "36%", width: "28%", height: "12%" },
   },
   {
     id: "bottle-5",
     image: "/images/bottles/bottle-5.png",
-    label: "Sports Cap",
-    shortLabel: "SPORT",
-    labelArea: { top: "40%", left: "29%", width: "40%", height: "24%" },
-    logoArea: { top: "28%", left: "37%", width: "26%", height: "11%" },
+    label: "Premium 500 ML",
+    shortLabel: "500ML",
+    isNoLabel: true,
+    labelArea: { top: "0%", left: "0%", width: "0%", height: "0%" },
+    logoArea: { top: "40%", left: "35%", width: "30%", height: "20%" },
   },
   {
     id: "bottle-6",
     image: "/images/bottles/bottle-6.png",
-    label: "Slim Glass",
-    shortLabel: "GLASS",
-    labelArea: { top: "52%", left: "24.5%", width: "43.5%", height: "34%" },
-    logoArea: { top: "34%", left: "35%", width: "30%", height: "13%" },
-  },
-  {
-    id: "bottle-7",
-    image: "/images/bottles/bottle-7.png",
-    label: "Signature Reserve",
-    shortLabel: "SIGNATURE",
+    label: "Premium 1000 ML",
+    shortLabel: "1000ML",
     isNoLabel: true,
     labelArea: { top: "0%", left: "0%", width: "0%", height: "0%" },
     logoArea: { top: "40%", left: "35%", width: "30%", height: "20%" },
@@ -238,7 +231,7 @@ function BottlePreview({
                     // way a label wrapped on a round bottle actually reads,
                     // instead of faking curvature with a flat rectangle.
                     clipPath:
-                      "polygon(9% 0%, 91% 0%, 97% 14%, 100% 50%, 97% 86%, 91% 100%, 9% 100%, 3% 86%, 0% 50%, 3% 14%)",
+  "polygon(0% 0%, 100% 0%, 103% 15%, 104% 50%, 103% 85%, 100% 100%, 0% 100%, -3% 85%, -4% 50%, -3% 15%)",
                   }}
                 >
                   {/* Base falloff — soft darkening toward both edges so the
@@ -312,7 +305,7 @@ function BottlePreview({
                 </div>
               )}
 
-              {/* No-label signature bottle: centered logo only */}
+              {/* No-label / no-banner bottles (Premium — #5 & #6): centered logo only */}
               {asset.isNoLabel && (
                 <div
                   className="absolute z-20 flex items-center justify-center"
@@ -377,7 +370,7 @@ function BottlePreview({
 /* ------------------------------------------------------------------ */
 
 export function BottleConfigurator() {
-  const [bottleId, setBottleId] = useState<string>(bottleAssets[1].id);
+  const [bottleId, setBottleId] = useState<string>(bottleAssets[0].id);
   const [brand, setBrand] = useState("");
   const [selectedColors, setSelectedColors] = useState<string[]>([colorPresets[0].hex]);
   const [logo, setLogo] = useState<string | null>(null);
@@ -534,7 +527,7 @@ export function BottleConfigurator() {
           {/* Controls */}
           <Reveal as="right">
             <div className="glass-card p-8">
-              {/* Bottle selector — real asset thumbnails */}
+              {/* Bottle selector — real asset thumbnails, portrait cards */}
               <div className="flex items-center gap-2 text-blue text-xs font-bold tracking-widest">
                 <Sparkles className="h-4 w-4" /> BOTTLE TYPE
               </div>
@@ -550,9 +543,10 @@ export function BottleConfigurator() {
                       bottleId === b.id
                         ? "border-blue ring-4 ring-blue/20 bg-white"
                         : "border-white/70 bg-white/60 hover:border-blue/50"
-                    } ${b.isNoLabel ? "col-span-2" : ""}`}
+                    }`}
                   >
-                    <div className="relative h-14 w-full overflow-hidden rounded-lg bg-gradient-to-b from-white/60 to-white/20">
+                    {/* Portrait thumbnail frame — narrow & tall, still small overall */}
+                    <div className="relative aspect-[3/5] w-full overflow-hidden rounded-lg bg-gradient-to-b from-white/60 to-white/20">
                       <img
                         src={b.image}
                         alt={b.label}
@@ -571,7 +565,7 @@ export function BottleConfigurator() {
                 ))}
               </div>
 
-              {/* Brand name — hidden for the no-label signature bottle */}
+              {/* Brand name — hidden for the no-label Premium bottles (#5, #6) */}
               {!asset.isNoLabel && (
                 <div className="mt-6">
                   <label className="text-xs font-bold text-navy tracking-widest">YOUR BRAND</label>
@@ -625,7 +619,7 @@ export function BottleConfigurator() {
                 </div>
               </div>
 
-              {/* Multi-select gradient color circles — hidden for the signature bottle */}
+              {/* Multi-select gradient color circles — hidden for Premium bottles (#5, #6) */}
               {!asset.isNoLabel ? (
                 <div className="mt-6">
                   <label className="text-xs font-bold text-navy tracking-widest">
@@ -683,8 +677,8 @@ export function BottleConfigurator() {
                 </div>
               ) : (
                 <p className="mt-6 text-xs text-text-muted leading-relaxed bg-white/60 border border-white/70 rounded-xl px-4 py-3">
-                  The Signature Reserve bottle ships in a fixed frosted-glass finish with an
-                  engraved, centered logo — no printed label or color wrap.
+                  This Premium bottle ships in a fixed frosted-glass finish with an engraved,
+                  centered logo — no printed label, banner, or color wrap.
                 </p>
               )}
 
