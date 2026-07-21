@@ -323,7 +323,7 @@ function CustomBranding() {
                     src={c.logo}
                     alt={c.name}
                     loading="lazy"
-                    className="h-12 sm:h-14 w-auto object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition duration-300"
+                    className="h-12 sm:h-14 w-auto object-contain opacity-90 hover:opacity-100 transition duration-300"
                   />
                 </div>
               ))}
