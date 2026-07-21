@@ -276,7 +276,7 @@ export function Hero() {
           <Reveal>
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-xl border border-white/80 text-[11px] font-bold tracking-[0.3em] uppercase text-navy shadow-[0_10px_30px_-12px_rgba(6,65,94,0.35)]">
               <Sparkles className="h-3.5 w-3.5 text-blue" />
-              Premium mineral water · Lahore
+              Premium Mineral & Alkaline Water.
             </span>
           </Reveal>
 
@@ -292,10 +292,10 @@ export function Hero() {
                 animation: anim ? "heroTextShift 14s ease-in-out infinite" : "none",
               }}
             >
-              Flow with
+              Luxury In
               <br />
               <span className="relative">
-                pure freshness
+                Every Drop
                 <span
                   className="absolute -bottom-2 left-0 right-0 h-[10px] rounded-full opacity-70 blur-md"
                   style={{
