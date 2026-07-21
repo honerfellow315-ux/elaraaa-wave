@@ -80,15 +80,37 @@ const whyBrand = [
   { icon: Sparkles, t: "Sample before you commit", d: "Approve a physical printed sample before we run your full order — zero guesswork." },
 ];
 
+// Client logos — drop each brand's logo file into /public/images/clients/
+// using the filenames below (transparent or white-bg PNG/WEBP works best).
 const clients = [
-  "Timmy Tiles",
-  "Timmy Sanitary",
-  "Sapphire Sports",
-  "Lahore Grand Hotel",
-  "Royal Events Co.",
-  "Nexus Corporate",
-  "Aster Weddings",
-  "Meridian Club",
+  { name: "WE Nest", logo: "/images/clients/we-nest.webp" },
+  { name: "R Pakistan", logo: "/images/clients/r-pakistan.webp" },
+  { name: "Pasha's Kitchen", logo: "/images/clients/pashas-kitchen.webp" },
+  { name: "Barki Tobacco & Pan Shop", logo: "/images/clients/barki.webp" },
+  { name: "Saanch", logo: "/images/clients/saanch.webp" },
+  { name: "Fly Ace Travels", logo: "/images/clients/fly-ace-travels.webp" },
+  { name: "Timmy's", logo: "/images/clients/timmys.webp" },
+  { name: "Quetta Rehman Paratha", logo: "/images/clients/qrp.webp" },
+  { name: "Haji Restaurant", logo: "/images/clients/haji-restaurant.webp" },
+  { name: "Jahaan Properties", logo: "/images/clients/jahaan-properties.webp" },
+  { name: "Velvety Bite", logo: "/images/clients/velvety-bite.webp" },
+  { name: "V", logo: "/images/clients/vj-check.webp" },
+  { name: "Zaheer Marriage Palace", logo: "/images/clients/zaheer-marriage-palace.webp" },
+  { name: "Quetta Kaifi - A", logo: "/images/clients/quetta-kaifi.webp" },
+  { name: "Kent Motor Industry", logo: "/images/clients/kent-motor.webp" },
+  { name: "Morve", logo: "/images/clients/morve.webp" },
+  { name: "Al Hafiz Tasty Yakhni Pulao", logo: "/images/clients/al-hafiz.webp" },
+  { name: "Generation Hair Salon", logo: "/images/clients/generation-salon.webp" },
+  { name: "Creamy Dreamy", logo: "/images/clients/creamy-dreamy.webp" },
+  { name: "Coffee Lounge", logo: "/images/clients/coffee-lounge.webp" },
+  { name: "Tiles & Sanitary", logo: "/images/clients/tiles-sanitary.webp" },
+  { name: "Living Space", logo: "/images/clients/living-space.webp" },
+  { name: "Harry Baba Fast Foods", logo: "/images/clients/harry-baba.webp" },
+  { name: "Specialist Dental & Aesthetic Clinic", logo: "/images/clients/specialist-dental.webp" },
+  { name: "Dildar Silver & Gold Jewelery", logo: "/images/clients/dildar.webp" },
+  { name: "Lahore Dum Biryani", logo: "/images/clients/lahore-dum-biryani.webp" },
+  { name: "Al-Amal Umrah & Travel Services", logo: "/images/clients/al-amal.webp" },
+  { name: "Ice Land", logo: "/images/clients/ice-land.webp" },
 ];
 
 const stats = [
@@ -272,7 +294,7 @@ function CustomBranding() {
         </Reveal>
       </section>
 
-      {/* Our Valued Clients */}
+      {/* Our Valued Clients — animated logo marquee */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-24">
         <Reveal>
           <div className="text-center max-w-2xl mx-auto">
@@ -285,15 +307,73 @@ function CustomBranding() {
             </p>
           </div>
         </Reveal>
-        <Stagger className="mt-10 grid gap-4 grid-cols-2 sm:grid-cols-4">
-          {clients.map((c) => (
-            <StaggerItem key={c}>
-              <div className="glass-card h-24 flex items-center justify-center text-navy font-bold tracking-wide text-center px-3 hover:-translate-y-1 transition">
-                {c}
-              </div>
-            </StaggerItem>
-          ))}
-        </Stagger>
+
+        <Reveal>
+          <div className="clients-marquee mt-12 glass-card p-6 sm:p-8">
+            <div className="clients-marquee__fade clients-marquee__fade--left" />
+            <div className="clients-marquee__fade clients-marquee__fade--right" />
+            <div className="clients-marquee__track">
+              {[...clients, ...clients].map((c, i) => (
+                <div
+                  key={`${c.name}-${i}`}
+                  className="clients-marquee__item"
+                  title={c.name}
+                >
+                  <img
+                    src={c.logo}
+                    alt={c.name}
+                    loading="lazy"
+                    className="h-12 sm:h-14 w-auto object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition duration-300"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+
+        <style>{`
+          .clients-marquee {
+            position: relative;
+            overflow: hidden;
+          }
+          .clients-marquee__track {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            width: max-content;
+            animation: clients-marquee-scroll 32s linear infinite;
+          }
+          .clients-marquee:hover .clients-marquee__track {
+            animation-play-state: paused;
+          }
+          .clients-marquee__item {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 4rem;
+          }
+          .clients-marquee__fade {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4rem;
+            z-index: 10;
+            pointer-events: none;
+          }
+          .clients-marquee__fade--left {
+            left: 0;
+            background: linear-gradient(to right, var(--tw-gradient-from, #fff), transparent);
+          }
+          .clients-marquee__fade--right {
+            right: 0;
+            background: linear-gradient(to left, var(--tw-gradient-from, #fff), transparent);
+          }
+          @keyframes clients-marquee-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+          }
+        `}</style>
       </section>
 
 

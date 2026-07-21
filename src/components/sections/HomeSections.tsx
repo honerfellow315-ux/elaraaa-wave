@@ -743,7 +743,7 @@ export function CustomBrandingTeaser() {
                   </div>
                   <div className="mt-4 rounded-2xl bg-brand text-white p-4 shine">
                     <div className="text-[10px] uppercase tracking-widest opacity-80">Turnaround</div>
-                    <div className="text-2xl font-extrabold">3–5 Days</div>
+                    <div className="text-2xl font-extrabold">5–10 Days</div>
                     <div className="text-[11px] opacity-80">Free design mockup included</div>
                   </div>
                 </div>
