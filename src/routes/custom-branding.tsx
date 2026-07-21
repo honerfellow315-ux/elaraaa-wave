@@ -50,22 +50,22 @@ const projects = [
 // Real bottle showcase — admin-uploadable placeholders
 const realBottles = [
   {
-    image: "/images/250ml.png",
+    image: "/images/250ml.webp",
     label: "250 ML",
     desc: "Compact premium bottle for events, meetings and giveaways.",
   },
   {
-    image: "/images/330ml.png",
+    image: "/images/330ml.webp",
     label: "330 ML",
     desc: "Premium everyday bottle with elegant label presentation.",
   },
   {
-    image: "/images/500ml.png",
+    image: "/images/500ml.webp",
     label: "500 ML",
     desc: "Most popular format for retail, offices and hospitality.",
   },
   {
-    image: "/images/1-5l.png",
+    image: "/images/1-5l.webp",
     label: "1.5 L",
     desc: "Family-size bottle perfect for homes and restaurants.",
   },

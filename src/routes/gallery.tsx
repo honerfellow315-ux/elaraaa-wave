@@ -113,7 +113,7 @@ function GalleryPage() {
           variants={stagger}
           className="grid gap-5 sm:gap-7 grid-cols-2 lg:grid-cols-4"
         >
-          {portraitImages.map((img) => (
+          {portraitImages.map((img, i) => (
             <motion.figure
               key={img.src}
               variants={fadeUp}
@@ -123,7 +123,7 @@ function GalleryPage() {
               <img
                 src={img.src}
                 alt={img.alt}
-                loading="eager"
+                loading={i === 0 ? "eager" : "lazy"}
                 decoding="async"
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]"
               />

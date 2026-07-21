@@ -571,12 +571,12 @@ export function Hero() {
 
 const products = [
   { title: "Mineral Water", desc: "Naturally sourced with essential minerals for daily hydration.", img: "/images/home-mineral-water.webp", to: "/products#mineral" },
-  { title: "Alkaline Water", desc: "Balanced pH 8.5+ to complement an active, healthier lifestyle.", img: "/images/alkaline-water.png", to: "/products#alkaline" },
-  { title: "Premium Water", desc: "Ultra-refined for a crisp, clean taste — our flagship pour.", img: "/images/primium-water.png", to: "/products#premium" },
+  { title: "Alkaline Water", desc: "Balanced pH 8.5+ to complement an active, healthier lifestyle.", img: "/images/alkaline-water.webp", to: "/products#alkaline" },
+  { title: "Premium Water", desc: "Ultra-refined for a crisp, clean taste — our flagship pour.", img: "/images/primium-water.webp", to: "/products#premium" },
   {
     title: "19L + 5L Bottles",
     desc: "Home & office packs: 19L Mineral, 19L Alkaline, and 5L family bottles.",
-    img: "/images/bottle-real-1.png",
+    img: "/images/bottle-real-1.webp",
     to: "/products#bulk",
     badges: ["19L Mineral", "19L Alkaline", "5L Bottles"],
   },

@@ -5,7 +5,7 @@ import { Upload } from "lucide-react";
 export const Route = createFileRoute("/admin/media")({ component: Media });
 
 const media = [
-  "hero-bg-image.webp","images/home-mineral-water.webp","alkaline-water.png","primium-water.png","bottle-real-1.png","about-plant.webp",
+  "hero-bg-image.webp","images/home-mineral-water.webp","alkaline-water.webp","primium-water.webp","bottle-real-1.webp","about-plant.webp",
   "project-timmy-tiles.webp","project-timmy-sanitary.webp","project-sapphire-sports.webp","project-four.webp","project-five.webp",
 ];
 

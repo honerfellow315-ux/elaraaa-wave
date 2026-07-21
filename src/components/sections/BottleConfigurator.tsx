@@ -19,7 +19,7 @@ import {
 /**
  * 6 real bottle photo assets (transparent PNG, background removed).
  * Update `image` paths to match where you place the real files, e.g.
- * public/images/bottles/bottle-1.png ... bottle-6.png
+ * public/images/bottles/bottle-1.webp ... bottle-6.webp
  *
  * `labelArea` positions the color/logo/brand overlay ON TOP of the real
  * photo so it looks printed onto the bottle. These percentages are
@@ -44,7 +44,7 @@ interface BottleAsset {
 const bottleAssets: BottleAsset[] = [
   {
     id: "bottle-1",
-    image: "/images/bottles/bottle-1.png",
+    image: "/images/bottles/bottle-1.webp",
     label: "330 ML",
     shortLabel: "330ML",
     labelArea: { top: "32%", left: "26%", width: "47%", height: "20%" },
@@ -52,7 +52,7 @@ const bottleAssets: BottleAsset[] = [
   },
   {
     id: "bottle-2",
-    image: "/images/bottles/bottle-2.png",
+    image: "/images/bottles/bottle-2.webp",
     label: "500 ML",
     shortLabel: "500ML",
     labelArea: { top: "30%", left: "27%", width: "47%", height: "19%" },
@@ -60,7 +60,7 @@ const bottleAssets: BottleAsset[] = [
   },
   {
     id: "bottle-3",
-    image: "/images/bottles/bottle-3.png",
+    image: "/images/bottles/bottle-3.webp",
     label: "1.5 Liter",
     shortLabel: "1.5L",
     labelArea: { top: "30%", left: "27%", width: "48.5%", height: "22%" },
@@ -68,7 +68,7 @@ const bottleAssets: BottleAsset[] = [
   },
   {
     id: "bottle-4",
-    image: "/images/bottles/bottle-4.png",
+    image: "/images/bottles/bottle-4.webp",
     label: "500 ML",
     shortLabel: "500ML",
     labelArea: { top: "56%", left: "27%", width: "48%", height: "24%" },
@@ -76,7 +76,7 @@ const bottleAssets: BottleAsset[] = [
   },
   {
     id: "bottle-5",
-    image: "/images/bottles/bottle-5.png",
+    image: "/images/bottles/bottle-5.webp",
     label: "1.5 Liter",
     shortLabel: "1.5L",
     labelArea: { top: "59%", left: "29%", width: "46%", height: "20%" },
@@ -84,7 +84,7 @@ const bottleAssets: BottleAsset[] = [
   },
   {
     id: "bottle-6",
-    image: "/images/bottles/bottle-6.png",
+    image: "/images/bottles/bottle-6.webp",
     label: "Premium 500 ML",
     shortLabel: "500ML",
     isNoLabel: true,
@@ -93,7 +93,7 @@ const bottleAssets: BottleAsset[] = [
   },
   {
     id: "bottle-7",
-    image: "/images/bottles/bottle-7.png",
+    image: "/images/bottles/bottle-7.webp",
     label: "Premium 1000 ML",
     shortLabel: "1000ML",
     isNoLabel: true,
