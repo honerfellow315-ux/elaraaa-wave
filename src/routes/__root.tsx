@@ -103,10 +103,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon.webp", type: "image/webp" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap",
-      },
     ],
   }),
   shellComponent: RootShell,
@@ -116,10 +112,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const fontHref =
+    "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap";
   return (
     <html lang="en">
       <head>
         <HeadContent />
+        {/* Load Google Fonts stylesheet without blocking first paint. Plain <script>/<link>
+            (not React's head links API) so React doesn't try to manage it as a resource. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var l=document.createElement('link');l.rel='stylesheet';l.href='${fontHref}';document.head.appendChild(l);})();`,
+          }}
+        />
+        <noscript>
+          <link rel="stylesheet" href={fontHref} />
+        </noscript>
       </head>
       <body>
         {children}

@@ -125,6 +125,8 @@ function ReviewCard({ review }: { review: Review }) {
             alt={review.author}
             loading="lazy"
             className="h-11 w-11 rounded-full object-cover border border-white/80"
+            width={44}
+            height={44}
           />
         ) : (
           <div className="h-11 w-11 rounded-full grid place-items-center bg-brand text-white font-bold text-sm">

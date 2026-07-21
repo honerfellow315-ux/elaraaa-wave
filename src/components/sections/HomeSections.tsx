@@ -232,6 +232,8 @@ export function Hero() {
             aria-hidden
             className="absolute inset-0 h-full w-full object-contain opacity-[0.14] mix-blend-multiply select-none"
             draggable={false}
+            width={512}
+            height={397}
           />
         </div>
         {/* Soft center light so headline text stays readable */}
@@ -430,6 +432,8 @@ export function Hero() {
                 loading="eager"
                 decoding="async"
                 fetchPriority="high"
+                width={525}
+                height={700}
                 className="absolute inset-0 h-full w-full object-cover"
                 style={{
                   filter:
@@ -525,6 +529,8 @@ export function Hero() {
                 src={heroBottlesUrl}
                 alt=""
                 aria-hidden
+                width={525}
+                height={700}
                 className="absolute inset-x-0 -top-full h-[120%] w-full object-cover opacity-40"
                 style={{ transform: "scaleY(-1)", filter: "blur(1px) saturate(1.1)" }}
                 draggable={false}
@@ -611,6 +617,8 @@ export function ProductCards() {
                     src={p.img}
                     alt={p.title}
                     loading="lazy"
+                    width={900}
+                    height={675}
                     className="h-full w-full object-cover group-hover:scale-110 transition duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition" />

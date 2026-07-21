@@ -8,6 +8,8 @@ export function Logo({ className = "" }: { className?: string }) {
       className={className}
       loading="eager"
       decoding="async"
+      width={512}
+      height={397}
     />
   );
 }

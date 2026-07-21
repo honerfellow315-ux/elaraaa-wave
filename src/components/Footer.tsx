@@ -210,6 +210,8 @@ export function Footer() {
             aria-hidden
             className="absolute inset-0 h-full w-full object-contain select-none"
             draggable={false}
+            width={512}
+            height={397}
           />
         </div>
       </div>
