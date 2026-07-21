@@ -46,7 +46,7 @@ function Login() {
 
   return (
     <SiteLayout>
-      <div className="relative min-h-[80vh] grid place-items-center py-16 overflow-hidden">
+      <div className="relative min-h-[80vh] grid place-items-center pt-36 pb-16 overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-gradient-to-br from-bg-tint via-white to-bg-light" />
         <div className="absolute top-10 -left-20 h-72 w-72 rounded-full bg-blue/20 blur-3xl -z-10" />
         <div className="absolute bottom-10 -right-20 h-72 w-72 rounded-full bg-green/20 blur-3xl -z-10" />

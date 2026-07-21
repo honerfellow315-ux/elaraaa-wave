@@ -40,7 +40,7 @@ function ForgotPassword() {
 
   return (
     <SiteLayout>
-      <div className="relative min-h-[80vh] grid place-items-center py-16 overflow-hidden">
+      <div className="relative min-h-[80vh] grid place-items-center pt-36 pb-16 overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-gradient-to-br from-bg-tint via-white to-bg-light" />
         <Reveal as="scale">
           <div className="glass rounded-3xl p-8 sm:p-10 w-[92vw] max-w-md">

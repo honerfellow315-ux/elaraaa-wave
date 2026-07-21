@@ -720,9 +720,12 @@ export function BottleConfigurator() {
               </AnimatePresence>
 
               <div className="mt-4 flex flex-wrap gap-3">
-                <button className="shine inline-flex items-center gap-2 px-5 py-3 rounded-full bg-brand text-white font-semibold hover:-translate-y-0.5 transition">
+                <a
+                  href="#branding-request"
+                  className="shine inline-flex items-center gap-2 px-5 py-3 rounded-full bg-brand text-white font-semibold hover:-translate-y-0.5 transition"
+                >
                   <Sparkles className="h-4 w-4" /> Request a Sample
-                </button>
+                </a>
                 <button className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white border border-navy/15 text-navy font-semibold hover:bg-bg-light transition">
                   Save Design
                 </button>
