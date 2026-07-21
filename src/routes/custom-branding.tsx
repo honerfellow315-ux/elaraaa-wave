@@ -96,13 +96,25 @@ const stats = [
   { v: "99.8%", l: "On-time delivery" },
 ];
 
+const emptyForm = {
+  name: "",
+  brand: "",
+  email: "",
+  phone: "",
+  size: "",
+  quantity: "",
+  brief: "",
+};
+
 function CustomBranding() {
+  const [form, setForm] = useState(emptyForm);
   const [submitted, setSubmitted] = useState(false);
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    console.log("Branding request:", form);
     setSubmitted(true);
-    (e.target as HTMLFormElement).reset();
+    setForm(emptyForm);
     setTimeout(() => setSubmitted(false), 5000);
   }
 
@@ -286,23 +298,23 @@ function CustomBranding() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label className="text-xs font-bold tracking-widest text-navy">FULL NAME</label>
-                  <input required type="text" placeholder="Your name" className="mt-2 w-full h-12 px-4 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy" />
+                  <input required type="text" placeholder="Your name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="mt-2 w-full h-12 px-4 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy" />
                 </div>
                 <div>
                   <label className="text-xs font-bold tracking-widest text-navy">BRAND / COMPANY</label>
-                  <input required type="text" placeholder="Brand name" className="mt-2 w-full h-12 px-4 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy" />
+                  <input required type="text" placeholder="Brand name" value={form.brand} onChange={(e) => setForm({ ...form, brand: e.target.value })} className="mt-2 w-full h-12 px-4 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy" />
                 </div>
                 <div>
                   <label className="text-xs font-bold tracking-widest text-navy">EMAIL</label>
-                  <input required type="email" placeholder="you@brand.com" className="mt-2 w-full h-12 px-4 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy" />
+                  <input required type="email" placeholder="you@brand.com" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="mt-2 w-full h-12 px-4 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy" />
                 </div>
                 <div>
                   <label className="text-xs font-bold tracking-widest text-navy">PHONE / WHATSAPP</label>
-                  <input required type="tel" placeholder="+92 300 0000000" className="mt-2 w-full h-12 px-4 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy" />
+                  <input required type="tel" placeholder="+92 300 0000000" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="mt-2 w-full h-12 px-4 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy" />
                 </div>
                 <div>
                   <label className="text-xs font-bold tracking-widest text-navy">BOTTLE SIZE</label>
-                  <select required className="mt-2 w-full h-12 px-4 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy">
+                  <select required value={form.size} onChange={(e) => setForm({ ...form, size: e.target.value })} className="mt-2 w-full h-12 px-4 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy">
                     <option value="">Select size</option>
                     <option>250 ML</option>
                     <option>500 ML</option>
@@ -314,12 +326,12 @@ function CustomBranding() {
                 </div>
                 <div>
                   <label className="text-xs font-bold tracking-widest text-navy">QUANTITY</label>
-                  <input required type="text" placeholder="e.g. 5,000 bottles" className="mt-2 w-full h-12 px-4 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy" />
+                  <input required type="text" placeholder="e.g. 5,000 bottles" value={form.quantity} onChange={(e) => setForm({ ...form, quantity: e.target.value })} className="mt-2 w-full h-12 px-4 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy" />
                 </div>
               </div>
               <div>
                 <label className="text-xs font-bold tracking-widest text-navy">BRIEF</label>
-                <textarea required rows={4} placeholder="Tell us about the event, brand identity or delivery timeline…" className="mt-2 w-full px-4 py-3 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy resize-none" />
+                <textarea required rows={4} placeholder="Tell us about the event, brand identity or delivery timeline…" value={form.brief} onChange={(e) => setForm({ ...form, brief: e.target.value })} className="mt-2 w-full px-4 py-3 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy resize-none" />
               </div>
               <div className="flex flex-wrap items-center gap-4 pt-2">
                 <button type="submit" className="shine inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-brand text-white font-semibold hover:-translate-y-0.5 transition">

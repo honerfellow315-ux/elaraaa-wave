@@ -1,30 +1,30 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X, Phone, ChevronDown } from "lucide-react";
+import { Menu, X, Phone, ChevronDown, User } from "lucide-react";
 import { Logo } from "./Logo";
+import { useAuth } from "@/lib/auth";
 
 const nav: { label: string; to: string }[] = [
   { label: "Home", to: "/" },
   { label: "Products", to: "/products" },
   { label: "Custom Branding", to: "/custom-branding" },
-  { label: "Gallery", to: "/gallery" },
   { label: "About Us", to: "/about" },
 ];
 
 const more: { label: string; to: string }[] = [
+  { label: "Gallery", to: "/gallery" },
   { label: "Services", to: "/services" },
   { label: "Offers", to: "/offers" },
   { label: "Coverage Areas", to: "/coverage-areas" },
   { label: "Blog", to: "/blog" },
   { label: "FAQs", to: "/faqs" },
   { label: "Contact", to: "/contact" },
-  { label: "Login", to: "/login" },
-  { label: "Register", to: "/register" },
 ];
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { user, status } = useAuth();
 
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 20);
@@ -36,6 +36,10 @@ export function Header() {
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
   }, [open]);
+
+  const accountTo = status === "authenticated" ? "/account" : "/login";
+  const accountLabel =
+    status === "authenticated" ? user?.name?.split(" ")[0] || "Account" : "Login";
 
   return (
     <>
@@ -63,13 +67,13 @@ export function Header() {
             </Link>
 
             <nav className="hidden lg:flex justify-center">
-              <ul className="flex items-center gap-1">
+              <ul className="flex items-center gap-0.5 xl:gap-1">
                 {nav.map((n) => (
                   <li key={n.to}>
                     <Link
                       to={n.to}
                       activeProps={{ className: "text-blue" }}
-                      className="px-3 py-2 text-sm font-medium text-navy hover:text-blue transition rounded-full"
+                      className="px-2.5 xl:px-3 py-2 text-[13px] xl:text-sm font-medium text-navy hover:text-blue transition rounded-full whitespace-nowrap"
                     >
                       {n.label}
                     </Link>
@@ -96,14 +100,21 @@ export function Header() {
               </ul>
             </nav>
 
-            <div className="flex items-center gap-2 justify-end">
+            <div className="flex items-center gap-1.5 xl:gap-2 justify-end">
               <a
                 href="tel:03096419731"
-                className="hidden md:inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/70 border border-white/70 text-navy text-sm font-semibold tracking-wide hover:bg-white hover:shadow-[0_8px_20px_-6px_rgba(6,65,94,0.35)] transition"
+                className="hidden xl:inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/70 border border-white/70 text-navy text-sm font-semibold tracking-wide hover:bg-white hover:shadow-[0_8px_20px_-6px_rgba(6,65,94,0.35)] transition"
               >
                 <Phone className="h-4 w-4 text-blue" />
                 <span>0309 6419731</span>
               </a>
+              <Link
+                to={accountTo}
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-white/70 border border-white/70 text-navy text-sm font-semibold hover:bg-white transition"
+              >
+                <User className="h-4 w-4 text-blue" />
+                <span className="hidden md:inline">{accountLabel}</span>
+              </Link>
               <Link
                 to="/contact"
                 className="shine relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand text-white text-sm font-bold tracking-wide shadow-[0_10px_25px_-8px_rgba(18,58,94,0.6)] hover:shadow-[0_18px_40px_-10px_rgba(62,154,214,0.8)] hover:-translate-y-0.5 transition"
@@ -160,6 +171,15 @@ export function Header() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+  to={accountTo}
+  aria-label={accountLabel}
+  className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-white/70 border border-white/70 text-navy hover:bg-white transition"
+>
+  <User className="h-4 w-4 text-blue" />
+</Link>
+            </li>
           </ul>
           <div className="mt-6 grid gap-2">
             <a
