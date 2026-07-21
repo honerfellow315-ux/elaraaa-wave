@@ -16,13 +16,13 @@ import {
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About ELARAWAVE — Our Story of Pure Water" },
+      { title: "About ELARA WAVE — Our Story of Pure Water" },
       {
         name: "description",
         content:
-          "Learn about ELARAWAVE — premium alkaline & mineral water crafted with obsessive care in Lahore.",
+          "Learn about ELARA WAVE — premium alkaline & mineral water crafted with obsessive care in Lahore.",
       },
-      { property: "og:title", content: "About ELARAWAVE" },
+      { property: "og:title", content: "About ELARA WAVE" },
       {
         property: "og:description",
         content:
@@ -36,7 +36,7 @@ export const Route = createFileRoute("/about")({
 function About() {
   const stats = [
     { v: "10K+", l: "Bottles Delivered" },
-    { v: "500+", l: "Loyal Customers" },
+    { v: "5000+", l: "Loyal Customers" },
     { v: "99%", l: "Purity Standard" },
     { v: "24/7", l: "Support" },
   ];
@@ -72,7 +72,7 @@ function About() {
     {
       y: "2023",
       t: "The Plant",
-      d: "Our multi-stage plant comes online — 7-stage RO, UV, ozone, and mineral rebalancing.",
+      d: "Our multi-stage plant comes online — 6-stage RO, UV, ozone, and mineral rebalancing.",
     },
     {
       y: "2024",
@@ -88,10 +88,10 @@ function About() {
 
   const process = [
     { i: FlaskConical, t: "Source", d: "Deep-source water is drawn, tested, and quality-locked before entering our line." },
-    { i: Sparkles, t: "Purify", d: "7-stage reverse osmosis strips every impurity while preserving what nature intended." },
+    { i: Sparkles, t: "Purify", d: "6-stage reverse osmosis strips every impurity while preserving what nature intended." },
     { i: Leaf, t: "Mineralize", d: "Essential minerals are re-balanced to a smooth, hydrating pH — never harsh, never flat." },
     { i: Award, t: "Bottle", d: "Sealed in food-grade bottles under sterile conditions, ready for the ELARA moment." },
-    { i: Truck, t: "Deliver", d: "Same-day delivery across Lahore, straight to your home, office, or event." },
+    { i: Truck, t: "Deliver", d: "Same-Day delivery across Lahore, straight to your home, office, or event." },
   ];
 
   return (
@@ -103,7 +103,7 @@ function About() {
             Water, <span className="shine-text">reimagined</span>
           </>
         }
-        subtitle="ELARAWAVE was born in Lahore with a simple ambition — to make premium, mineral-rich water an everyday ritual for every home, office and celebration."
+        subtitle="ELARA WAVE was born in Lahore with a simple ambition — to make premium, mineral-rich water an everyday ritual for every home, office and celebration."
       />
 
       {/* Intro + stats */}
@@ -113,7 +113,7 @@ function About() {
             <div className="aspect-[4/3] rounded-2xl overflow-hidden">
               <img
                 src="/images/about-plant.webp"
-                alt="ELARAWAVE plant"
+                alt="ELARA WAVE plant"
                 className="h-full w-full object-cover"
                 loading="lazy"
               />
@@ -123,7 +123,7 @@ function About() {
 
         <Reveal as="right">
           <p className="text-xs font-bold tracking-[0.3em] text-blue">
-            WHY ELARAWAVE
+            WHY ELARA WAVE
           </p>
           <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-navy leading-[1.1]">
             Crafted with <span className="shine-text">obsessive</span> care

@@ -78,7 +78,7 @@ export function Footer() {
       title: "Phone",
       value: "03096416732",
       caption: "Available 24/7",
-      href: "tel:03096419731",
+      href: "tel:03096416732",
     },
     {
       icon: Mail,
@@ -377,8 +377,7 @@ export function Footer() {
                   </div>
 
                   <p className="text-sm leading-relaxed text-white/75 max-w-xs">
-                    Premium mineral &amp; and alkaline water—PFA registered, laboratory tested and delivered fresh across Lahore.
-                     
+                    Premium mineral and alkaline water—PFA registered, laboratory tested and delivered fresh across Lahore.
                   </p>
 
                   <div className="flex flex-wrap gap-2.5 pt-2">
@@ -518,7 +517,7 @@ export function Footer() {
         {/* Bottom footer */}
         <div className="relative mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
           <p className="font-medium text-white/70 order-2 sm:order-1">
-            © {new Date().getFullYear()} ELARAWAVE. All rights reserved.
+            © {new Date().getFullYear()} ELARA WAVE. All rights reserved.
           </p>
 
           <div className="flex items-center gap-4 order-1 sm:order-2 text-white/60">

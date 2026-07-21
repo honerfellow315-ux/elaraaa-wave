@@ -16,7 +16,7 @@ export function AppSection() {
             >
               <div className="h-full w-full rounded-[38px] bg-gradient-to-b from-navy to-navy-dark p-5 overflow-hidden">
                 <div className="flex items-center justify-between text-white text-[10px] opacity-70">
-                  <span>9:41</span><span>ELARAWAVE</span>
+                  <span>9:41</span><span>ELARA WAVE</span>
                 </div>
                 <div className="mt-6 text-white">
                   <div className="text-xs opacity-70">Good morning</div>
@@ -50,7 +50,7 @@ export function AppSection() {
         </Reveal>
 
         <Reveal as="right">
-          <p className="text-xs font-bold tracking-[0.3em] text-blue">ELARAWAVE APP</p>
+          <p className="text-xs font-bold tracking-[0.3em] text-blue">ELARA WAVE APP</p>
           <h2 className="mt-3 text-4xl sm:text-5xl font-extrabold text-navy">
             Reorder in a <span className="shine-text">single tap</span>
           </h2>

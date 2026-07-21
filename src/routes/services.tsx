@@ -22,9 +22,9 @@ import {
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — ELARAWAVE Delivery & Corporate Plans" },
+      { title: "Services — ELARA WAVE Delivery & Corporate Plans" },
       { name: "description", content: "Home & office water delivery, corporate plans, event supply and hospitality partnerships." },
-      { property: "og:title", content: "ELARAWAVE Services" },
+      { property: "og:title", content: "ELARA WAVE Services" },
       { property: "og:description", content: "Delivery, subscription, corporate and hospitality water services." },
     ],
   }),
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/services")({
 const stats = [
   { icon: Users, value: "5000+", label: "Happy Customers" },
   { icon: Clock, value: "24/7", label: "Support" },
-  { icon: Truck, value: "Same Day", label: "Delivery" },
+  { icon: Truck, value: "Same-Day", label: "Delivery" },
   { icon: Droplets, value: "100%", label: "Purified Water" },
 ];
 
@@ -44,7 +44,7 @@ const services = [
     img: "/images/home-delivery.webp",
     t: "Home Delivery",
     d: "Fresh 19L & 5L bottles at your door — same-day across Lahore.",
-    highlights: ["Same Day-Delivery", "Scheduled Supply", "Flexible Bottle Sizes"],
+    highlights: ["Same-Day Delivery", "Scheduled Supply", "Flexible Bottle Sizes"],
   },
   {
     icon: Building2,

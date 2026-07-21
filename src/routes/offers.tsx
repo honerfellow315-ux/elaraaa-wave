@@ -8,9 +8,9 @@ import { Droplets, Building2, PackageCheck, ArrowUpRight } from "lucide-react";
 export const Route = createFileRoute("/offers")({
   head: () => ({
     meta: [
-      { title: "Offers — ELARAWAVE Deals & Bundles" },
-      { name: "description", content: "Discover current ELARAWAVE offers on premium water bundles and subscriptions." },
-      { property: "og:title", content: "ELARAWAVE Offers" },
+      { title: "Offers — ELARA WAVE Deals & Bundles" },
+      { name: "description", content: "Discover current ELARA WAVE offers on premium water bundles and subscriptions." },
+      { property: "og:title", content: "ELARA WAVE Offers" },
       { property: "og:description", content: "Curated deals on premium water and subscription plans." },
     ],
   }),

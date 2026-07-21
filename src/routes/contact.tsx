@@ -10,9 +10,9 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact ELARAWAVE — Order & Enquiries" },
-      { name: "description", content: "Order water, request a corporate plan, or reach ELARAWAVE support." },
-      { property: "og:title", content: "Contact ELARAWAVE" },
+      { title: "Contact ELARA WAVE — Order & Enquiries" },
+      { name: "description", content: "Order water, request a corporate plan, or reach ELARA WAVE support." },
+      { property: "og:title", content: "Contact ELARA WAVE" },
       { property: "og:description", content: "We're here — call, email, or send a message." },
     ],
   }),
@@ -88,7 +88,7 @@ function Contact() {
             </ul>
             <div className="mt-8 rounded-2xl overflow-hidden aspect-video border border-white/70">
               <iframe
-                title="ELARAWAVE location"
+                title="ELARA WAVE location"
                 src="https://maps.google.com/maps?q=Gondal%20Heights%20Plaza%2060%20Broadway%20Commercial%20Paragon%20City%20Barki%20Road%20Lahore%20Cantt&t=&z=16&ie=UTF8&iwloc=&output=embed"
                 className="w-full h-full border-0"
                 loading="lazy"

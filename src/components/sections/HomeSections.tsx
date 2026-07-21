@@ -278,7 +278,7 @@ export function Hero() {
           <Reveal>
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-xl border border-white/80 text-[11px] font-bold tracking-[0.3em] uppercase text-navy shadow-[0_10px_30px_-12px_rgba(6,65,94,0.35)]">
               <Sparkles className="h-3.5 w-3.5 text-blue" />
-              Premium Mineral & Alkaline Water.
+              Premium Mineral & Alkaline Water
             </span>
           </Reveal>
 
@@ -294,7 +294,7 @@ export function Hero() {
                 animation: anim ? "heroTextShift 14s ease-in-out infinite" : "none",
               }}
             >
-              Luxury In
+              Luxury in
               <br />
               <span className="relative">
                 Every Drop
@@ -311,9 +311,9 @@ export function Hero() {
 
           <Reveal delay={0.2}>
             <p className="mt-7 text-base sm:text-lg leading-relaxed text-text-muted max-w-xl">
-              ELARA WAVE delivers 100% natural, mineral-rich water — enriched
-              with essential minerals, free from impurities, and fresh to
-              your doorstep across Lahore.
+              ELARA WAVE delivers premium mineral and alkaline water with a
+              clean, refreshing taste. Carefully purified, laboratory tested
+              and delivered fresh to homes and businesses across Lahore.
             </p>
           </Reveal>
 
@@ -479,7 +479,7 @@ export function Hero() {
               >
                 <span className="inline-flex items-center gap-1.5">
                   <span className="h-1.5 w-1.5 rounded-full bg-green shadow-[0_0_8px_rgba(105,182,74,0.9)]" />
-                  100% NATURAL
+                  PFA REGISTERED
                 </span>
               </div>
               <div
@@ -506,7 +506,7 @@ export function Hero() {
               >
                 <div className="min-w-0">
                   <div className="text-[10px] font-bold tracking-[0.28em] text-blue">FLOW WITH FRESHNESS</div>
-                  <div className="text-sm font-extrabold text-navy truncate">500ml · 1.5L Premium</div>
+                  <div className="text-sm font-extrabold text-navy truncate">500 ml · 1.5 L Premium</div>
                 </div>
                 <div className="flex items-center gap-1 shrink-0">
                   {Array.from({ length: 5 }).map((_, i) => (
@@ -566,7 +566,7 @@ export function Hero() {
               }}
             >
               <span className="text-[9px] font-bold tracking-[0.3em] text-green">DELIVERY</span>
-              <span className="text-lg font-extrabold text-navy">Same-day</span>
+              <span className="text-lg font-extrabold text-navy">Same-Day</span>
             </div>
           </motion.div>
         </Reveal>
@@ -600,7 +600,7 @@ export function ProductCards() {
             </h2>
             <p className="mt-4 text-text-muted">
               Four signature categories — each crafted, filtered, and mineral-balanced to
-              deliver ELARAWAVE quality.
+              deliver ELARA WAVE quality.
             </p>
           </div>
         </Reveal>
@@ -653,7 +653,7 @@ export function Highlights() {
     { i: BadgeCheck, t: "PFA Registered", d: "Certified by the Punjab Food Authority." },
     { i: FlaskConical, t: "Lab Tested", d: "Every batch tested for purity & minerals." },
     { i: Leaf, t: "Halal Certified", d: "Trusted, ethical, community-first." },
-    { i: Truck, t: "Same-day Delivery", d: "Fresh at your doorstep across Lahore." },
+    { i: Truck, t: "Same-Day Delivery", d: "Fresh at your doorstep across Lahore." },
   ];
   return (
     <section className="py-16 bg-gradient-to-b from-white to-bg-tint">
@@ -778,12 +778,13 @@ export function QualityProcess() {
           <div className="text-center max-w-2xl mx-auto">
             <p className="text-xs font-bold tracking-[0.3em] text-blue">OUR QUALITY PROCESS</p>
             <h2 className="mt-3 text-4xl sm:text-5xl font-extrabold text-navy">
-              Every Drop Goes Through <span className="shine-text">6 Stages Of Purification</span>
+              Every Drop Goes Through <span className="shine-text">Six Stages of Purification</span>
             </h2>
             <p className="mt-4 text-text-muted">
-              At Elara Wave, every bottle passes through a carefully controlled purification
-              system using advanced filtration, UV sterilization and strict laboratory testing
-              to ensure exceptional purity, balanced minerals and a refreshing taste.
+              Every ELARA WAVE bottle passes through a carefully controlled purification
+              process using advanced filtration, UV sterilisation and laboratory testing.
+              This helps ensure exceptional purity, balanced mineral content and a
+              consistently refreshing taste.
             </p>
           </div>
         </Reveal>

@@ -11,9 +11,9 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/products")({
   head: () => ({
     meta: [
-      { title: "Products — ELARAWAVE Premium Water Range" },
-      { name: "description", content: "Explore ELARAWAVE mineral, alkaline and premium bottled water — from 250ml to 19L." },
-      { property: "og:title", content: "ELARAWAVE Products" },
+      { title: "Products — ELARA WAVE Premium Water Range" },
+      { name: "description", content: "Explore ELARA WAVE mineral, alkaline and premium bottled water — from 250 ml to 19 L." },
+      { property: "og:title", content: "ELARA WAVE Products" },
       { property: "og:description", content: "Mineral, Alkaline and Premium water — crafted to premium quality." },
     ],
   }),
@@ -41,9 +41,9 @@ const categories: Category[] = [
     text: "Sourced and multi-stage filtered to preserve calcium, magnesium and potassium — the essentials your body craves.",
     productLabel: "Mineral Water Bottle",
     sizes: [
-      { label: "250 ML", img: "/images/mineral-250ml.webp", price: 35 },
-      { label: "330 ML", img: "/images/mineral-330ml.webp", price: 40 },
-      { label: "500 ML", img: "/images/mineral-500ml.webp", price: 50 },
+      { label: "250 ml", img: "/images/mineral-250ml.webp", price: 35 },
+      { label: "330 ml", img: "/images/mineral-330ml.webp", price: 40 },
+      { label: "500 ml", img: "/images/mineral-500ml.webp", price: 50 },
       { label: "1.5 L", img: "/images/mineral-1.5l.webp", price: 90 },
       { label: "5 L", img: "/images/mineral-5l.webp", price: 250 },
       { label: "19 L", img: "/images/mineral-19l.webp", price: 250, refill: true },
@@ -57,9 +57,9 @@ const categories: Category[] = [
     text: "Balanced alkaline profile designed to complement an active, wellness-forward lifestyle.",
     productLabel: "Alkaline Water Bottle",
     sizes: [
-      { label: "250 ML", img: "/images/alkaline-250ml.webp", price: 45},
-      { label: "330 ML", img: "/images/alkaline-330ml.webp", price: 48 },
-      { label: "500 ML", img: "/images/alkaline-500ml.webp", price: 60 },
+      { label: "250 ml", img: "/images/alkaline-250ml.webp", price: 45},
+      { label: "330 ml", img: "/images/alkaline-330ml.webp", price: 48 },
+      { label: "500 ml", img: "/images/alkaline-500ml.webp", price: 60 },
       { label: "1.5 L", img: "/images/alkaline-1.5l.webp", price: 110 },
       { label: "19 L", img: "/images/alkaline-19l.webp", price: 350 },
     ],
@@ -72,8 +72,8 @@ const categories: Category[] = [
     text: "Ultra-refined, crisp and smooth — our flagship pour for restaurants, hotels and connoisseurs.",
     productLabel: "Premium Water Bottle",
     sizes: [
-      { label: "330 ML", img: "/images/premium-330ml.webp", price: 55 },
-      { label: "500 ML", img: "/images/premium-500ml.webp", price: 80 },
+      { label: "330 ml", img: "/images/premium-330ml.webp", price: 55 },
+      { label: "500 ml", img: "/images/premium-500ml.webp", price: 80 },
       { label: "1 L", img: "/images/premium-1l.webp", price: 120 },
     ],
   },

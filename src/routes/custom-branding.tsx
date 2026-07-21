@@ -22,13 +22,13 @@ import {
 export const Route = createFileRoute("/custom-branding")({
   head: () => ({
     meta: [
-      { title: "Custom Branding — ELARAWAVE Private Label Water" },
+      { title: "Custom Branding — ELARA WAVE Private Label Water" },
       {
         name: "description",
         content:
           "Premium private-label water bottles for brands, events, hotels and gifting. See our portfolio, real bottles and request custom branding.",
       },
-      { property: "og:title", content: "ELARAWAVE Custom Branding" },
+      { property: "og:title", content: "ELARA WAVE Custom Branding" },
       {
         property: "og:description",
         content: "Private-label premium water bottles for brands, hotels and events.",
@@ -73,7 +73,7 @@ const realBottles = [
 
 const whyBrand = [
   { icon: Palette, t: "Full design support", d: "In-house design team turns your brief into print-ready label artwork — no agency fees." },
-  { icon: ShieldCheck, t: "PFA registered water", d: "Every branded bottle carries the same lab-tested, halal-certified ELARAWAVE quality." },
+  { icon: ShieldCheck, t: "PFA registered water", d: "Every branded bottle carries the same lab-tested, halal-certified ELARA WAVE quality." },
   { icon: Award, t: "Premium finish options", d: "Foil, matte, spot-UV and embossed labels — finishes that feel as premium as they look." },
   { icon: Truck, t: "Low MOQs, fast turnaround", d: "Small runs for events, scalable production for brands — delivered on your timeline." },
   { icon: Users, t: "Dedicated brand manager", d: "One point of contact from first sketch to final delivery — briefing, samples and reorders." },
@@ -222,7 +222,7 @@ function CustomBranding() {
               Real formats, <span className="shine-text">real production</span>
             </h2>
             <p className="mt-4 text-text-muted">
-              Every branded run is produced on the same premium ELARAWAVE line. Here are the formats you can brand — image slots ready for admin uploads.
+              Every branded run is produced on the same premium ELARA WAVE line. Here are the formats you can brand — image slots ready for admin uploads.
             </p>
           </div>
         </Reveal>
@@ -255,7 +255,7 @@ function CustomBranding() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center max-w-2xl mx-auto">
-              <p className="text-xs font-bold tracking-[0.3em] text-blue">WHY ELARAWAVE</p>
+              <p className="text-xs font-bold tracking-[0.3em] text-blue">WHY ELARA WAVE</p>
               <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold text-navy">
                 Why brand with <span className="shine-text">Elara Wave</span>
               </h2>
@@ -303,7 +303,7 @@ function CustomBranding() {
               Our <span className="shine-text">valued clients</span>
             </h2>
             <p className="mt-4 text-text-muted">
-              From boutique weddings to national hotel groups — brands that trust ELARAWAVE with their identity.
+              From boutique weddings to national hotel groups — brands that trust ELARA WAVE with their identity.
             </p>
           </div>
         </Reveal>

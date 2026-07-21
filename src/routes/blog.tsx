@@ -7,10 +7,10 @@ import { Calendar } from "lucide-react";
 export const Route = createFileRoute("/blog")({
   head: () => ({
     meta: [
-      { title: "Blog — ELARAWAVE Hydration Journal" },
-      { name: "description", content: "Hydration science, wellness tips and behind the scenes at ELARAWAVE." },
-      { property: "og:title", content: "ELARAWAVE Blog" },
-      { property: "og:description", content: "Hydration, wellness and craft — from the ELARAWAVE team." },
+      { title: "Blog — ELARA WAVE Hydration Journal" },
+      { name: "description", content: "Hydration science, wellness tips and behind the scenes at ELARA WAVE." },
+      { property: "og:title", content: "ELARA WAVE Blog" },
+      { property: "og:description", content: "Hydration, wellness and craft — from the ELARA WAVE team." },
     ],
   }),
   component: Blog,
@@ -24,7 +24,7 @@ const posts = [
     date: "Jun 2026",
   },
   {
-    t: "Inside the ELARAWAVE bottling line",
+    t: "Inside the ELARA WAVE bottling line",
     d: "A step-by-step walkthrough of our seven-stage filtration, UV sterilisation and sealed-line bottling — the quiet craft behind every crisp, consistent bottle we deliver.",
     tag: "Craft",
     date: "May 2026",
@@ -59,7 +59,7 @@ const posts = [
 function Blog() {
   return (
     <SiteLayout>
-      <PageHero eyebrow="JOURNAL" title={<>The <span className="shine-text">ELARAWAVE</span> journal</>} subtitle="Wellness, craft, and stories from the source." />
+      <PageHero eyebrow="JOURNAL" title={<>The <span className="shine-text">ELARA WAVE</span> journal</>} subtitle="Wellness, craft, and stories from the source." />
       <Stagger className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((p) => (
           <StaggerItem key={p.t}>

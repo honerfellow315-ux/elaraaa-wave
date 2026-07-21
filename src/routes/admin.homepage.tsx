@@ -10,7 +10,7 @@ function HomepageAdmin() {
         <div className="grid md:grid-cols-2 gap-4">
           <F l="Eyebrow" v="Premium Alkaline & Mineral Water" />
           <F l="Headline" v="Flow With Freshness" />
-          <F l="Sub headline" v="ELARAWAVE bottles the calm of pure mountain water." />
+          <F l="Sub headline" v="ELARA WAVE bottles the calm of pure mountain water." />
           <F l="Primary CTA" v="Order Now" />
           <F l="Primary CTA link" v="/contact" />
           <F l="Hero image" v="/images/hero-bg-image.webp" />

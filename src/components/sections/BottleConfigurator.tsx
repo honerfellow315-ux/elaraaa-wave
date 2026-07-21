@@ -45,48 +45,48 @@ const bottleAssets: BottleAsset[] = [
   {
     id: "bottle-1",
     image: "/images/bottles/bottle-1.webp",
-    label: "330 ML",
-    shortLabel: "330ML",
+    label: "330 ml",
+    shortLabel: "330 ml",
     labelArea: { top: "32%", left: "26%", width: "47%", height: "20%" },
     logoArea: { top: "31%", left: "36%", width: "28%", height: "13%" },
   },
   {
     id: "bottle-2",
     image: "/images/bottles/bottle-2.webp",
-    label: "500 ML",
-    shortLabel: "500ML",
+    label: "500 ml",
+    shortLabel: "500 ml",
     labelArea: { top: "30%", left: "27%", width: "47%", height: "19%" },
     logoArea: { top: "28%", left: "36%", width: "28%", height: "12%" },
   },
   {
     id: "bottle-3",
     image: "/images/bottles/bottle-3.webp",
-    label: "1.5 Liter",
-    shortLabel: "1.5L",
+    label: "1.5 L",
+    shortLabel: "1.5 L",
     labelArea: { top: "30%", left: "27%", width: "48.5%", height: "22%" },
     logoArea: { top: "31%", left: "36%", width: "28%", height: "13%" },
   },
   {
     id: "bottle-4",
     image: "/images/bottles/bottle-4.webp",
-    label: "500 ML",
-    shortLabel: "500ML",
+    label: "500 ml",
+    shortLabel: "500 ml",
     labelArea: { top: "56%", left: "27%", width: "48%", height: "24%" },
     logoArea: { top: "28%", left: "36%", width: "28%", height: "12%" },
   },
   {
     id: "bottle-5",
     image: "/images/bottles/bottle-5.webp",
-    label: "1.5 Liter",
-    shortLabel: "1.5L",
+    label: "1.5 L",
+    shortLabel: "1.5 L",
     labelArea: { top: "59%", left: "29%", width: "46%", height: "20%" },
     logoArea: { top: "31%", left: "36%", width: "28%", height: "13%" },
   },
   {
     id: "bottle-6",
     image: "/images/bottles/bottle-6.webp",
-    label: "Premium 500 ML",
-    shortLabel: "500ML",
+    label: "Premium 500 ml",
+    shortLabel: "500 ml",
     isNoLabel: true,
     labelArea: { top: "0%", left: "0%", width: "0%", height: "0%" },
     logoArea: { top: "40%", left: "35%", width: "30%", height: "20%" },
@@ -94,8 +94,8 @@ const bottleAssets: BottleAsset[] = [
   {
     id: "bottle-7",
     image: "/images/bottles/bottle-7.webp",
-    label: "Premium 1000 ML",
-    shortLabel: "1000ML",
+    label: "Premium 1 L",
+    shortLabel: "1 L",
     isNoLabel: true,
     labelArea: { top: "0%", left: "0%", width: "0%", height: "0%" },
     logoArea: { top: "40%", left: "35%", width: "30%", height: "20%" },
@@ -459,7 +459,7 @@ export function BottleConfigurator() {
               Design your <span className="shine-text">own bottle</span>
             </h2>
             <p className="mt-4 text-text-muted">
-              Choose a real ELARAWAVE bottle, blend your brand colors, drop in your logo, and
+              Choose a real ELARA WAVE bottle, blend your brand colors, drop in your logo, and
               preview it studio-lit from every angle.
             </p>
           </div>

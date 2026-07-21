@@ -10,8 +10,8 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Login — ELARAWAVE" },
-      { name: "description", content: "Sign in to your ELARAWAVE account." },
+      { title: "Login — ELARA WAVE" },
+      { name: "description", content: "Sign in to your ELARA WAVE account." },
     ],
   }),
   validateSearch: (s: Record<string, unknown>) => ({

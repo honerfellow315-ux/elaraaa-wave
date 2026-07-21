@@ -7,10 +7,10 @@ import { MapPin, CheckCircle2 } from "lucide-react";
 export const Route = createFileRoute("/coverage-areas")({
   head: () => ({
     meta: [
-      { title: "Coverage Areas — ELARAWAVE Delivery Zones" },
-      { name: "description", content: "See ELARAWAVE water delivery coverage across Lahore." },
-      { property: "og:title", content: "ELARAWAVE Coverage Areas" },
-      { property: "og:description", content: "Same-day water delivery across Lahore neighbourhoods." },
+      { title: "Coverage Areas — ELARA WAVE Delivery Zones" },
+      { name: "description", content: "See ELARA WAVE water delivery coverage across Lahore." },
+      { property: "og:title", content: "ELARA WAVE Coverage Areas" },
+      { property: "og:description", content: "Same-Day water delivery across Lahore neighbourhoods." },
     ],
   }),
   component: Coverage,

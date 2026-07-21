@@ -8,9 +8,9 @@ import { ChevronDown } from "lucide-react";
 export const Route = createFileRoute("/faqs")({
   head: () => ({
     meta: [
-      { title: "FAQs — ELARAWAVE Questions Answered" },
-      { name: "description", content: "Common questions about ELARAWAVE water, delivery, and subscriptions." },
-      { property: "og:title", content: "ELARAWAVE FAQs" },
+      { title: "FAQs — ELARA WAVE Questions Answered" },
+      { name: "description", content: "Common questions about ELARA WAVE water, delivery, and subscriptions." },
+      { property: "og:title", content: "ELARA WAVE FAQs" },
       { property: "og:description", content: "Answers about water, delivery, and services." },
     ],
   }),
@@ -18,8 +18,8 @@ export const Route = createFileRoute("/faqs")({
 });
 
 const faqs = [
-  { q: "Is ELARAWAVE water PFA Registered?", a: "Yes — every batch is registered and tested to Punjab Food Authority standards." },
-  { q: "How fast is delivery?", a: "Same-day dispatch for orders placed before 4 PM across our Lahore coverage areas." },
+  { q: "Is ELARA WAVE water PFA Registered?", a: "Yes — every batch is registered and tested to Punjab Food Authority standards." },
+  { q: "How fast is delivery?", a: "Same-Day dispatch for orders placed before 4 PM across our Lahore coverage areas." },
   { q: "What is the difference between mineral and alkaline?", a: "Mineral water focuses on natural mineral balance; alkaline water is tuned to pH 8.5+ for a smoother, wellness-forward pour." },
   { q: "Can I subscribe to a weekly plan?", a: "Absolutely. Choose a household or office plan and we handle the rest." },
   { q: "Do you offer custom branding?", a: "Yes — we produce private-label bottles for events, hotels, gyms, and corporate gifting." },

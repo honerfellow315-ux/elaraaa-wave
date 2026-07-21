@@ -17,13 +17,13 @@ import { GoogleReviews } from "@/components/sections/GoogleReviews";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ELARAWAVE — Best Mineral Water in Lahore" },
+      { title: "ELARA WAVE — Best Mineral Water in Lahore" },
       {
         name: "description",
         content:
           "Premium alkaline & natural mineral water. PFA registered, lab tested, halal certified — delivered fresh across Lahore.",
       },
-      { property: "og:title", content: "ELARAWAVE — Flow With Freshness" },
+      { property: "og:title", content: "ELARA WAVE — Flow With Freshness" },
       {
         property: "og:description",
         content: "Premium alkaline & mineral water delivered across Lahore.",

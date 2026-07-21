@@ -17,7 +17,7 @@ const titles: Record<string, string> = {
 };
 
 export const Route = createFileRoute("/account")({
-  head: () => ({ meta: [{ title: "My Account — ELARAWAVE" }, { name: "robots", content: "noindex,nofollow" }] }),
+  head: () => ({ meta: [{ title: "My Account — ELARA WAVE" }, { name: "robots", content: "noindex,nofollow" }] }),
   component: AccountLayout,
 });
 

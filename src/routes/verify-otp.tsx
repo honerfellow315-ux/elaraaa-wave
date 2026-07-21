@@ -10,8 +10,8 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/verify-otp")({
   head: () => ({
     meta: [
-      { title: "Verify your email — ELARAWAVE" },
-      { name: "description", content: "Verify your ELARAWAVE account with the OTP sent to your email." },
+      { title: "Verify your email — ELARA WAVE" },
+      { name: "description", content: "Verify your ELARA WAVE account with the OTP sent to your email." },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),
@@ -56,7 +56,7 @@ function VerifyOtp() {
       const res = await endpoints.verifyRegistrationOtp({ email, otp: otp.trim() });
       setToken(res.token);
       setUser(res.user);
-      toast.success("Email verified. Welcome to ELARAWAVE!");
+      toast.success("Email verified. Welcome to ELARA WAVE!");
       navigate({ to: "/account" });
     } catch (err) {
       toast.error(err instanceof ApiError ? err.message : "Invalid or expired code");

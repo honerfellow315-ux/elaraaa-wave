@@ -67,7 +67,7 @@ export function VisitorPopup() {
             </div>
 
             <h3 className="text-2xl font-extrabold text-navy text-center">
-              Join the ELARAWAVE family
+              Join the ELARA WAVE family
             </h3>
 
             <p className="mt-2 text-sm text-text-muted text-center">

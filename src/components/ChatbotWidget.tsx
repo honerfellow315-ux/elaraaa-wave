@@ -31,7 +31,7 @@ const RULES: { keywords: string[]; reply: string }[] = [
   },
   {
     keywords: ["contact", "phone", "number", "email", "address", "location"],
-    reply: "You can reach ELARAWAVE at 0309 6419731, info@elarawave.com — based in Lahore, Pakistan.",
+    reply: "You can reach ELARA WAVE at 0309 6419731, info@elarawave.com — based in Lahore, Pakistan.",
   },
   {
     keywords: ["order", "buy", "purchase"],

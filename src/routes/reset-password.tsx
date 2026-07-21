@@ -9,8 +9,8 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/reset-password")({
   head: () => ({
     meta: [
-      { title: "Reset password — ELARAWAVE" },
-      { name: "description", content: "Set a new password for your ELARAWAVE account." },
+      { title: "Reset password — ELARA WAVE" },
+      { name: "description", content: "Set a new password for your ELARA WAVE account." },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),

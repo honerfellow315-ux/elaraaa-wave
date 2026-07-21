@@ -10,8 +10,8 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/register")({
   head: () => ({
     meta: [
-      { title: "Register — ELARAWAVE" },
-      { name: "description", content: "Create your ELARAWAVE account." },
+      { title: "Register — ELARA WAVE" },
+      { name: "description", content: "Create your ELARA WAVE account." },
     ],
   }),
   component: Register,
