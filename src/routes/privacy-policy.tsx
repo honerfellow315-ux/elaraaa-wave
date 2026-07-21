@@ -18,7 +18,7 @@ function Privacy() {
         <h2 className="text-navy font-bold text-xl mt-8">How we use it</h2>
         <p>Order fulfilment, customer support, service updates, and — with your consent — offers.</p>
         <h2 className="text-navy font-bold text-xl mt-8">Your rights</h2>
-        <p>You can request access, correction, or deletion of your data at any time by emailing hello@elarawave.com.</p>
+        <p>You can request access, correction, or deletion of your data at any time by emailing info@elarawave.com.</p>
       </article>
     </SiteLayout>
   );

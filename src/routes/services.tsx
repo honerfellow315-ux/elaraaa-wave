@@ -44,7 +44,7 @@ const services = [
     img: "/images/home-delivery.webp",
     t: "Home Delivery",
     d: "Fresh 19L & 5L bottles at your door — same-day across Lahore.",
-    highlights: ["Same Day Delivery", "Scheduled Supply", "Flexible Bottle Sizes"],
+    highlights: ["Same Day-Delivery", "Scheduled Supply", "Flexible Bottle Sizes"],
   },
   {
     icon: Building2,

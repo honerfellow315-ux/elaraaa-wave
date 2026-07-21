@@ -60,16 +60,39 @@ function Contact() {
           <div className="glass-card p-8 h-full">
             <h3 className="text-xl font-bold text-navy">Get in touch</h3>
             <ul className="mt-6 space-y-4 text-sm">
-              <li className="flex gap-3"><Phone className="h-4 w-4 mt-0.5 text-blue" /><a href="tel:03096419731" className="text-navy font-semibold">0309 6419731</a></li>
-              <li className="flex gap-3"><Mail className="h-4 w-4 mt-0.5 text-blue" /><a href="mailto:hello@elarawave.com" className="text-navy font-semibold">hello@elarawave.com</a></li>
-              <li className="flex gap-3"><MapPin className="h-4 w-4 mt-0.5 text-blue" /><span className="text-text-muted">Lahore, Pakistan</span></li>
+              <li className="flex gap-3">
+                <Phone className="h-4 w-4 mt-0.5 text-blue" />
+                <span className="text-navy font-semibold">
+                  UAN: <a href="tel:111999444" className="hover:underline">111-999-444</a>
+                </span>
+              </li>
+              <li className="flex gap-3">
+                <Phone className="h-4 w-4 mt-0.5 text-blue" />
+                <div className="flex flex-col gap-1 text-navy font-semibold">
+                  <a href="tel:03096419731" className="hover:underline">0309 6419731</a>
+                  <a href="tel:03096416732" className="hover:underline">0309 6416732</a>
+                </div>
+              </li>
+              <li className="flex gap-3">
+                <Mail className="h-4 w-4 mt-0.5 text-blue" />
+                <a href="mailto:info@elarawave.com" className="text-navy font-semibold hover:underline">
+                  info@elarawave.com
+                </a>
+              </li>
+              <li className="flex gap-3">
+                <MapPin className="h-4 w-4 mt-0.5 text-blue flex-shrink-0" />
+                <span className="text-text-muted">
+                  Gondal Heights, Plaza 60, Broadway Commercial, Paragon City, Barki Road, Lahore Cantt.
+                </span>
+              </li>
             </ul>
             <div className="mt-8 rounded-2xl overflow-hidden aspect-video border border-white/70">
               <iframe
                 title="ELARAWAVE location"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=74.2,31.4,74.5,31.6&layer=mapnik"
-                className="w-full h-full"
+                src="https://maps.google.com/maps?q=Gondal%20Heights%20Plaza%2060%20Broadway%20Commercial%20Paragon%20City%20Barki%20Road%20Lahore%20Cantt&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                className="w-full h-full border-0"
                 loading="lazy"
+                allowFullScreen
               />
             </div>
           </div>

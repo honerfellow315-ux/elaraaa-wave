@@ -141,7 +141,7 @@ function SizeCard({ category, size }: { category: Category; size: Size }) {
           </span>
           {size.refill && (
             <span className="inline-flex items-center rounded-full bg-black/85 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-white">
-              Refil
+              Refill
             </span>
           )}
         </div>

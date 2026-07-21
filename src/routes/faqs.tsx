@@ -18,7 +18,7 @@ export const Route = createFileRoute("/faqs")({
 });
 
 const faqs = [
-  { q: "Is ELARAWAVE water PFA certified?", a: "Yes — every batch is registered and tested to Punjab Food Authority standards." },
+  { q: "Is ELARAWAVE water PFA Registered?", a: "Yes — every batch is registered and tested to Punjab Food Authority standards." },
   { q: "How fast is delivery?", a: "Same-day dispatch for orders placed before 4 PM across our Lahore coverage areas." },
   { q: "What is the difference between mineral and alkaline?", a: "Mineral water focuses on natural mineral balance; alkaline water is tuned to pH 8.5+ for a smoother, wellness-forward pour." },
   { q: "Can I subscribe to a weekly plan?", a: "Absolutely. Choose a household or office plan and we handle the rest." },

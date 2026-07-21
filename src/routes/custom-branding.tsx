@@ -40,7 +40,7 @@ export const Route = createFileRoute("/custom-branding")({
 
 const projects = [
   { name: "Timmy's", desc: "Corporate hydration line for a leading ceramics brand — cohesive with their showroom identity.", img: "/images/project-timmy-tiles.webp" },
-  { name: "Al Ghani", desc: "Elevated 500ml glass bottles for premium dev showrooms and client lounges.", img: "/images/project-timmy-sanitary.webp" },
+  { name: "Al Ghani", desc: "Elevated 500 ml glass bottles for premium dev showrooms and client lounges.", img: "/images/project-timmy-sanitary.webp" },
   { name: "Tiles and Sanitary", desc: "Sport-fresh alkaline packs tailored for training sessions, tournaments and gym floors.", img: "/images/project-sapphire-sports.webp" },
   { name: "Reportage", desc: "Signature hotel welcome water — foil-embossed label with a soft mineral pour.", img: "/images/project-four.webp" },
   { name: "Sapphire", desc: "Wedding-season private label — bespoke event branding with elegant typography.", img: "/images/project-five.webp" },
@@ -94,7 +94,7 @@ const clients = [
 const stats = [
   { v: "120+", l: "Brands served" },
   { v: "500K+", l: "Custom bottles delivered" },
-  { v: "48 hr", l: "Sample turnaround" },
+  { v: "48-Hour", l: "Sample turnaround" },
   { v: "99.8%", l: "On-time delivery" },
 ];
 

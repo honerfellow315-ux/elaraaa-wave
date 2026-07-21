@@ -76,16 +76,16 @@ export function Footer() {
     {
       icon: Phone,
       title: "Phone",
-      value: "0309 6419731",
+      value: "03096416732",
       caption: "Available 24/7",
       href: "tel:03096419731",
     },
     {
       icon: Mail,
       title: "Email",
-      value: "hello@elarawave.com",
+      value: "info@elarawave.com",
       caption: "Fast Response",
-      href: "mailto:hello@elarawave.com",
+      href: "mailto:info@elarawave.com",
     },
   ];
 
@@ -377,9 +377,8 @@ export function Footer() {
                   </div>
 
                   <p className="text-sm leading-relaxed text-white/75 max-w-xs">
-                    Premium alkaline &amp; natural mineral water. PFA
-                    Registered, lab tested, halal certified — delivered
-                    fresh across Lahore.
+                    Premium mineral &amp; and alkaline water—PFA registered, laboratory tested and delivered fresh across Lahore.
+                     
                   </p>
 
                   <div className="flex flex-wrap gap-2.5 pt-2">

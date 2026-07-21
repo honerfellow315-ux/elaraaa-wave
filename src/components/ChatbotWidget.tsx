@@ -5,14 +5,14 @@ import { MessageSquare, X, Send, Sparkles } from "lucide-react";
 type ChatMessage = { id: number; from: "bot" | "user"; text: string };
 
 const CONTACT_FALLBACK =
-  "I'm not sure about that one — but our team can help directly. 📞 0309 6419731 or ✉️ hello@elarawave.com (Lahore, Pakistan).";
+  "I'm not sure about that one — but our team can help directly. 📞 0309 6419731 or ✉️ info@elarawave.com (Lahore, Pakistan).";
 
 // Simple keyword → reply rules. No API, no AI model — just canned responses.
 const RULES: { keywords: string[]; reply: string }[] = [
   {
     keywords: ["price", "pricing", "cost", "rate", "kitne", "kitna"],
     reply:
-      "Our pricing depends on bottle size and order quantity. For an exact quote, please contact us at 0309 6419731 or hello@elarawave.com.",
+      "Our pricing depends on bottle size and order quantity. For an exact quote, please contact us at 0309 6419731 or info@elarawave.com.",
   },
   {
     keywords: ["bottle", "size", "250", "330", "500", "1.5", "19l", "product"],
@@ -31,7 +31,7 @@ const RULES: { keywords: string[]; reply: string }[] = [
   },
   {
     keywords: ["contact", "phone", "number", "email", "address", "location"],
-    reply: "You can reach ELARAWAVE at 0309 6419731, hello@elarawave.com — based in Lahore, Pakistan.",
+    reply: "You can reach ELARAWAVE at 0309 6419731, info@elarawave.com — based in Lahore, Pakistan.",
   },
   {
     keywords: ["order", "buy", "purchase"],

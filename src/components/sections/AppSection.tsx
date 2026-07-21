@@ -55,7 +55,7 @@ export function AppSection() {
             Reorder in a <span className="shine-text">single tap</span>
           </h2>
           <p className="mt-4 text-text-muted max-w-lg">
-            Track deliveries in real-time, subscribe to weekly hydration, and unlock member-only offers — all from a beautifully simple app.
+            Track deliveries in real time, subscribe to weekly hydration, and unlock member-only offers — all from a beautifully simple app.
           </p>
           <div className="mt-6 grid sm:grid-cols-2 gap-3 max-w-lg">
             {[

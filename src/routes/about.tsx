@@ -48,7 +48,7 @@ function About() {
     },
     {
       i: ShieldCheck,
-      t: "PFA Certified",
+      t: "PFA Registered",
       d: "Fully regulated, independently tested, and community-approved — safety is non-negotiable.",
     },
     {
@@ -76,7 +76,7 @@ function About() {
     },
     {
       y: "2024",
-      t: "PFA Certified",
+      t: "PFA Registered",
       d: "Full PFA registration, halal certification, and independent lab partnerships.",
     },
     {

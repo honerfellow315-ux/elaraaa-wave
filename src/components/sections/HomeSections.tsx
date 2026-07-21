@@ -695,14 +695,14 @@ export function CustomBrandingTeaser() {
               </h2>
               <p className="mt-5 text-text-muted max-w-xl">
                 Perfect for businesses, restaurants, hotels, cafés, events and corporate
-                gifts. Get fully customised bottles with your logo &amp; label.
+                gifting. Get fully customised bottles with your logo &amp; label.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   to="/contact"
                   className="shine group inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-brand text-white font-semibold shadow-[0_20px_60px_-20px_rgba(18,58,94,0.6)] hover:-translate-y-0.5 transition"
                 >
-                  Get A Quote
+                  Get a Quote
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition" />
                 </Link>
                 <Link
@@ -778,7 +778,7 @@ export function QualityProcess() {
           <div className="text-center max-w-2xl mx-auto">
             <p className="text-xs font-bold tracking-[0.3em] text-blue">OUR QUALITY PROCESS</p>
             <h2 className="mt-3 text-4xl sm:text-5xl font-extrabold text-navy">
-              Every Drop Goes Through <span className="shine-text">6 Levels Of Purification</span>
+              Every Drop Goes Through <span className="shine-text">6 Stages Of Purification</span>
             </h2>
             <p className="mt-4 text-text-muted">
               At Elara Wave, every bottle passes through a carefully controlled purification
@@ -820,7 +820,7 @@ export function QualityProcess() {
 
 export function DeliveringLahore() {
   const features = [
-    { i: Truck, t: "Same Day Delivery" },
+    { i: Truck, t: "Same-Day Delivery" },
     { i: HomeIcon, t: "Homes & Apartments" },
     { i: Building2, t: "Offices & Businesses" },
     { i: Hotel, t: "Hotels & Restaurants" },
