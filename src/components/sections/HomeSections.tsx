@@ -286,13 +286,17 @@ export function Hero() {
             <h1
               className="mt-7 text-5xl sm:text-6xl lg:text-[5.5rem] font-extrabold leading-[1.03] tracking-tight text-transparent"
               style={{
-                backgroundImage:
-                  "linear-gradient(100deg, #06415E 0%, #0E74A7 22%, #22B2CB 42%, #5ED3FF 58%, #259F9F 75%, #06415E 100%)",
-                backgroundSize: "220% 100%",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                animation: anim ? "heroTextShift 14s ease-in-out infinite" : "none",
-              }}
+  backgroundImage:
+    "linear-gradient(100deg, #06415E 0%, #0E74A7 22%, #22B2CB 42%, #5ED3FF 58%, #259F9F 75%, #06415E 100%)",
+  backgroundSize: "220% 100%",
+  WebkitBackgroundClip: "text",
+  backgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  color: "transparent",
+  transform: "translateZ(0)",
+  WebkitTransform: "translateZ(0)",
+  animation: anim ? "heroTextShift 14s ease-in-out infinite" : "none",
+}}
             >
               Luxury in
               <br />

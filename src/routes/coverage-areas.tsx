@@ -49,8 +49,24 @@ function Coverage() {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-navy">Active Delivery Sectors</h3>
-                <p className="text-xs text-text-muted">Serving daily orders and corporate plans in these key areas.</p>
+                <p className="text-xs text-text-muted">Mineral water supply across Lahore, with daily orders and corporate plans in these key areas.</p>
               </div>
+            </div>
+
+            {/* Full Lahore coverage map */}
+            <div className="rounded-2xl overflow-hidden aspect-video border border-white/70 shadow-sm">
+              <iframe
+                title="ELARA WAVE Lahore coverage map"
+                src="https://maps.google.com/maps?q=Lahore,%20Pakistan&t=&z=11&ie=UTF8&iwloc=&output=embed"
+                className="w-full h-full border-0"
+                loading="lazy"
+                allowFullScreen
+              />
+            </div>
+
+            <div className="mt-8 mb-4">
+              <h4 className="text-base font-bold text-navy">19 L Bottle Refill Areas</h4>
+              <p className="text-xs text-text-muted mt-1">Same-day 19 L refill delivery is currently active in these areas.</p>
             </div>
 
             {/* Structured Area List inside the block */}

@@ -202,7 +202,7 @@ function Contact() {
                 </div>
                 <div>
                   <p className="text-[11px] font-bold tracking-widest text-text-muted uppercase">Hours</p>
-                  <span className="text-text-muted">Mon – Sat, 9:00 AM – 9:00 PM</span>
+                  <span className="text-text-muted">Mon – Sun, 9:00 AM – 7:00 PM</span>
                 </div>
               </li>
             </ul>
