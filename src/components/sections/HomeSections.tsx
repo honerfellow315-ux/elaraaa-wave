@@ -677,6 +677,77 @@ export function Highlights() {
 }
 
 /* -------------------------------------------------------------------------- */
+/*  Registration & Certification                                              */
+/* -------------------------------------------------------------------------- */
+
+// Drop each official certificate/registration logo into /public/images/certifications/
+// using the exact filenames below (transparent PNG or WEBP, square-ish crop works best).
+// Source these directly from the issuing body so the marks are accurate and licensed
+// for use: pfa.gop.pk, gs1pk.org, ipo.gov.pk, fbr.gov.pk, phaonline.org.pk
+const certifications = [
+  { name: "PFA — Punjab Food Authority", file: "pfa.webp" },
+  { name: "GS1 Pakistan", file: "gs1-pakistan.webp" },
+  { name: "IPO — Intellectual Property Organisation Pakistan", file: "ipo-pakistan.webp" },
+  { name: "FBR NTN Verified", file: "fbr-ntn-verified.webp" },
+  { name: "FBR Taxpayer Certificate", file: "fbr-taxpayer.webp" },
+  { name: "Pakistan Halal Authority", file: "halal-authority.webp" },
+];
+
+export function RegistrationCertification() {
+  return (
+    <section className="relative py-24 overflow-hidden">
+      {/* Cinematic blue/teal wave background — consistent with the Hero's HDR water palette */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-20"
+        style={{
+          background:
+            "radial-gradient(120% 90% at 20% 0%, #F3FCFF 0%, #DCF3FA 26%, #BEE7F2 48%, #E9F8FB 68%, #FFFFFF 100%)",
+        }}
+      />
+      <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
+        <div
+          className="absolute -top-32 -left-24 h-[30rem] w-[30rem] rounded-full blur-[110px] opacity-70"
+          style={{ background: "radial-gradient(circle, rgba(94,211,255,0.5), transparent 72%)" }}
+        />
+        <div
+          className="absolute -bottom-40 -right-20 h-[28rem] w-[28rem] rounded-full blur-[110px] opacity-70"
+          style={{ background: "radial-gradient(circle, rgba(105,182,74,0.35), transparent 72%)" }}
+        />
+      </div>
+
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-center">
+        <Reveal>
+          <p className="text-sm font-bold tracking-[0.15em] text-green">
+            — Trusted, Licensed &amp; Fully Compliant —
+          </p>
+          <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold text-navy">
+            Registration &amp; Certification
+          </h2>
+        </Reveal>
+
+        <Stagger className="mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8 items-center">
+          {certifications.map((c) => (
+            <StaggerItem key={c.file}>
+              <div className="group flex flex-col items-center gap-3">
+                <div className="grid place-items-center h-24 w-24 sm:h-28 sm:w-28 rounded-full bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_16px_40px_-16px_rgba(6,65,94,0.35)] p-4 hover:-translate-y-1.5 hover:shadow-[0_24px_50px_-16px_rgba(6,65,94,0.45)] transition-all duration-300">
+                  <img
+                    src={`/images/certifications/${c.file}`}
+                    alt={c.name}
+                    loading="lazy"
+                    className="h-full w-full object-contain"
+                  />
+                </div>
+              </div>
+            </StaggerItem>
+          ))}
+        </Stagger>
+      </div>
+    </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
 /*  Custom Branding teaser                                                    */
 /* -------------------------------------------------------------------------- */
 

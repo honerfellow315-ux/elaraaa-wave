@@ -4,6 +4,7 @@ import {
   Hero,
   ProductCards,
   Highlights,
+  RegistrationCertification,
   CustomBrandingTeaser,
   QualityProcess,
   DeliveringLahore,
@@ -39,6 +40,7 @@ function Home() {
       <Hero />
       <Highlights />
       <ProductCards />
+      <RegistrationCertification />
       <CustomBrandingTeaser />
       <QualityProcess />
       <DeliveringLahore />
