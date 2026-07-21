@@ -20,7 +20,7 @@ export const Route = createFileRoute("/products")({
   component: ProductsPage,
 });
 
-type Size = { label: string; img?: string; price?: number };
+type Size = { label: string; img?: string; price?: number; refill?: boolean };
 type Category = {
   id: string;
   icon: typeof Droplets;
@@ -41,12 +41,12 @@ const categories: Category[] = [
     text: "Sourced and multi-stage filtered to preserve calcium, magnesium and potassium — the essentials your body craves.",
     productLabel: "Mineral Water Bottle",
     sizes: [
-      { label: "250 ML", img: "/images/mineral-250ml.webp" },
-      { label: "330 ML", img: "/images/mineral-330ml.webp" },
-      { label: "500 ML", img: "/images/mineral-500ml.webp" },
-      { label: "1.5 L", img: "/images/mineral-1.5l.webp" },
-      { label: "5 L", img: "/images/mineral-5l.webp" },
-      { label: "19 L", img: "/images/mineral-19l.webp" },
+      { label: "250 ML", img: "/images/mineral-250ml.webp", price: 35 },
+      { label: "330 ML", img: "/images/mineral-330ml.webp", price: 40 },
+      { label: "500 ML", img: "/images/mineral-500ml.webp", price: 50 },
+      { label: "1.5 L", img: "/images/mineral-1.5l.webp", price: 90 },
+      { label: "5 L", img: "/images/mineral-5l.webp", price: 250 },
+      { label: "19 L", img: "/images/mineral-19l.webp", price: 250, refill: true },
     ],
   },
   {
@@ -57,11 +57,11 @@ const categories: Category[] = [
     text: "Balanced alkaline profile designed to complement an active, wellness-forward lifestyle.",
     productLabel: "Alkaline Water Bottle",
     sizes: [
-      { label: "250 ML", img: "/images/alkaline-250ml.webp" },
-      { label: "330 ML", img: "/images/alkaline-330ml.webp" },
-      { label: "500 ML", img: "/images/alkaline-500ml.webp" },
-      { label: "1.5 L", img: "/images/alkaline-1.5l.webp" },
-      { label: "19 L", img: "/images/alkaline-19l.webp" },
+      { label: "250 ML", img: "/images/alkaline-250ml.webp", price: 45},
+      { label: "330 ML", img: "/images/alkaline-330ml.webp", price: 48 },
+      { label: "500 ML", img: "/images/alkaline-500ml.webp", price: 60 },
+      { label: "1.5 L", img: "/images/alkaline-1.5l.webp", price: 110 },
+      { label: "19 L", img: "/images/alkaline-19l.webp", price: 350 },
     ],
   },
   {
@@ -72,9 +72,9 @@ const categories: Category[] = [
     text: "Ultra-refined, crisp and smooth — our flagship pour for restaurants, hotels and connoisseurs.",
     productLabel: "Premium Water Bottle",
     sizes: [
-      { label: "330 ML", img: "/images/premium-330ml.webp" },
-      { label: "500 ML", img: "/images/premium-500ml.webp" },
-      { label: "1 L", img: "/images/premium-1l.webp" },
+      { label: "330 ML", img: "/images/premium-330ml.webp", price: 55 },
+      { label: "500 ML", img: "/images/premium-500ml.webp", price: 80 },
+      { label: "1 L", img: "/images/premium-1l.webp", price: 120 },
     ],
   },
 ];
@@ -86,7 +86,7 @@ function SizeCard({ category, size }: { category: Category; size: Size }) {
   const saved = isAuthenticated && isSaved(wishlistId);
 
   const productName = `${size.label} ${category.productLabel}`;
-  const priceLabel = size.price != null ? `Rs. ${size.price}` : "Rs. ____";
+  const priceLabel = size.price != null ? `Rs. ${size.price}` : "Rs. ___";
 
   function onWishlistClick(e: React.MouseEvent) {
     e.preventDefault();
@@ -118,6 +118,8 @@ function SizeCard({ category, size }: { category: Category; size: Size }) {
             <span className="text-[11px] font-semibold uppercase tracking-widest">Image coming soon</span>
           </div>
         )}
+
+        {/* Wishlist button */}
         <button
           type="button"
           onClick={onWishlistClick}
@@ -132,14 +134,21 @@ function SizeCard({ category, size }: { category: Category; size: Size }) {
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <h3 className="text-[15px] sm:text-base font-bold text-navy leading-snug">{productName}</h3>
 
-        <div className="mt-4">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-text-muted">Price</p>
-          <p className="mt-1 text-xl font-extrabold text-navy">{priceLabel}</p>
+        {/* Glass price badge — sits right above the Order Now button */}
+        <div className="mt-4 mb-5 flex items-center gap-2">
+          <span className="inline-flex items-center rounded-full border border-blue/20 bg-blue/10 backdrop-blur-md px-4 py-1.5 text-base font-extrabold text-blue">
+            {priceLabel}
+          </span>
+          {size.refill && (
+            <span className="inline-flex items-center rounded-full bg-black/85 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-white">
+              Refil
+            </span>
+          )}
         </div>
 
         <Link
           to="/contact"
-          className="shine mt-5 inline-flex w-full items-center justify-center rounded-full bg-brand px-5 py-2.5 text-sm font-bold tracking-wide text-white shadow-[0_10px_25px_-8px_rgba(18,58,94,0.55)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_35px_-10px_rgba(62,154,214,0.75)] sm:w-auto sm:self-start"
+          className="shine mt-auto inline-flex w-full items-center justify-center rounded-full bg-brand px-5 py-2.5 text-sm font-bold tracking-wide text-white shadow-[0_10px_25px_-8px_rgba(18,58,94,0.55)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_35px_-10px_rgba(62,154,214,0.75)] sm:w-auto sm:self-start"
         >
           Order Now
         </Link>

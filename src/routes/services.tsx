@@ -41,36 +41,42 @@ const stats = [
 const services = [
   {
     icon: House,
+    img: "/images/home-delivery.png",
     t: "Home Delivery",
     d: "Fresh 19L & 5L bottles at your door — same-day across Lahore.",
     highlights: ["Same Day Delivery", "Scheduled Supply", "Flexible Bottle Sizes"],
   },
   {
     icon: Building2,
+    img: "/images/office-corporate.png",
     t: "Office & Corporate",
     d: "Fixed monthly plans with dispenser support for teams of any size.",
     highlights: ["Monthly Billing", "Free Dispenser Service", "Priority Support"],
   },
   {
     icon: PartyPopper,
+    img: "/images/events-weddings.png",
     t: "Events & Weddings",
     d: "Custom-branded event water for weddings, launches and parties.",
     highlights: ["Custom Branding", "On-Site Delivery", "Bulk Order Pricing"],
   },
   {
     icon: UtensilsCrossed,
+    img: "/images/hotels-restaurants.png",
     t: "Hotels & Restaurants",
     d: "Premium glass bottles for hospitality — with your label if you like.",
     highlights: ["Premium Glass Bottles", "Private Labeling", "Consistent Restocking"],
   },
   {
     icon: Store,
+    img: "/images/retail-partners.png",
     t: "Retail Partners",
     d: "Stocking programme for high-street retailers and specialty grocers.",
     highlights: ["Wholesale Pricing", "Reliable Restocking", "Merchandising Support"],
   },
   {
     icon: Dumbbell,
+    img: "/images/gyms-studios.png",
     t: "Gyms & Studios",
     d: "Alkaline hydration for training floors, spas and wellness studios.",
     highlights: ["Alkaline Formula", "Bulk Dispensers", "Weekly Refills"],
@@ -106,40 +112,52 @@ function Services() {
 
       {/* Service cards */}
       <Stagger className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid gap-6 sm:gap-7 sm:grid-cols-2 lg:grid-cols-3 pb-4">
-        {services.map(({ icon: Icon, t, d, highlights }) => (
+        {services.map(({ icon: Icon, img, t, d, highlights }) => (
           <StaggerItem key={t}>
             <Reveal>
-              <div className="group relative h-full rounded-2xl border border-black/5 bg-white p-8 shadow-[0_1px_3px_rgba(16,24,40,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(16,24,40,0.12)] hover:border-brand/25">
-                {/* Icon — themed like the ELARA logo (lime → emerald → blue) */}
-                <div className="relative grid place-items-center h-16 w-16 rounded-full bg-gradient-to-br from-lime-400 via-emerald-500 to-blue-500 shadow-[0_8px_20px_-6px_rgba(16,163,127,0.45)] transition-transform duration-300 group-hover:scale-105">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/25 to-transparent" />
-                  <Icon className="relative h-7 w-7 text-white" strokeWidth={1.75} />
+              <div className="group relative h-full rounded-2xl border border-black/5 bg-white shadow-[0_1px_3px_rgba(16,24,40,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgba(16,24,40,0.12)] hover:border-brand/25 overflow-hidden">
+                {/* 4:3 Landscape image container */}
+                <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">
+                  <img
+                    src={img}
+                    alt={t}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/30 via-transparent to-transparent" />
                 </div>
 
-                {/* Title & description */}
-                <h3 className="mt-6 text-lg font-bold text-navy">{t}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-text-muted">{d}</p>
+                <div className="p-8">
+                  {/* Icon — themed like the ELARA logo (lime → emerald → blue) */}
+                  <div className="relative -mt-14 grid place-items-center h-16 w-16 rounded-full bg-gradient-to-br from-lime-400 via-emerald-500 to-blue-500 shadow-[0_8px_20px_-6px_rgba(16,163,127,0.45)] ring-4 ring-white transition-transform duration-300 group-hover:scale-105">
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/25 to-transparent" />
+                    <Icon className="relative h-7 w-7 text-white" strokeWidth={1.75} />
+                  </div>
 
-                {/* Highlights */}
-                <ul className="mt-5 space-y-2.5">
-                  {highlights.map((h) => (
-                    <li key={h} className="flex items-center gap-2.5 text-sm text-navy/80">
-                      <span className="grid place-items-center h-4 w-4 rounded-full bg-brand/10 shrink-0">
-                        <Check className="h-2.5 w-2.5 text-brand" strokeWidth={3} />
-                      </span>
-                      {h}
-                    </li>
-                  ))}
-                </ul>
+                  {/* Title & description */}
+                  <h3 className="mt-6 text-lg font-bold text-navy">{t}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-text-muted">{d}</p>
 
-                {/* Learn more -> Contact page */}
-                <Link
-                  to="/contact"
-                  className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand transition-colors hover:text-navy"
-                >
-                  Learn More
-                  <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
+                  {/* Highlights */}
+                  <ul className="mt-5 space-y-2.5">
+                    {highlights.map((h) => (
+                      <li key={h} className="flex items-center gap-2.5 text-sm text-navy/80">
+                        <span className="grid place-items-center h-4 w-4 rounded-full bg-brand/10 shrink-0">
+                          <Check className="h-2.5 w-2.5 text-brand" strokeWidth={3} />
+                        </span>
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Learn more -> Contact page */}
+                  <Link
+                    to="/contact"
+                    className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand transition-colors hover:text-navy"
+                  >
+                    Learn More
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </Link>
+                </div>
               </div>
             </Reveal>
           </StaggerItem>
