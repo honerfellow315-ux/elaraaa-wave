@@ -28,9 +28,9 @@ function Register() {
     if (busy) return;
     setBusy(true);
     try {
-      await register(form.name, form.email, form.password);
-      toast.success("Account created");
-      navigate({ to: "/account" });
+      await endpoints.register({ name: form.name, email: form.email, password: form.password });
+toast.success("Code sent to your email");
+navigate({ to: "/verify-otp", search: { email: form.email } });
     } catch (err) {
       toast.error(err instanceof ApiError ? err.message : "Registration failed");
     } finally {

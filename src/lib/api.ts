@@ -289,4 +289,8 @@ export const endpoints = {
     changeCredentials: (body: { username?: string; currentPassword: string; newPassword?: string }) =>
       api.post<{ ok: true }>("/api/admin/credentials", body),
   },
+  verifyRegistrationOtp: (body: { email: string; otp: string }) =>
+    api.post<{ token: string; user: User }>("/api/auth/verify-otp", body, { auth: false }),
+  resendOtp: (body: { email: string }) =>
+    api.post<{ ok: true }>("/api/auth/resend-otp", body, { auth: false }),
 };

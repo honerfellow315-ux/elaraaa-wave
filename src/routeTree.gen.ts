@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VerifyOtpRouteImport } from './routes/verify-otp'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
@@ -49,6 +50,11 @@ import { Route as AccountOrdersRouteImport } from './routes/account.orders'
 import { Route as AccountNotificationsRouteImport } from './routes/account.notifications'
 import { Route as AccountAddressesRouteImport } from './routes/account.addresses'
 
+const VerifyOtpRoute = VerifyOtpRouteImport.update({
+  id: '/verify-otp',
+  path: '/verify-otp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -266,6 +272,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
+  '/verify-otp': typeof VerifyOtpRoute
   '/account/addresses': typeof AccountAddressesRoute
   '/account/notifications': typeof AccountNotificationsRoute
   '/account/orders': typeof AccountOrdersRoute
@@ -305,6 +312,7 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
+  '/verify-otp': typeof VerifyOtpRoute
   '/account/addresses': typeof AccountAddressesRoute
   '/account/notifications': typeof AccountNotificationsRoute
   '/account/orders': typeof AccountOrdersRoute
@@ -347,6 +355,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
+  '/verify-otp': typeof VerifyOtpRoute
   '/account/addresses': typeof AccountAddressesRoute
   '/account/notifications': typeof AccountNotificationsRoute
   '/account/orders': typeof AccountOrdersRoute
@@ -390,6 +399,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/terms'
+    | '/verify-otp'
     | '/account/addresses'
     | '/account/notifications'
     | '/account/orders'
@@ -429,6 +439,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/terms'
+    | '/verify-otp'
     | '/account/addresses'
     | '/account/notifications'
     | '/account/orders'
@@ -470,6 +481,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/terms'
+    | '/verify-otp'
     | '/account/addresses'
     | '/account/notifications'
     | '/account/orders'
@@ -512,10 +524,18 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
+  VerifyOtpRoute: typeof VerifyOtpRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/verify-otp': {
+      id: '/verify-otp'
+      path: '/verify-otp'
+      fullPath: '/verify-otp'
+      preLoaderRoute: typeof VerifyOtpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -868,6 +888,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
+  VerifyOtpRoute: VerifyOtpRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
