@@ -140,10 +140,10 @@ function GalleryPage() {
         {/* ---------------------------------------------------------- */}
         <div className="mt-20 sm:mt-28">
           <SectionHeading
-            eyebrow="Behind The Scenes"
+            eyebrow="Behind the Scenes"
             title={
               <>
-                Wide views, <span className="shine-text">clear waters</span>
+                Wide views, <span className="shine-text">clear water</span>
               </>
             }
           />

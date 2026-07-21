@@ -31,14 +31,14 @@ const posts = [
   },
   {
     t: "Inside the ELARA WAVE bottling line",
-    d: "A step-by-step walkthrough of our seven-stage filtration, UV sterilisation and sealed-line bottling — the quiet craft behind every crisp, consistent bottle we deliver.",
+    d: "A step-by-step walkthrough of our six-stage reverse-osmosis filtration, UV sterilisation and sealed-line bottling — the quiet craft behind every crisp, consistent bottle we deliver.",
     tag: "Craft",
     date: "May 2026",
     read: "5 min read",
   },
   {
     t: "Hydration for athletes and active lifestyles",
-    d: "How mineral-rich, alkaline water supports recovery, endurance and electrolyte balance — with practical intake benchmarks for training days, match days and rest days.",
+    d: "How mineral-rich, alkaline water may help you stay on top of hydration during recovery, endurance training and everyday electrolyte balance — with practical intake ideas for training days, match days and rest days.",
     tag: "Fitness",
     date: "May 2026",
     read: "4 min read",
@@ -52,7 +52,7 @@ const posts = [
   },
   {
     t: "Water, skin and everyday glow",
-    d: "A dermatologist-informed guide to daily hydration habits, mineral intake and the small routines that quietly transform skin clarity over time.",
+    d: "A dermatologist-informed guide to daily hydration habits, mineral intake and the small routines that may support healthier-looking skin over time.",
     tag: "Wellness",
     date: "Apr 2026",
     read: "4 min read",

@@ -320,7 +320,7 @@ export function Hero() {
           <Reveal delay={0.3}>
             <div className="mt-8 flex flex-wrap gap-3">
               {[
-                { i: Droplets, t: "10,000+ Delivered" },
+                { i: Droplets, t: "10,000+ Bottles Delivered" },
                 { i: ShieldCheck, t: "PFA Registered" },
                 { i: FlaskConical, t: "Lab Tested" },
               ].map(({ i: I, t }) => (
@@ -580,7 +580,7 @@ const products = [
   { title: "Alkaline Water", desc: "Balanced pH 8.5+ to complement an active, healthier lifestyle.", img: "/images/alkaline-water.webp", to: "/products#alkaline" },
   { title: "Premium Water", desc: "Ultra-refined for a crisp, clean taste — our flagship pour.", img: "/images/primium-water.webp", to: "/products#premium" },
   {
-    title: "19L + 5L Bottles",
+    title: "19 L and 5 L Bottles",
     desc: "Home & office packs: 19L Mineral, 19L Alkaline, and 5L family bottles.",
     img: "/images/bottle-real-1.webp",
     to: "/products#bulk",
@@ -650,8 +650,8 @@ export function ProductCards() {
 
 export function Highlights() {
   const items = [
-    { i: BadgeCheck, t: "PFA Registered", d: "Certified by the Punjab Food Authority." },
-    { i: FlaskConical, t: "Lab Tested", d: "Every batch tested for purity & minerals." },
+    { i: BadgeCheck, t: "PFA Registered", d: "Registered with the Punjab Food Authority." },
+    { i: FlaskConical, t: "Lab Tested", d: "Every batch is tested for purity and mineral balance." },
     { i: Leaf, t: "Halal Certified", d: "Trusted, ethical, community-first." },
     { i: Truck, t: "Same-Day Delivery", d: "Fresh at your doorstep across Lahore." },
   ];
@@ -766,7 +766,7 @@ export function CustomBrandingTeaser() {
               </h2>
               <p className="mt-5 text-text-muted max-w-xl">
                 Perfect for businesses, restaurants, hotels, cafés, events and corporate
-                gifting. Get fully customised bottles with your logo &amp; label.
+                gifting. Get fully customised bottles featuring your logo and label.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
@@ -797,7 +797,7 @@ export function CustomBrandingTeaser() {
                 <div className="rounded-3xl bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-2xl p-6 border border-white/70">
                   <div className="flex items-center justify-between mb-6">
                     <span className="text-xs font-bold tracking-widest text-navy">YOUR LOGO</span>
-                    <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-brand text-white">MIN 100</span>
+                    <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-brand text-white">MINIMUM ORDER: 100</span>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -837,7 +837,7 @@ const qualitySteps = [
   { i: FlaskConical, t: "Advanced Filtration", d: "Removes impurities." },
   { i: Beaker, t: "Mineral Enhancement", d: "Balanced minerals." },
   { i: Sun, t: "UV Sterilization", d: "Eliminates bacteria." },
-  { i: TestTube2, t: "Quality Testing", d: "Lab verified." },
+  { i: TestTube2, t: "Quality Testing", d: "Laboratory verified." },
   { i: PackageCheck, t: "Safe Delivery", d: "Securely bottled." },
 ];
 

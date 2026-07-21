@@ -21,13 +21,13 @@ const categories = ["All", "Quality", "Delivery", "Plans", "Branding", "Bottles"
 
 const faqs = [
   {
-    q: "Is ELARA WAVE water PFA Registered?",
+    q: "Is ELARA WAVE water PFA registered?",
     a: "Yes — every batch is registered and tested to Punjab Food Authority standards, with lab reports available on request for corporate and bulk clients.",
     cat: "Quality",
   },
   {
     q: "How fast is delivery?",
-    a: "Same-Day dispatch for orders placed before 4 PM across our Lahore coverage areas. Orders placed after 4 PM are delivered the next morning.",
+    a: "Same-day dispatch for orders placed before 4 PM across our Lahore coverage areas. Orders placed after 4 PM are delivered the next morning.",
     cat: "Delivery",
   },
   {
@@ -47,7 +47,7 @@ const faqs = [
   },
   {
     q: "Which bottle sizes are available?",
-    a: "330 ml, 500 ml, 1.5 L glass and PET, 5 L family, and 19 L bulk — available in both mineral and alkaline formulations.",
+    a: "Available sizes include 250 ml, 330 ml, 500 ml, 1 L, 1.5 L, 5 L and 19 L, depending on the selected water range.",
     cat: "Bottles",
   },
   {

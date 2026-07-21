@@ -40,10 +40,10 @@ export const Route = createFileRoute("/custom-branding")({
 
 const projects = [
   { name: "Timmy's", desc: "Corporate hydration line for a leading ceramics brand — cohesive with their showroom identity.", img: "/images/project-timmy-tiles.webp" },
-  { name: "Al Ghani", desc: "Elevated 500 ml glass bottles for premium dev showrooms and client lounges.", img: "/images/project-timmy-sanitary.webp" },
-  { name: "Tiles and Sanitary", desc: "Sport-fresh alkaline packs tailored for training sessions, tournaments and gym floors.", img: "/images/project-sapphire-sports.webp" },
-  { name: "Reportage", desc: "Signature hotel welcome water — foil-embossed label with a soft mineral pour.", img: "/images/project-four.webp" },
-  { name: "Sapphire", desc: "Wedding-season private label — bespoke event branding with elegant typography.", img: "/images/project-five.webp" },
+  { name: "Al Ghani", desc: "Elevated 500 ml glass bottles for premium showrooms and client lounges.", img: "/images/project-timmy-sanitary.webp" },
+  { name: "Tiles and Sanitary", desc: "Custom-branded bottles for their tiles and sanitaryware showroom — a polished detail for walk-in clients.", img: "/images/project-sapphire-sports.webp" },
+  { name: "Reportage", desc: "Branded water for site offices and client walkthroughs at their residential project launches.", img: "/images/project-four.webp" },
+  { name: "Sapphire", desc: "Custom-labelled bottles for factory floors and corporate visitors at their textile finishing plant.", img: "/images/project-five.webp" },
   { name: "Quetta Pharaata", desc: "Signature hotel water for guest rooms and dining — a clean label that mirrors the hotel's understated, traditional hospitality.", img: "/images/project-six.webp" },
 ];
 
@@ -51,17 +51,17 @@ const projects = [
 const realBottles = [
   {
     image: "/images/250ml.webp",
-    label: "250 ML",
+    label: "250 ml",
     desc: "Compact premium bottle for events, meetings and giveaways.",
   },
   {
     image: "/images/330ml.webp",
-    label: "330 ML",
+    label: "330 ml",
     desc: "Premium everyday bottle with elegant label presentation.",
   },
   {
     image: "/images/500ml.webp",
-    label: "500 ML",
+    label: "500 ml",
     desc: "Most popular format for retail, offices and hospitality.",
   },
   {
@@ -73,7 +73,7 @@ const realBottles = [
 
 const whyBrand = [
   { icon: Palette, t: "Full design support", d: "In-house design team turns your brief into print-ready label artwork — no agency fees." },
-  { icon: ShieldCheck, t: "PFA registered water", d: "Every branded bottle carries the same lab-tested, halal-certified ELARA WAVE quality." },
+  { icon: ShieldCheck, t: "PFA-registered water", d: "Every branded bottle carries the same lab-tested, halal-certified ELARA WAVE quality." },
   { icon: Award, t: "Premium finish options", d: "Foil, matte, spot-UV and embossed labels — finishes that feel as premium as they look." },
   { icon: Truck, t: "Low MOQs, fast turnaround", d: "Small runs for events, scalable production for brands — delivered on your timeline." },
   { icon: Users, t: "Dedicated brand manager", d: "One point of contact from first sketch to final delivery — briefing, samples and reorders." },
@@ -416,8 +416,8 @@ function CustomBranding() {
                   <label className="text-xs font-bold tracking-widest text-navy">BOTTLE SIZE</label>
                   <select required value={form.size} onChange={(e) => setForm({ ...form, size: e.target.value })} className="mt-2 w-full h-12 px-4 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy">
                     <option value="">Select size</option>
-                    <option>250 ML</option>
-                    <option>500 ML</option>
+                    <option>250 ml</option>
+                    <option>500 ml</option>
                     <option>1 L</option>
                     <option>1.5 L</option>
                     <option>5 L</option>

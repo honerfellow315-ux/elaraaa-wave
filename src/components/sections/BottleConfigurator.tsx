@@ -459,7 +459,7 @@ export function BottleConfigurator() {
               Design your <span className="shine-text">own bottle</span>
             </h2>
             <p className="mt-4 text-text-muted">
-              Choose a real ELARA WAVE bottle, blend your brand colors, drop in your logo, and
+              Choose a real ELARA WAVE bottle, blend your brand colors, upload your logo, and
               preview it studio-lit from every angle.
             </p>
           </div>

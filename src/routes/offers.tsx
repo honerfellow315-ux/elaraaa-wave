@@ -30,13 +30,13 @@ const offers = [
     label: "Offer 1",
     t: (
       <>
-        Buy 4 PET Bottles,
+        Buy a 6 or 12-Pack,
         <br />
         Get 1 FREE!
       </>
     ),
     tag: "6-Pack & 12-Pack",
-    d: "Stock up on your favorite Elara Wave water bottles in bulk and get one bottle free. Available on both 6-bottle and 12-bottle packs.",
+    d: "Stock up on your favourite Elara Wave water bottles in bulk and get one bottle free. Available on both 6-bottle and 12-bottle packs.",
     cta: "Order Now",
   },
   {
@@ -45,7 +45,7 @@ const offers = [
     label: "Offer 2",
     t: (
       <>
-        Buy 3 (19L) Bottles,
+        Buy Three 19 L Bottles,
         <br />
         Get a Dispenser Free!
       </>
@@ -67,7 +67,7 @@ const offers = [
       </>
     ),
     tag: "10 Bottles Free",
-    d: "Order 100 personalized Elara Wave bottles with your own branding and get 10 extra bottles free. Ideal for events, weddings, and businesses.",
+    d: "Order 100 personalised Elara Wave bottles with your own branding and get 10 extra bottles free. Ideal for events, weddings, and businesses.",
     cta: "Customize Now",
     href: "/custom-branding",
   },

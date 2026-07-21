@@ -49,7 +49,7 @@ function Coverage() {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-navy">Active Delivery Sectors</h3>
-                <p className="text-xs text-text-muted">Serving daily orders & corporate plans in these primary locations</p>
+                <p className="text-xs text-text-muted">Serving daily orders and corporate plans in these key areas.</p>
               </div>
             </div>
 

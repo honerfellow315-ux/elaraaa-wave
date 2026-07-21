@@ -38,7 +38,7 @@ const categories: Category[] = [
     icon: Droplets,
     tag: "MINERAL WATER",
     title: "Naturally Balanced Mineral Water",
-    text: "Sourced and multi-stage filtered to preserve calcium, magnesium and potassium — the essentials your body craves.",
+    text: "Purified through multi-stage filtration and carefully balanced with essential minerals for a clean, refreshing taste.",
     productLabel: "Mineral Water Bottle",
     sizes: [
       { label: "250 ml", img: "/images/mineral-250ml.webp", price: 35 },

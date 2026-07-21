@@ -36,7 +36,7 @@ export const Route = createFileRoute("/about")({
 function About() {
   const stats = [
     { v: "10K+", l: "Bottles Delivered" },
-    { v: "5000+", l: "Loyal Customers" },
+    { v: "5,000+", l: "Loyal Customers" },
     { v: "99%", l: "Purity Standard" },
     { v: "24/7", l: "Support" },
   ];
@@ -88,10 +88,10 @@ function About() {
 
   const process = [
     { i: FlaskConical, t: "Source", d: "Deep-source water is drawn, tested, and quality-locked before entering our line." },
-    { i: Sparkles, t: "Purify", d: "6-stage reverse osmosis strips every impurity while preserving what nature intended." },
+    { i: Sparkles, t: "Purify", d: "Our six-stage reverse-osmosis process removes unwanted impurities before the water is carefully mineral-balanced." },
     { i: Leaf, t: "Mineralize", d: "Essential minerals are re-balanced to a smooth, hydrating pH — never harsh, never flat." },
     { i: Award, t: "Bottle", d: "Sealed in food-grade bottles under sterile conditions, ready for the ELARA moment." },
-    { i: Truck, t: "Deliver", d: "Same-Day delivery across Lahore, straight to your home, office, or event." },
+    { i: Truck, t: "Deliver", d: "Same-day delivery across Lahore, straight to your home, office, or event." },
   ];
 
   return (
@@ -131,7 +131,7 @@ function About() {
           <p className="mt-5 text-base sm:text-lg text-text-muted leading-relaxed">
             Every bottle is a promise. From the moment water enters our plant
             to the second it lands at your door, we protect its mineral balance
-            and strip every impurity. It's water at its most honest — and its
+            and remove unwanted impurities. It's water at its most honest — and its
             most premium.
           </p>
           <p className="mt-4 text-base text-text-muted leading-relaxed">

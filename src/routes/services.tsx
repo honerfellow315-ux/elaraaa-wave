@@ -43,7 +43,7 @@ const services = [
     icon: House,
     img: "/images/home-delivery.webp",
     t: "Home Delivery",
-    d: "Fresh 19L & 5L bottles at your door — same-day across Lahore.",
+    d: "Fresh 19 L and 5 L bottles at your door — same-day across Lahore.",
     highlights: ["Same-Day Delivery", "Scheduled Supply", "Flexible Bottle Sizes"],
   },
   {
@@ -71,7 +71,7 @@ const services = [
     icon: Store,
     img: "/images/retail-partners.webp",
     t: "Retail Partners",
-    d: "Stocking programme for high-street retailers and specialty grocers.",
+    d: "Stocking programme for local retailers and speciality stores.",
     highlights: ["Wholesale Pricing", "Reliable Restocking", "Merchandising Support"],
   },
   {
