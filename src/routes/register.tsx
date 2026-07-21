@@ -4,7 +4,7 @@ import { Reveal } from "@/components/Reveal";
 import { Logo } from "@/components/Logo";
 import { useState } from "react";
 import { useAuth } from "@/lib/auth";
-import { ApiError } from "@/lib/api";
+import { endpoints, ApiError } from "@/lib/api";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/register")({

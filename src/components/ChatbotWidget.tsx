@@ -1,9 +1,81 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, X, Send, Sparkles } from "lucide-react";
 
+type ChatMessage = { id: number; from: "bot" | "user"; text: string };
+
+const CONTACT_FALLBACK =
+  "I'm not sure about that one — but our team can help directly. 📞 0309 6419731 or ✉️ hello@elarawave.com (Lahore, Pakistan).";
+
+// Simple keyword → reply rules. No API, no AI model — just canned responses.
+const RULES: { keywords: string[]; reply: string }[] = [
+  {
+    keywords: ["price", "pricing", "cost", "rate", "kitne", "kitna"],
+    reply:
+      "Our pricing depends on bottle size and order quantity. For an exact quote, please contact us at 0309 6419731 or hello@elarawave.com.",
+  },
+  {
+    keywords: ["bottle", "size", "250", "330", "500", "1.5", "19l", "product"],
+    reply:
+      "We offer 250 ML, 330 ML, 500 ML, 1.5 L and 19 L bottles — perfect for homes, offices and events. Check out our Products page for details.",
+  },
+  {
+    keywords: ["deliver", "delivery", "coverage", "area", "shipping"],
+    reply:
+      "We deliver across Lahore, usually same-day. Check our Coverage Areas page to see if we cover your location.",
+  },
+  {
+    keywords: ["brand", "branding", "custom", "label", "logo"],
+    reply:
+      "We craft premium private-label water for brands, hotels and events! Visit our Custom Branding page to design your bottle and request a quote.",
+  },
+  {
+    keywords: ["contact", "phone", "number", "email", "address", "location"],
+    reply: "You can reach ELARAWAVE at 0309 6419731, hello@elarawave.com — based in Lahore, Pakistan.",
+  },
+  {
+    keywords: ["order", "buy", "purchase"],
+    reply:
+      "To place an order, head to our Products page or contact us directly at 0309 6419731 — we'll get it sorted quickly.",
+  },
+  {
+    keywords: ["hi", "hello", "hey", "salam", "assalam"],
+    reply: "Hey! 👋 Ask me about our bottles, pricing, delivery areas, or custom branding.",
+  },
+];
+
+function getBotReply(input: string): string {
+  const text = input.toLowerCase();
+  for (const rule of RULES) {
+    if (rule.keywords.some((k) => text.includes(k))) return rule.reply;
+  }
+  return CONTACT_FALLBACK;
+}
+
+let idCounter = 2;
+
 export function ChatbotWidget() {
   const [open, setOpen] = useState(false);
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    { id: 0, from: "bot", text: "Hi there! 👋 Welcome to ELARA WAVE. How can I help you today?" },
+    { id: 1, from: "bot", text: "You can ask about our bottles, pricing, delivery areas, or custom branding." },
+  ]);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+  }, [messages]);
+
+  function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const text = input.trim();
+    if (!text) return;
+    const userMsg: ChatMessage = { id: idCounter++, from: "user", text };
+    const botMsg: ChatMessage = { id: idCounter++, from: "bot", text: getBotReply(text) };
+    setMessages((m) => [...m, userMsg, botMsg]);
+    setInput("");
+  }
 
   return (
     <>
@@ -106,28 +178,33 @@ export function ChatbotWidget() {
               </div>
 
               {/* Messages */}
-              <div className="p-4 space-y-3 max-h-[320px] overflow-y-auto">
-                <div className="flex gap-2">
-                  <div className="max-w-[85%] rounded-2xl rounded-tl-md bg-white/80 border border-white/70 px-4 py-2.5 text-sm text-navy shadow-sm">
-                    Hi there! 👋 Welcome to ELARA WAVE. How can I help you
-                    today?
+              <div ref={scrollRef} className="p-4 space-y-3 max-h-[320px] overflow-y-auto">
+                {messages.map((m) => (
+                  <div key={m.id} className={`flex gap-2 ${m.from === "user" ? "justify-end" : ""}`}>
+                    <div
+                      className={
+                        m.from === "user"
+                          ? "max-w-[85%] rounded-2xl rounded-tr-md text-white px-4 py-2.5 text-sm shadow-sm"
+                          : "max-w-[85%] rounded-2xl rounded-tl-md bg-white/80 border border-white/70 px-4 py-2.5 text-sm text-navy shadow-sm"
+                      }
+                      style={
+                        m.from === "user"
+                          ? { background: "linear-gradient(135deg,#69B64A 0%,#259F9F 55%,#0E74A7 100%)" }
+                          : undefined
+                      }
+                    >
+                      {m.text}
+                    </div>
                   </div>
-                </div>
-                <div className="flex gap-2">
-                  <div className="max-w-[85%] rounded-2xl rounded-tl-md bg-white/80 border border-white/70 px-4 py-2.5 text-sm text-navy shadow-sm">
-                    You can ask about our bottles, pricing, delivery areas, or
-                    custom branding.
-                  </div>
-                </div>
+                ))}
               </div>
 
               {/* Composer */}
-              <form
-                onSubmit={(e) => e.preventDefault()}
-                className="p-3 border-t border-white/50 flex items-center gap-2"
-              >
+              <form onSubmit={onSubmit} className="p-3 border-t border-white/50 flex items-center gap-2">
                 <input
                   type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
                   placeholder="Type your message…"
                   className="flex-1 rounded-full bg-white/80 border border-white/70 px-4 py-2.5 text-sm text-navy placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-sky/60 transition"
                 />

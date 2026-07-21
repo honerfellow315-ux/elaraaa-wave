@@ -48,7 +48,7 @@ export function setToken(token: string | null) {
   else window.localStorage.removeItem("ew_token");
 }
 
-function getAdminToken(): string | null {
+export function getAdminToken(): string | null {
   if (typeof window === "undefined") return null;
   return window.localStorage.getItem("ew_admin_token");
 }
