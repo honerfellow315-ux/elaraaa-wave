@@ -4,6 +4,8 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { PageHero } from "@/components/PageHero";
 import { BottleConfigurator } from "@/components/sections/BottleConfigurator";
 import { Reveal, Stagger, StaggerItem } from "@/components/Reveal";
+import { endpoints, ApiError } from "@/lib/api";
+import { toast } from "sonner";
 import {
   ArrowUpRight,
   ImageIcon,
@@ -109,13 +111,31 @@ const emptyForm = {
 function CustomBranding() {
   const [form, setForm] = useState(emptyForm);
   const [submitted, setSubmitted] = useState(false);
+  const [busy, setBusy] = useState(false);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log("Branding request:", form);
-    setSubmitted(true);
-    setForm(emptyForm);
-    setTimeout(() => setSubmitted(false), 5000);
+    if (busy) return;
+    setBusy(true);
+    try {
+      await endpoints.brandingRequest({
+        name: form.name,
+        brand: form.brand,
+        email: form.email,
+        phone: form.phone || undefined,
+        size: form.size,
+        quantity: form.quantity,
+        brief: form.brief,
+      });
+      setSubmitted(true);
+      toast.success("Request sent — we'll be in touch within 24 hours.");
+      setForm(emptyForm);
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      toast.error(err instanceof ApiError ? err.message : "Failed to send request");
+    } finally {
+      setBusy(false);
+    }
   }
 
   return (
@@ -334,8 +354,8 @@ function CustomBranding() {
                 <textarea required rows={4} placeholder="Tell us about the event, brand identity or delivery timeline…" value={form.brief} onChange={(e) => setForm({ ...form, brief: e.target.value })} className="mt-2 w-full px-4 py-3 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy resize-none" />
               </div>
               <div className="flex flex-wrap items-center gap-4 pt-2">
-                <button type="submit" className="shine inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-brand text-white font-semibold hover:-translate-y-0.5 transition">
-                  <Send className="h-4 w-4" /> Send request
+                <button disabled={busy} type="submit" className="shine inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-brand text-white font-semibold hover:-translate-y-0.5 transition disabled:opacity-60">
+                  <Send className="h-4 w-4" /> {busy ? "Sending…" : "Send request"}
                 </button>
                 {submitted && (
                   <span className="inline-flex items-center gap-2 text-sm font-semibold text-green">

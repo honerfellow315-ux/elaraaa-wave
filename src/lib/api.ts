@@ -48,6 +48,17 @@ export function setToken(token: string | null) {
   else window.localStorage.removeItem("ew_token");
 }
 
+function getAdminToken(): string | null {
+  if (typeof window === "undefined") return null;
+  return window.localStorage.getItem("ew_admin_token");
+}
+
+export function setAdminToken(token: string | null) {
+  if (typeof window === "undefined") return;
+  if (token) window.localStorage.setItem("ew_admin_token", token);
+  else window.localStorage.removeItem("ew_admin_token");
+}
+
 export class ApiError extends Error {
   status: number;
   data: unknown;
@@ -61,11 +72,14 @@ export class ApiError extends Error {
 async function request<T>(
   method: string,
   path: string,
-  opts: { body?: unknown; query?: Query; auth?: boolean; signal?: AbortSignal } = {},
+  opts: { body?: unknown; query?: Query; auth?: boolean; adminAuth?: boolean; signal?: AbortSignal } = {},
 ): Promise<T> {
   const headers: Record<string, string> = { Accept: "application/json" };
   if (opts.body !== undefined) headers["Content-Type"] = "application/json";
-  if (opts.auth !== false) {
+  if (opts.adminAuth) {
+    const token = getAdminToken();
+    if (token) headers.Authorization = `Bearer ${token}`;
+  } else if (opts.auth !== false) {
     const token = getToken();
     if (token) headers.Authorization = `Bearer ${token}`;
   }
@@ -95,15 +109,15 @@ async function request<T>(
 
 export const api = {
   base: API_BASE_URL,
-  get: <T>(path: string, query?: Query, opts?: { auth?: boolean; signal?: AbortSignal }) =>
+  get: <T>(path: string, query?: Query, opts?: { auth?: boolean; adminAuth?: boolean; signal?: AbortSignal }) =>
     request<T>("GET", path, { query, ...opts }),
-  post: <T>(path: string, body?: unknown, opts?: { auth?: boolean; signal?: AbortSignal }) =>
+  post: <T>(path: string, body?: unknown, opts?: { auth?: boolean; adminAuth?: boolean; signal?: AbortSignal }) =>
     request<T>("POST", path, { body, ...opts }),
-  put: <T>(path: string, body?: unknown, opts?: { auth?: boolean; signal?: AbortSignal }) =>
+  put: <T>(path: string, body?: unknown, opts?: { auth?: boolean; adminAuth?: boolean; signal?: AbortSignal }) =>
     request<T>("PUT", path, { body, ...opts }),
-  patch: <T>(path: string, body?: unknown, opts?: { auth?: boolean; signal?: AbortSignal }) =>
+  patch: <T>(path: string, body?: unknown, opts?: { auth?: boolean; adminAuth?: boolean; signal?: AbortSignal }) =>
     request<T>("PATCH", path, { body, ...opts }),
-  delete: <T>(path: string, opts?: { auth?: boolean; signal?: AbortSignal }) =>
+  delete: <T>(path: string, opts?: { auth?: boolean; adminAuth?: boolean; signal?: AbortSignal }) =>
     request<T>("DELETE", path, opts),
 };
 
@@ -167,6 +181,19 @@ export type ContactMessage = {
   read?: boolean;
 };
 
+export type BrandingRequest = {
+  id: string | number;
+  name: string;
+  brand: string;
+  email: string;
+  phone?: string;
+  size: string;
+  quantity: string;
+  brief: string;
+  createdAt?: string;
+  read?: boolean;
+};
+
 export type SeoSettings = {
   title?: string;
   description?: string;
@@ -214,6 +241,10 @@ export const endpoints = {
     api.post<{ ok: true }>("/api/auth/password/forgot", body, { auth: false }),
   resetPassword: (body: { token: string; password: string }) =>
     api.post<{ ok: true }>("/api/auth/password/reset", body, { auth: false }),
+  verifyRegistrationOtp: (body: { email: string; otp: string }) =>
+    api.post<{ token: string; user: User }>("/api/auth/verify-otp", body, { auth: false }),
+  resendOtp: (body: { email: string }) =>
+    api.post<{ ok: true }>("/api/auth/resend-otp", body, { auth: false }),
 
   // Profile
   updateProfile: (body: Partial<Pick<User, "name" | "email" | "phone" | "avatar">>) =>
@@ -257,6 +288,8 @@ export const endpoints = {
     api.post<{ ok: true }>("/api/contact", body, { auth: false }),
   subscribe: (body: { email: string }) =>
     api.post<{ ok: true }>("/api/newsletter/subscribe", body, { auth: false }),
+  brandingRequest: (body: { name: string; brand: string; email: string; phone?: string; size: string; quantity: string; brief: string }) =>
+    api.post<{ ok: true }>("/api/branding-requests", body, { auth: false }),
 
   // SEO
   seo: (path: string) => api.get<{ title?: string; description?: string }>("/api/seo", { path }),
@@ -273,24 +306,24 @@ export const endpoints = {
 
   // Admin
   admin: {
-    stats: () => api.get<DashboardStats>("/api/admin/stats"),
-    users: () => api.get<User[]>("/api/admin/users"),
-    user: (id: string | number) => api.get<User>(`/api/admin/users/${id}`),
-    deleteUser: (id: string | number) => api.delete<{ ok: true }>(`/api/admin/users/${id}`),
-    subscribers: () => api.get<NewsletterSubscriber[]>("/api/admin/newsletter"),
-    deleteSubscriber: (id: string | number) => api.delete<{ ok: true }>(`/api/admin/newsletter/${id}`),
-    messages: () => api.get<ContactMessage[]>("/api/admin/messages"),
-    message: (id: string | number) => api.get<ContactMessage>(`/api/admin/messages/${id}`),
-    deleteMessage: (id: string | number) => api.delete<{ ok: true }>(`/api/admin/messages/${id}`),
-    getSeo: () => api.get<SeoSettings>("/api/admin/seo"),
-    saveSeo: (body: SeoSettings) => api.put<SeoSettings>("/api/admin/seo", body),
-    getSettings: () => api.get<SiteSettings>("/api/admin/settings"),
-    saveSettings: (body: SiteSettings) => api.put<SiteSettings>("/api/admin/settings", body),
+    login: (body: { username: string; password: string }) =>
+      api.post<{ token: string }>("/api/admin/auth/login", body, { auth: false }),
+    stats: () => api.get<DashboardStats>("/api/admin/stats", undefined, { adminAuth: true }),
+    users: () => api.get<User[]>("/api/admin/users", undefined, { adminAuth: true }),
+    user: (id: string | number) => api.get<User>(`/api/admin/users/${id}`, undefined, { adminAuth: true }),
+    deleteUser: (id: string | number) => api.delete<{ ok: true }>(`/api/admin/users/${id}`, { adminAuth: true }),
+    subscribers: () => api.get<NewsletterSubscriber[]>("/api/admin/newsletter", undefined, { adminAuth: true }),
+    deleteSubscriber: (id: string | number) => api.delete<{ ok: true }>(`/api/admin/newsletter/${id}`, { adminAuth: true }),
+    messages: () => api.get<ContactMessage[]>("/api/admin/messages", undefined, { adminAuth: true }),
+    message: (id: string | number) => api.get<ContactMessage>(`/api/admin/messages/${id}`, undefined, { adminAuth: true }),
+    deleteMessage: (id: string | number) => api.delete<{ ok: true }>(`/api/admin/messages/${id}`, { adminAuth: true }),
+    brandingRequests: () => api.get<BrandingRequest[]>("/api/admin/branding-requests", undefined, { adminAuth: true }),
+    deleteBrandingRequest: (id: string | number) => api.delete<{ ok: true }>(`/api/admin/branding-requests/${id}`, { adminAuth: true }),
+    getSeo: () => api.get<SeoSettings>("/api/admin/seo", undefined, { adminAuth: true }),
+    saveSeo: (body: SeoSettings) => api.put<SeoSettings>("/api/admin/seo", body, { adminAuth: true }),
+    getSettings: () => api.get<SiteSettings>("/api/admin/settings", undefined, { adminAuth: true }),
+    saveSettings: (body: SiteSettings) => api.put<SiteSettings>("/api/admin/settings", body, { adminAuth: true }),
     changeCredentials: (body: { username?: string; currentPassword: string; newPassword?: string }) =>
-      api.post<{ ok: true }>("/api/admin/credentials", body),
+      api.post<{ ok: true }>("/api/admin/credentials", body, { adminAuth: true }),
   },
-  verifyRegistrationOtp: (body: { email: string; otp: string }) =>
-    api.post<{ token: string; user: User }>("/api/auth/verify-otp", body, { auth: false }),
-  resendOtp: (body: { email: string }) =>
-    api.post<{ ok: true }>("/api/auth/resend-otp", body, { auth: false }),
 };

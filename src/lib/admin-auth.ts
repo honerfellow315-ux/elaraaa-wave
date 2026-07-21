@@ -1,42 +1,30 @@
-// Local-storage-only admin authentication. No backend, no API.
-// Session persists for 7 days, then auto-expires.
+// Real backend-based admin authentication.
+// Admin accounts are created directly in the database — there is no
+// admin "register" flow. This file only handles login/session for an
+// existing admin account.
 
-const KEY = "ew_admin_session";
-const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
+import { endpoints, setAdminToken, getAdminToken, ApiError } from "@/lib/api";
 
-export const ADMIN_USERNAME = "elarawave123";
-export const ADMIN_PASSWORD = "1234567890";
+export function isAdminAuthenticated(): boolean {
+  return !!getAdminToken();
+}
 
-type Session = { username: string; expiresAt: number };
-
-export function getAdminSession(): Session | null {
-  if (typeof window === "undefined") return null;
+export async function signInAdmin(
+  username: string,
+  password: string,
+): Promise<{ ok: true } | { ok: false; message: string }> {
   try {
-    const raw = window.localStorage.getItem(KEY);
-    if (!raw) return null;
-    const s = JSON.parse(raw) as Session;
-    if (!s?.expiresAt || Date.now() > s.expiresAt) {
-      window.localStorage.removeItem(KEY);
-      return null;
-    }
-    return s;
-  } catch {
-    return null;
+    const res = await endpoints.admin.login({ username, password });
+    setAdminToken(res.token);
+    return { ok: true };
+  } catch (err) {
+    return {
+      ok: false,
+      message: err instanceof ApiError ? err.message : "Invalid username or password.",
+    };
   }
 }
 
-export function isAdminAuthenticated(): boolean {
-  return !!getAdminSession();
-}
-
-export function signInAdmin(username: string, password: string): boolean {
-  if (username !== ADMIN_USERNAME || password !== ADMIN_PASSWORD) return false;
-  const session: Session = { username, expiresAt: Date.now() + SEVEN_DAYS_MS };
-  window.localStorage.setItem(KEY, JSON.stringify(session));
-  return true;
-}
-
 export function signOutAdmin() {
-  if (typeof window === "undefined") return;
-  window.localStorage.removeItem(KEY);
+  setAdminToken(null);
 }

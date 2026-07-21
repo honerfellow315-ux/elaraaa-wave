@@ -2,7 +2,7 @@ import { createFileRoute, Outlet, useRouterState } from "@tanstack/react-router"
 import { PanelShell, type NavItem } from "@/components/PanelShell";
 import { AdminAuthGate } from "@/components/AdminAuthGate";
 import {
-  LayoutDashboard, Users, Mail, Search, MessageSquare, Settings,
+  LayoutDashboard, Users, Mail, Search, MessageSquare, Settings, Palette,
 } from "lucide-react";
 
 const items: NavItem[] = [
@@ -11,6 +11,7 @@ const items: NavItem[] = [
   { to: "/admin/newsletter", label: "Newsletter Subscribers", icon: Mail },
   { to: "/admin/seo", label: "SEO Settings", icon: Search },
   { to: "/admin/messages", label: "Contact Messages", icon: MessageSquare },
+  { to: "/admin/branding-requests", label: "Branding Requests", icon: Palette },
   { to: "/admin/settings", label: "Website Settings", icon: Settings },
 ];
 
@@ -20,6 +21,7 @@ const titles: Record<string, string> = {
   "/admin/newsletter": "Newsletter Subscribers",
   "/admin/seo": "SEO Settings",
   "/admin/messages": "Contact Messages",
+  "/admin/branding-requests": "Branding Requests",
   "/admin/settings": "Website Settings",
 };
 

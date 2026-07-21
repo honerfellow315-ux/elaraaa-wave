@@ -42,6 +42,7 @@ import { Route as AdminMediaRouteImport } from './routes/admin.media'
 import { Route as AdminHomepageRouteImport } from './routes/admin.homepage'
 import { Route as AdminCustomersRouteImport } from './routes/admin.customers'
 import { Route as AdminCustomBrandingRouteImport } from './routes/admin.custom-branding'
+import { Route as AdminBrandingRequestsRouteImport } from './routes/admin.branding-requests'
 import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
 import { Route as AccountWishlistRouteImport } from './routes/account.wishlist'
 import { Route as AccountSettingsRouteImport } from './routes/account.settings'
@@ -215,6 +216,11 @@ const AdminCustomBrandingRoute = AdminCustomBrandingRouteImport.update({
   path: '/custom-branding',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminBrandingRequestsRoute = AdminBrandingRequestsRouteImport.update({
+  id: '/branding-requests',
+  path: '/branding-requests',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
   id: '/analytics',
   path: '/analytics',
@@ -280,6 +286,7 @@ export interface FileRoutesByFullPath {
   '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
   '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/branding-requests': typeof AdminBrandingRequestsRoute
   '/admin/custom-branding': typeof AdminCustomBrandingRoute
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/homepage': typeof AdminHomepageRoute
@@ -320,6 +327,7 @@ export interface FileRoutesByTo {
   '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
   '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/branding-requests': typeof AdminBrandingRequestsRoute
   '/admin/custom-branding': typeof AdminCustomBrandingRoute
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/homepage': typeof AdminHomepageRoute
@@ -363,6 +371,7 @@ export interface FileRoutesById {
   '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
   '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/branding-requests': typeof AdminBrandingRequestsRoute
   '/admin/custom-branding': typeof AdminCustomBrandingRoute
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/homepage': typeof AdminHomepageRoute
@@ -407,6 +416,7 @@ export interface FileRouteTypes {
     | '/account/settings'
     | '/account/wishlist'
     | '/admin/analytics'
+    | '/admin/branding-requests'
     | '/admin/custom-branding'
     | '/admin/customers'
     | '/admin/homepage'
@@ -447,6 +457,7 @@ export interface FileRouteTypes {
     | '/account/settings'
     | '/account/wishlist'
     | '/admin/analytics'
+    | '/admin/branding-requests'
     | '/admin/custom-branding'
     | '/admin/customers'
     | '/admin/homepage'
@@ -489,6 +500,7 @@ export interface FileRouteTypes {
     | '/account/settings'
     | '/account/wishlist'
     | '/admin/analytics'
+    | '/admin/branding-requests'
     | '/admin/custom-branding'
     | '/admin/customers'
     | '/admin/homepage'
@@ -760,6 +772,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminCustomBrandingRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/branding-requests': {
+      id: '/admin/branding-requests'
+      path: '/branding-requests'
+      fullPath: '/admin/branding-requests'
+      preLoaderRoute: typeof AdminBrandingRequestsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/analytics': {
       id: '/admin/analytics'
       path: '/analytics'
@@ -837,6 +856,7 @@ const AccountRouteWithChildren =
 
 interface AdminRouteChildren {
   AdminAnalyticsRoute: typeof AdminAnalyticsRoute
+  AdminBrandingRequestsRoute: typeof AdminBrandingRequestsRoute
   AdminCustomBrandingRoute: typeof AdminCustomBrandingRoute
   AdminCustomersRoute: typeof AdminCustomersRoute
   AdminHomepageRoute: typeof AdminHomepageRoute
@@ -852,6 +872,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAnalyticsRoute: AdminAnalyticsRoute,
+  AdminBrandingRequestsRoute: AdminBrandingRequestsRoute,
   AdminCustomBrandingRoute: AdminCustomBrandingRoute,
   AdminCustomersRoute: AdminCustomersRoute,
   AdminHomepageRoute: AdminHomepageRoute,

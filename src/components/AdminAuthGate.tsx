@@ -1,22 +1,18 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Logo } from "@/components/Logo";
-import { signInAdmin, isAdminAuthenticated, getAdminSession } from "@/lib/admin-auth";
+import { signInAdmin, isAdminAuthenticated } from "@/lib/admin-auth";
 
 export function AdminAuthGate({ children }: { children: ReactNode }) {
   const [authed, setAuthed] = useState(false);
   const [checked, setChecked] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setAuthed(isAdminAuthenticated());
     setChecked(true);
-    // auto-logout when session expires while tab is open
-    const s = getAdminSession();
-    if (!s) return;
-    const t = window.setTimeout(() => setAuthed(false), Math.max(0, s.expiresAt - Date.now()));
-    return () => window.clearTimeout(t);
   }, []);
 
   if (!checked) {
@@ -29,12 +25,15 @@ export function AdminAuthGate({ children }: { children: ReactNode }) {
 
   if (authed) return <>{children}</>;
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (busy) return;
     setError(null);
-    const ok = signInAdmin(username.trim(), password);
-    if (!ok) {
-      setError("Invalid username or password.");
+    setBusy(true);
+    const res = await signInAdmin(username.trim(), password);
+    setBusy(false);
+    if (!res.ok) {
+      setError(res.message);
       return;
     }
     setAuthed(true);
@@ -78,8 +77,8 @@ export function AdminAuthGate({ children }: { children: ReactNode }) {
               {error}
             </div>
           )}
-          <button className="shine w-full h-12 rounded-xl bg-brand text-white font-semibold">
-            Sign In
+          <button disabled={busy} className="shine w-full h-12 rounded-xl bg-brand text-white font-semibold disabled:opacity-60">
+            {busy ? "Signing in…" : "Sign In"}
           </button>
         </form>
       </div>
