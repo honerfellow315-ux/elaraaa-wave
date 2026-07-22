@@ -3,9 +3,9 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { PageHero } from "@/components/PageHero";
 import { Reveal, Stagger, StaggerItem } from "@/components/Reveal";
 import { Newsletter } from "@/components/sections/Newsletter";
-import { Droplets, Sparkles, Award, ImageIcon, Heart } from "lucide-react";
-import { Link, useNavigate } from "@tanstack/react-router";
-import { useWishlist } from "@/hooks/use-wishlist";
+import { Droplets, Sparkles, Award, ImageIcon, ShoppingCart } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { useCart } from "@/lib/cart";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/products")({
@@ -80,24 +80,20 @@ const categories: Category[] = [
 ];
 
 function SizeCard({ category, size }: { category: Category; size: Size }) {
-  const wishlistId = `${category.id}-${size.label}`;
-  const { isAuthenticated, isSaved, toggle } = useWishlist();
-  const navigate = useNavigate();
-  const saved = isAuthenticated && isSaved(wishlistId);
+  const itemId = `${category.id}-${size.label}`;
+  const { addItem } = useCart();
 
   const productName = `${size.label} ${category.productLabel}`;
   const priceLabel = size.price != null ? `Rs. ${size.price}` : "Rs. ___";
 
-  function onWishlistClick(e: React.MouseEvent) {
+  function onAddToCart(e: React.MouseEvent) {
     e.preventDefault();
-    e.stopPropagation();
-    if (!isAuthenticated) {
-      toast.info("Sign in to save items to your wishlist");
-      void navigate({ to: "/login", search: { redirect: "/products" } as never });
+    if (size.price == null) {
+      toast.error("Price not available for this item yet");
       return;
     }
-    toggle(wishlistId);
-    toast.success(saved ? "Removed from wishlist" : "Added to wishlist");
+    addItem({ id: itemId, name: productName, price: size.price, img: size.img });
+    toast.success("Added to cart");
   }
 
   return (
@@ -118,23 +114,12 @@ function SizeCard({ category, size }: { category: Category; size: Size }) {
             <span className="text-[11px] font-semibold uppercase tracking-widest">Image coming soon</span>
           </div>
         )}
-
-        {/* Wishlist button */}
-        <button
-          type="button"
-          onClick={onWishlistClick}
-          aria-label={saved ? "Remove from wishlist" : "Add to wishlist"}
-          aria-pressed={saved}
-          className="absolute top-3 right-3 h-9 w-9 grid place-items-center rounded-full glass border border-white/70 shadow-sm hover:scale-110 transition"
-        >
-          <Heart className={`h-4 w-4 ${saved ? "text-red-500 fill-red-500" : "text-navy"}`} />
-        </button>
       </div>
 
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <h3 className="text-[15px] sm:text-base font-bold text-navy leading-snug">{productName}</h3>
 
-        {/* Glass price badge — sits right above the Order Now button */}
+        {/* Glass price badge — sits right above the action buttons */}
         <div className="mt-4 mb-5 flex items-center gap-2">
           <span className="inline-flex items-center rounded-full border border-blue/20 bg-blue/10 backdrop-blur-md px-4 py-1.5 text-base font-extrabold text-blue">
             {priceLabel}
@@ -146,12 +131,22 @@ function SizeCard({ category, size }: { category: Category; size: Size }) {
           )}
         </div>
 
-        <Link
-          to="/contact"
-          className="shine mt-auto inline-flex w-full items-center justify-center rounded-full bg-brand px-5 py-2.5 text-sm font-bold tracking-wide text-white shadow-[0_10px_25px_-8px_rgba(18,58,94,0.55)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_35px_-10px_rgba(62,154,214,0.75)] sm:w-auto sm:self-start"
-        >
-          Order Now
-        </Link>
+        <div className="mt-auto flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={onAddToCart}
+            className="shine inline-flex items-center justify-center gap-2 rounded-full bg-brand px-5 py-2.5 text-sm font-bold tracking-wide text-white shadow-[0_10px_25px_-8px_rgba(18,58,94,0.55)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_35px_-10px_rgba(62,154,214,0.75)]"
+          >
+            <ShoppingCart className="h-4 w-4" />
+            Add to Cart
+          </button>
+          <Link
+            to="/contact"
+            className="inline-flex items-center justify-center rounded-full border border-navy/15 px-5 py-2.5 text-sm font-bold tracking-wide text-navy hover:bg-bg-tint transition"
+          >
+            Order Now
+          </Link>
+        </div>
       </div>
     </article>
   );

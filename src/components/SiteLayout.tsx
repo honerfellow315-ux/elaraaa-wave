@@ -13,7 +13,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <Footer />
       <WhatsappFloat />
       <ChatbotWidget />
-      <VisitorPopup />
+      
     </div>
   );
 }
