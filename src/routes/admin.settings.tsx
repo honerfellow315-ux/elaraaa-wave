@@ -3,6 +3,7 @@ import { Panel, Btn } from "@/components/PanelUI";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { endpoints, type SiteSettings, ApiError } from "@/lib/api";
+import { signOutAdmin } from "@/lib/admin-auth";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/admin/settings")({ component: Settings });
@@ -44,6 +45,12 @@ function Settings() {
     } finally {
       setCredsSaving(false);
     }
+  }
+
+  function logout() {
+    signOutAdmin();
+    toast.success("Signed out");
+    window.location.href = "/admin";
   }
 
   if (q.isPending) return <Panel title="Settings"><div className="h-32 grid place-items-center text-text-muted">Loading…</div></Panel>;
@@ -98,6 +105,13 @@ function Settings() {
         <div className="mt-6">
           <Btn disabled={credsSaving} onClick={saveCreds}>{credsSaving ? "Updating…" : "Update credentials"}</Btn>
         </div>
+      </Panel>
+
+      <Panel title="Session">
+        <p className="text-sm text-text-muted -mt-2 mb-4">
+          Sign out of the admin panel on this device.
+        </p>
+        <Btn variant="danger" onClick={logout}>Log out</Btn>
       </Panel>
     </div>
   );
