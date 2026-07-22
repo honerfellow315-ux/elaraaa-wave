@@ -35,15 +35,9 @@ import { Route as AccountIndexRouteImport } from './routes/account.index'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminSeoRouteImport } from './routes/admin.seo'
-import { Route as AdminProductsRouteImport } from './routes/admin.products'
 import { Route as AdminNewsletterRouteImport } from './routes/admin.newsletter'
 import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
-import { Route as AdminMediaRouteImport } from './routes/admin.media'
-import { Route as AdminHomepageRouteImport } from './routes/admin.homepage'
-import { Route as AdminCustomersRouteImport } from './routes/admin.customers'
-import { Route as AdminCustomBrandingRouteImport } from './routes/admin.custom-branding'
 import { Route as AdminBrandingRequestsRouteImport } from './routes/admin.branding-requests'
-import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
 import { Route as AccountWishlistRouteImport } from './routes/account.wishlist'
 import { Route as AccountSettingsRouteImport } from './routes/account.settings'
 import { Route as AccountProfileRouteImport } from './routes/account.profile'
@@ -181,11 +175,6 @@ const AdminSeoRoute = AdminSeoRouteImport.update({
   path: '/seo',
   getParentRoute: () => AdminRoute,
 } as any)
-const AdminProductsRoute = AdminProductsRouteImport.update({
-  id: '/products',
-  path: '/products',
-  getParentRoute: () => AdminRoute,
-} as any)
 const AdminNewsletterRoute = AdminNewsletterRouteImport.update({
   id: '/newsletter',
   path: '/newsletter',
@@ -196,34 +185,9 @@ const AdminMessagesRoute = AdminMessagesRouteImport.update({
   path: '/messages',
   getParentRoute: () => AdminRoute,
 } as any)
-const AdminMediaRoute = AdminMediaRouteImport.update({
-  id: '/media',
-  path: '/media',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminHomepageRoute = AdminHomepageRouteImport.update({
-  id: '/homepage',
-  path: '/homepage',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminCustomersRoute = AdminCustomersRouteImport.update({
-  id: '/customers',
-  path: '/customers',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminCustomBrandingRoute = AdminCustomBrandingRouteImport.update({
-  id: '/custom-branding',
-  path: '/custom-branding',
-  getParentRoute: () => AdminRoute,
-} as any)
 const AdminBrandingRequestsRoute = AdminBrandingRequestsRouteImport.update({
   id: '/branding-requests',
   path: '/branding-requests',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
-  id: '/analytics',
-  path: '/analytics',
   getParentRoute: () => AdminRoute,
 } as any)
 const AccountWishlistRoute = AccountWishlistRouteImport.update({
@@ -285,15 +249,9 @@ export interface FileRoutesByFullPath {
   '/account/profile': typeof AccountProfileRoute
   '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
-  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/branding-requests': typeof AdminBrandingRequestsRoute
-  '/admin/custom-branding': typeof AdminCustomBrandingRoute
-  '/admin/customers': typeof AdminCustomersRoute
-  '/admin/homepage': typeof AdminHomepageRoute
-  '/admin/media': typeof AdminMediaRoute
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
-  '/admin/products': typeof AdminProductsRoute
   '/admin/seo': typeof AdminSeoRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/users': typeof AdminUsersRoute
@@ -326,15 +284,9 @@ export interface FileRoutesByTo {
   '/account/profile': typeof AccountProfileRoute
   '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
-  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/branding-requests': typeof AdminBrandingRequestsRoute
-  '/admin/custom-branding': typeof AdminCustomBrandingRoute
-  '/admin/customers': typeof AdminCustomersRoute
-  '/admin/homepage': typeof AdminHomepageRoute
-  '/admin/media': typeof AdminMediaRoute
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
-  '/admin/products': typeof AdminProductsRoute
   '/admin/seo': typeof AdminSeoRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/users': typeof AdminUsersRoute
@@ -370,15 +322,9 @@ export interface FileRoutesById {
   '/account/profile': typeof AccountProfileRoute
   '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
-  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/branding-requests': typeof AdminBrandingRequestsRoute
-  '/admin/custom-branding': typeof AdminCustomBrandingRoute
-  '/admin/customers': typeof AdminCustomersRoute
-  '/admin/homepage': typeof AdminHomepageRoute
-  '/admin/media': typeof AdminMediaRoute
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
-  '/admin/products': typeof AdminProductsRoute
   '/admin/seo': typeof AdminSeoRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/users': typeof AdminUsersRoute
@@ -415,15 +361,9 @@ export interface FileRouteTypes {
     | '/account/profile'
     | '/account/settings'
     | '/account/wishlist'
-    | '/admin/analytics'
     | '/admin/branding-requests'
-    | '/admin/custom-branding'
-    | '/admin/customers'
-    | '/admin/homepage'
-    | '/admin/media'
     | '/admin/messages'
     | '/admin/newsletter'
-    | '/admin/products'
     | '/admin/seo'
     | '/admin/settings'
     | '/admin/users'
@@ -456,15 +396,9 @@ export interface FileRouteTypes {
     | '/account/profile'
     | '/account/settings'
     | '/account/wishlist'
-    | '/admin/analytics'
     | '/admin/branding-requests'
-    | '/admin/custom-branding'
-    | '/admin/customers'
-    | '/admin/homepage'
-    | '/admin/media'
     | '/admin/messages'
     | '/admin/newsletter'
-    | '/admin/products'
     | '/admin/seo'
     | '/admin/settings'
     | '/admin/users'
@@ -499,15 +433,9 @@ export interface FileRouteTypes {
     | '/account/profile'
     | '/account/settings'
     | '/account/wishlist'
-    | '/admin/analytics'
     | '/admin/branding-requests'
-    | '/admin/custom-branding'
-    | '/admin/customers'
-    | '/admin/homepage'
-    | '/admin/media'
     | '/admin/messages'
     | '/admin/newsletter'
-    | '/admin/products'
     | '/admin/seo'
     | '/admin/settings'
     | '/admin/users'
@@ -723,13 +651,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSeoRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/admin/products': {
-      id: '/admin/products'
-      path: '/products'
-      fullPath: '/admin/products'
-      preLoaderRoute: typeof AdminProductsRouteImport
-      parentRoute: typeof AdminRoute
-    }
     '/admin/newsletter': {
       id: '/admin/newsletter'
       path: '/newsletter'
@@ -744,46 +665,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminMessagesRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/admin/media': {
-      id: '/admin/media'
-      path: '/media'
-      fullPath: '/admin/media'
-      preLoaderRoute: typeof AdminMediaRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/homepage': {
-      id: '/admin/homepage'
-      path: '/homepage'
-      fullPath: '/admin/homepage'
-      preLoaderRoute: typeof AdminHomepageRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/customers': {
-      id: '/admin/customers'
-      path: '/customers'
-      fullPath: '/admin/customers'
-      preLoaderRoute: typeof AdminCustomersRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/custom-branding': {
-      id: '/admin/custom-branding'
-      path: '/custom-branding'
-      fullPath: '/admin/custom-branding'
-      preLoaderRoute: typeof AdminCustomBrandingRouteImport
-      parentRoute: typeof AdminRoute
-    }
     '/admin/branding-requests': {
       id: '/admin/branding-requests'
       path: '/branding-requests'
       fullPath: '/admin/branding-requests'
       preLoaderRoute: typeof AdminBrandingRequestsRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/analytics': {
-      id: '/admin/analytics'
-      path: '/analytics'
-      fullPath: '/admin/analytics'
-      preLoaderRoute: typeof AdminAnalyticsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/account/wishlist': {
@@ -855,15 +741,9 @@ const AccountRouteWithChildren =
   AccountRoute._addFileChildren(AccountRouteChildren)
 
 interface AdminRouteChildren {
-  AdminAnalyticsRoute: typeof AdminAnalyticsRoute
   AdminBrandingRequestsRoute: typeof AdminBrandingRequestsRoute
-  AdminCustomBrandingRoute: typeof AdminCustomBrandingRoute
-  AdminCustomersRoute: typeof AdminCustomersRoute
-  AdminHomepageRoute: typeof AdminHomepageRoute
-  AdminMediaRoute: typeof AdminMediaRoute
   AdminMessagesRoute: typeof AdminMessagesRoute
   AdminNewsletterRoute: typeof AdminNewsletterRoute
-  AdminProductsRoute: typeof AdminProductsRoute
   AdminSeoRoute: typeof AdminSeoRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminUsersRoute: typeof AdminUsersRoute
@@ -871,15 +751,9 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
-  AdminAnalyticsRoute: AdminAnalyticsRoute,
   AdminBrandingRequestsRoute: AdminBrandingRequestsRoute,
-  AdminCustomBrandingRoute: AdminCustomBrandingRoute,
-  AdminCustomersRoute: AdminCustomersRoute,
-  AdminHomepageRoute: AdminHomepageRoute,
-  AdminMediaRoute: AdminMediaRoute,
   AdminMessagesRoute: AdminMessagesRoute,
   AdminNewsletterRoute: AdminNewsletterRoute,
-  AdminProductsRoute: AdminProductsRoute,
   AdminSeoRoute: AdminSeoRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminUsersRoute: AdminUsersRoute,
