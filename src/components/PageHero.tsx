@@ -64,7 +64,7 @@ export function PageHero({
         className="absolute inset-0 -z-40"
         style={{
           background:
-            "radial-gradient(120% 90% at 20% 0%, #0E74A7 0%, #06415E 24%, #03283A 56%, #021D2A 100%)",
+            "radial-gradient(120% 90% at 15% 0%, #A8D048 0%, #3FAE55 20%, #12A98F 42%, #0E74A7 68%, #06415E 88%, #021D2A 100%)",
         }}
       />
       <div
