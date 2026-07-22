@@ -134,7 +134,17 @@ function ReviewCard({ review }: { review: Review }) {
           </div>
         )}
         <div className="min-w-0">
-          <div className="font-bold text-navy truncate">{review.author}</div>
+          <div className="flex items-center gap-1.5">
+            <div className="font-bold text-navy truncate">{review.author}</div>
+            {review.source === "google" && (
+              <span
+                title="Posted on Google"
+                className="shrink-0 inline-flex items-center rounded-full bg-white px-1.5 py-0.5 text-[9px] font-bold text-text-muted border border-navy/10"
+              >
+                G
+              </span>
+            )}
+          </div>
           <div className="text-xs text-text-muted">{review.date}</div>
         </div>
       </div>
