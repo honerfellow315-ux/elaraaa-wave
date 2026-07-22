@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X, Phone, ChevronDown, User } from "lucide-react";
+import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Logo } from "./Logo";
-import { useAuth } from "@/lib/auth";
+import { CartButton } from "./CartButton";
 
 const nav: { label: string; to: string }[] = [
   { label: "Home", to: "/" },
@@ -24,7 +24,6 @@ const more: { label: string; to: string }[] = [
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { user, status } = useAuth();
 
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 20);
@@ -36,10 +35,6 @@ export function Header() {
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
   }, [open]);
-
-  const accountTo = status === "authenticated" ? "/account" : "/login";
-  const accountLabel =
-    status === "authenticated" ? user?.name?.split(" ")[0] || "Account" : "Login";
 
   return (
     <>
@@ -108,13 +103,7 @@ export function Header() {
                 <Phone className="h-4 w-4 text-blue" />
                 <span> 111-999-444</span>
               </a>
-              <Link
-                to={accountTo}
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-white/70 border border-white/70 text-navy text-sm font-semibold hover:bg-white transition"
-              >
-                <User className="h-4 w-4 text-blue" />
-                <span className="hidden md:inline">{accountLabel}</span>
-              </Link>
+              <CartButton variant="desktop" />
               <Link
                 to="/contact"
                 className="shine relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand text-white text-sm font-bold tracking-wide shadow-[0_10px_25px_-8px_rgba(18,58,94,0.6)] hover:shadow-[0_18px_40px_-10px_rgba(62,154,214,0.8)] hover:-translate-y-0.5 transition"
@@ -171,16 +160,10 @@ export function Header() {
                 </Link>
               </li>
             ))}
-            <li>
-              <Link
-  to={accountTo}
-  aria-label={accountLabel}
-  className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-white/70 border border-white/70 text-navy hover:bg-white transition"
->
-  <User className="h-4 w-4 text-blue" />
-</Link>
-            </li>
           </ul>
+          <div className="mt-4">
+            <CartButton variant="mobile" />
+          </div>
           <div className="mt-6 grid gap-2">
             <a
               href="tel:03096419731"

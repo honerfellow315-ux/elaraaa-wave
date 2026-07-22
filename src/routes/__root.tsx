@@ -14,6 +14,7 @@ import { reportRuntimeError } from "../lib/error-reporting";
 import { initPerfMode } from "../lib/perf-mode";
 import { Toaster } from "sonner";
 import { AuthProvider } from "@/lib/auth";
+import { CartProvider } from "@/lib/cart";
 
 function NotFoundComponent() {
   return (
@@ -118,8 +119,6 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
-        {/* Load Google Fonts stylesheet without blocking first paint. Plain <script>/<link>
-            (not React's head links API) so React doesn't try to manage it as a resource. */}
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){var l=document.createElement('link');l.rel='stylesheet';l.href='${fontHref}';document.head.appendChild(l);})();`,
@@ -147,9 +146,11 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
-        <Toaster richColors position="top-right" closeButton />
+        <CartProvider>
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+          <Toaster richColors position="top-right" closeButton />
+        </CartProvider>
       </AuthProvider>
     </QueryClientProvider>
   );
