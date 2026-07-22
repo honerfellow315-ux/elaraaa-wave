@@ -25,18 +25,19 @@ import {
  * photo so it looks printed onto the bottle. These percentages are
  * measured relative to the bottle's own bounding box (the <img>), so
  * tweak them per-asset until the overlay hugs the real label region in
- * your photo. (Left as-is for now — per-bottle placement tuning comes
- * in a follow-up pass.)
+ * your photo.
  *
- * Bottles #5 and #6 are the "Premium" bottles: isNoLabel = true — they
- * get no color/gradient wrap or banner at all, only a centered logo.
+ * `labelStyle` controls how that overlay is drawn:
+ *  - "wrap"     → classic barrel-wrap label band (default, bottles #1–#5)
+ *  - "vertical" → tall vertical strip running top-to-bottom of the
+ *                 bottle body (bottles #6 & #7, the slim Premium ones)
  */
 interface BottleAsset {
   id: string;
   image: string;
   label: string;
   shortLabel: string;
-  isNoLabel?: boolean;
+  labelStyle?: "wrap" | "vertical";
   labelArea: { top: string; left: string; width: string; height: string };
   logoArea: { top: string; left: string; width: string; height: string };
 }
@@ -87,8 +88,9 @@ const bottleAssets: BottleAsset[] = [
     image: "/images/bottles/bottle-6.webp",
     label: "Premium 500 ml",
     shortLabel: "500 ml",
-    isNoLabel: true,
-    labelArea: { top: "0%", left: "0%", width: "0%", height: "0%" },
+    labelStyle: "vertical",
+    // Full-height vertical strip, centered on the bottle body, top to bottom
+    labelArea: { top: "25%", left: "42%", width: "16%", height: "60%" },
     logoArea: { top: "40%", left: "35%", width: "30%", height: "20%" },
   },
   {
@@ -96,8 +98,8 @@ const bottleAssets: BottleAsset[] = [
     image: "/images/bottles/bottle-7.webp",
     label: "Premium 1 L",
     shortLabel: "1 L",
-    isNoLabel: true,
-    labelArea: { top: "0%", left: "0%", width: "0%", height: "0%" },
+    labelStyle: "vertical",
+    labelArea: { top: "25%", left: "42%", width: "16%", height: "60%" },
     logoArea: { top: "40%", left: "35%", width: "30%", height: "20%" },
   },
 ];
@@ -192,6 +194,8 @@ function BottlePreview({
     return getContrastColor(first);
   }, [gradient]);
 
+  const isVertical = asset.labelStyle === "vertical";
+
   return (
     <div className="relative h-full w-full">
       {/* Studio backdrop */}
@@ -224,8 +228,8 @@ function BottlePreview({
                 draggable={false}
               />
 
-              {/* Color / gradient wrap label */}
-              {!asset.isNoLabel && (
+              {/* Barrel-wrap label — bottles #1–#5, unchanged */}
+              {!isVertical && (
                 <div
                   className="absolute z-20"
                   style={{
@@ -290,7 +294,8 @@ function BottlePreview({
                       <img
                         src={logo}
                         alt="Brand logo"
-                        className="mb-1 h-6 w-6 rounded-full bg-white/90 object-contain p-1 shadow sm:h-8 sm:w-8"
+                        className="mb-1 h-6 w-6 object-contain drop-shadow sm:h-8 sm:w-8"
+                        style={{ mixBlendMode: "multiply" }}
                       />
                     )}
                     <div
@@ -313,28 +318,70 @@ function BottlePreview({
                 </div>
               )}
 
-              {/* No-label / no-banner bottles (Premium — #5 & #6): centered logo only */}
-              {asset.isNoLabel && (
+              {/* Vertical top-to-bottom label — bottles #6 & #7 (slim Premium) */}
+              {isVertical && (
                 <div
-                  className="absolute z-20 flex items-center justify-center"
+                  className="absolute z-20 rounded-full border border-white/30 shadow-[0_6px_18px_rgba(18,58,94,0.35)] overflow-hidden"
                   style={{
-                    top: asset.logoArea.top,
-                    left: asset.logoArea.left,
-                    width: asset.logoArea.width,
-                    height: asset.logoArea.height,
+                    top: asset.labelArea.top,
+                    left: asset.labelArea.left,
+                    width: asset.labelArea.width,
+                    height: asset.labelArea.height,
+                    background: gradient,
                   }}
                 >
-                  {logo ? (
-                    <img
-                      src={logo}
-                      alt="Brand logo"
-                      className="h-full w-full object-contain drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]"
-                    />
-                  ) : (
-                    <div className="rounded-full border border-navy/15 bg-white/40 px-3 py-2 text-center text-[8px] font-bold tracking-[0.3em] text-navy/40 backdrop-blur-sm">
-                      UPLOAD LOGO
+                  {/* Soft falloff at the two long edges — same barrel logic, vertical axis */}
+                  <div
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(90deg, rgba(0,0,0,0.35) 0%, transparent 30%, transparent 70%, rgba(0,0,0,0.35) 100%)",
+                    }}
+                  />
+                  {/* Vertical specular streak, off-center like a real printed wrap */}
+                  <div
+                    className="pointer-events-none absolute inset-x-0"
+                    style={{
+                      top: "18%",
+                      height: "24%",
+                      background:
+                        "linear-gradient(180deg, transparent, rgba(255,255,255,0.5), transparent)",
+                      filter: "blur(3px)",
+                      mixBlendMode: "screen",
+                    }}
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-0 opacity-[0.05]"
+                    style={{ backgroundImage: NOISE_BG }}
+                  />
+
+                  {/* Content — runs top to bottom */}
+                  <div className="relative z-10 flex h-full w-full flex-col items-center justify-center gap-2 py-4">
+                    {logo && (
+                      <img
+                        src={logo}
+                        alt="Brand logo"
+                        className="h-6 w-6 object-contain drop-shadow sm:h-7 sm:w-7"
+                        style={{ mixBlendMode: "multiply" }}
+                      />
+                    )}
+                    <div
+                      className="font-serif text-[9px] font-semibold tracking-[0.3em] sm:text-[10px]"
+                      style={{ color: textColor, writingMode: "vertical-rl" }}
+                    >
+                      {(brand || "YOUR BRAND").toUpperCase()}
                     </div>
-                  )}
+                    <div
+                      className="h-px w-4"
+                      style={{ background: textColor, opacity: 0.6 }}
+                    />
+                    <div
+                      className="text-[7px] tracking-[0.2em] opacity-80 sm:text-[8px]"
+                      style={{ color: textColor, writingMode: "vertical-rl" }}
+                    >
+                      {asset.label}
+                    </div>
+                  </div>
                 </div>
               )}
 
@@ -432,9 +479,7 @@ export function BottleConfigurator() {
     });
   }
 
-  const canEnhance = asset.isNoLabel
-    ? Boolean(logo)
-    : Boolean(logo) && brand.trim().length > 0 && selectedColors.length > 0;
+  const canEnhance = Boolean(logo) && brand.trim().length > 0 && selectedColors.length > 0;
 
   async function handleGenerate() {
     if (!canEnhance || generationStatus === "generating") return;
@@ -573,25 +618,21 @@ export function BottleConfigurator() {
                 ))}
               </div>
 
-              {/* Brand name — hidden for the no-label Premium bottles (#5, #6) */}
-              {!asset.isNoLabel && (
-                <div className="mt-6">
-                  <label className="text-xs font-bold text-navy tracking-widest">YOUR BRAND</label>
-                  <input
-                    value={brand}
-                    maxLength={22}
-                    onChange={(e) => setBrand(e.target.value)}
-                    placeholder="Type brand name…"
-                    className="mt-2 w-full h-12 px-4 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy font-serif tracking-wide"
-                  />
-                </div>
-              )}
+              {/* Brand name */}
+              <div className="mt-6">
+                <label className="text-xs font-bold text-navy tracking-widest">YOUR BRAND</label>
+                <input
+                  value={brand}
+                  maxLength={22}
+                  onChange={(e) => setBrand(e.target.value)}
+                  placeholder="Type brand name…"
+                  className="mt-2 w-full h-12 px-4 rounded-xl bg-white/80 border border-white/80 focus:border-blue focus:outline-none text-navy font-serif tracking-wide"
+                />
+              </div>
 
               {/* Logo upload — used on every bottle type */}
               <div className="mt-6">
-                <label className="text-xs font-bold text-navy tracking-widest">
-                  {asset.isNoLabel ? "LOGO (ENGRAVED, CENTERED)" : "LOGO (ON LABEL)"}
-                </label>
+                <label className="text-xs font-bold text-navy tracking-widest">LOGO (ON LABEL)</label>
                 <div className="mt-2 flex items-center gap-3">
                   <input
                     ref={fileInputRef}
@@ -612,7 +653,8 @@ export function BottleConfigurator() {
                       <img
                         src={logo}
                         alt="Logo preview"
-                        className="h-10 w-10 rounded-full object-contain bg-white border border-white/80 p-1"
+                        className="h-10 w-10 object-contain"
+                        style={{ mixBlendMode: "multiply" }}
                       />
                       <button
                         type="button"
@@ -627,68 +669,61 @@ export function BottleConfigurator() {
                 </div>
               </div>
 
-              {/* Multi-select gradient color circles — hidden for Premium bottles (#5, #6) */}
-              {!asset.isNoLabel ? (
-                <div className="mt-6">
-                  <label className="text-xs font-bold text-navy tracking-widest">
-                    LABEL COLORS <span className="text-navy/40">(pick up to 3 to blend)</span>
+              {/* Multi-select gradient color circles */}
+              <div className="mt-6">
+                <label className="text-xs font-bold text-navy tracking-widest">
+                  LABEL COLORS <span className="text-navy/40">(pick up to 3 to blend)</span>
+                </label>
+                <div className="mt-2 flex flex-wrap items-center gap-3">
+                  {colorPresets.map((c) => {
+                    const active = selectedColors.includes(c.hex);
+                    return (
+                      <button
+                        key={c.hex}
+                        type="button"
+                        onClick={() => toggleColor(c.hex)}
+                        title={c.name}
+                        aria-label={c.name}
+                        className={`relative h-9 w-9 rounded-full border-2 transition ${
+                          active
+                            ? "border-navy ring-4 ring-navy/15 scale-110"
+                            : "border-white/80 hover:scale-105"
+                        }`}
+                        style={{ background: c.hex }}
+                      >
+                        {active && (
+                          <Check className="absolute inset-0 m-auto h-4 w-4 text-white drop-shadow" />
+                        )}
+                      </button>
+                    );
+                  })}
+                  {/* custom color — circular native picker, fills last gradient slot */}
+                  <label
+                    title="Custom color"
+                    className="relative h-9 w-9 rounded-full border-2 border-dashed border-navy/30 overflow-hidden cursor-pointer grid place-items-center bg-white/60 hover:border-blue/60 transition"
+                  >
+                    <span
+                      className="absolute inset-1 rounded-full"
+                      style={{
+                        background:
+                          selectedColors[selectedColors.length - 1] ?? colorPresets[0].hex,
+                      }}
+                    />
+                    <input
+                      type="color"
+                      onChange={handleCustomColor}
+                      className="absolute inset-0 opacity-0 cursor-pointer"
+                      aria-label="Pick a custom label color"
+                    />
                   </label>
-                  <div className="mt-2 flex flex-wrap items-center gap-3">
-                    {colorPresets.map((c) => {
-                      const active = selectedColors.includes(c.hex);
-                      return (
-                        <button
-                          key={c.hex}
-                          type="button"
-                          onClick={() => toggleColor(c.hex)}
-                          title={c.name}
-                          aria-label={c.name}
-                          className={`relative h-9 w-9 rounded-full border-2 transition ${
-                            active
-                              ? "border-navy ring-4 ring-navy/15 scale-110"
-                              : "border-white/80 hover:scale-105"
-                          }`}
-                          style={{ background: c.hex }}
-                        >
-                          {active && (
-                            <Check className="absolute inset-0 m-auto h-4 w-4 text-white drop-shadow" />
-                          )}
-                        </button>
-                      );
-                    })}
-                    {/* custom color — circular native picker, fills last gradient slot */}
-                    <label
-                      title="Custom color"
-                      className="relative h-9 w-9 rounded-full border-2 border-dashed border-navy/30 overflow-hidden cursor-pointer grid place-items-center bg-white/60 hover:border-blue/60 transition"
-                    >
-                      <span
-                        className="absolute inset-1 rounded-full"
-                        style={{
-                          background:
-                            selectedColors[selectedColors.length - 1] ?? colorPresets[0].hex,
-                        }}
-                      />
-                      <input
-                        type="color"
-                        onChange={handleCustomColor}
-                        className="absolute inset-0 opacity-0 cursor-pointer"
-                        aria-label="Pick a custom label color"
-                      />
-                    </label>
-                  </div>
-
-                  {/* Live gradient strip preview */}
-                  <div
-                    className="mt-3 h-3 w-full rounded-full border border-white/70 shadow-inner"
-                    style={{ background: gradient }}
-                  />
                 </div>
-              ) : (
-                <p className="mt-6 text-xs text-text-muted leading-relaxed bg-white/60 border border-white/70 rounded-xl px-4 py-3">
-                  This Premium bottle ships in a fixed frosted-glass finish with an engraved,
-                  centered logo — no printed label, banner, or color wrap.
-                </p>
-              )}
+
+                {/* Live gradient strip preview */}
+                <div
+                  className="mt-3 h-3 w-full rounded-full border border-white/70 shadow-inner"
+                  style={{ background: gradient }}
+                />
+              </div>
 
               {/* Enhance with AI — only appears once the design is complete */}
               <AnimatePresence>
