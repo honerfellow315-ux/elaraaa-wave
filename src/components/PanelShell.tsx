@@ -1,7 +1,7 @@
 import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { Logo } from "@/components/Logo";
 import { useState, type ReactNode } from "react";
-import { Menu, X, Bell, Search } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 export type NavItem = { to: string; label: string; icon: React.ComponentType<{ className?: string }> };
 
@@ -82,18 +82,10 @@ export function PanelShell({
             </button>
             <h1 className="text-lg font-extrabold text-navy truncate">{title}</h1>
             <div className="ml-auto flex items-center gap-2">
-              <div className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-full bg-white/70 border border-white/70">
-                <Search className="h-4 w-4 text-text-muted" />
-                <input placeholder="Search…" className="bg-transparent outline-none text-sm text-navy w-40" />
-              </div>
-              <button className="relative h-9 w-9 grid place-items-center rounded-full bg-white/70 border border-white/70 text-navy">
-                <Bell className="h-4 w-4" />
-                <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-green" />
-              </button>
-              <div className="h-9 w-9 rounded-full overflow-hidden border border-white/70 bg-white grid place-items-center">
-                <Logo className="h-8 w-auto" />
-              </div>
-            </div>
+  <div className="h-9 w-9 rounded-full overflow-hidden border border-white/70 bg-white grid place-items-center">
+    <Logo className="h-8 w-auto" />
+  </div>
+</div>
           </div>
         </header>
         <div className="p-4 sm:p-6 lg:p-8">
